@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% set active_page = "dashboard" %}
-{% block title %}<title>Dashboard - {{ SITE_NAME }}</title>{% endblock %}
+{% block title %}<title>{{_('Dashboard')}} - {{ SITE_NAME }}</title>{% endblock %}
 
 {% block dashboard_stat %}
     <div class="content-header">
@@ -8,12 +8,12 @@
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <h1 class="m-0 text-dark">
-                        Dashboard
+                        {{_('Dashboard')}}
                     </h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ url_for('dashboard.dashboard') }}">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="{{ url_for('dashboard.dashboard') }}">{{_('Dashboard')}}</a></li>
                     </ol>
                 </div>
             </div>
@@ -29,7 +29,7 @@
                     <div class="card card-outline card-primary shadow">
                         <div class="card-header">
                             <h3 class="card-title mb-2">
-                                Zones
+                                {{_('Zones')}}
                                 {% if show_bg_domain_button %}
                                     <button type="button" title="Synchronize Zones"
                                             class="btn btn-tool refresh-bg-button">
@@ -45,7 +45,7 @@
                                             <li class="nav-item">
                                                 <a class="nav-link {% if loop.first %}active{% endif %}"
                                                    href="#tab_{{ tab_id }}" data-toggle="pill" role="tab">
-                                                    Zones <b>{{ zone_tabs.tabs[tab_id].display_name }}</b>
+                                                   {{_('Zones')}} <b>{{ zone_tabs.tabs[tab_id].display_name }}</b>
                                                 </a>
                                             </li>
                                         {% endfor %}
@@ -64,13 +64,13 @@
                                                    class="table table-striped table-hover table-sm records">
                                                 <thead>
                                                 <tr>
-                                                    <th>Name</th>
+                                                    <th>{{_('Name')}}</th>
                                                     <th>DNSSEC</th>
-                                                    <th>Type</th>
-                                                    <th>Serial</th>
-                                                    <th>Primary</th>
-                                                    <th>Account</th>
-                                                    <th>Actions</th>
+                                                    <th>{{_('Type')}}</th>
+                                                    <th>{{_('Serial')}}</th>
+                                                    <th>{{_('Primary')}}</th>
+                                                    <th>{{_('Account')}}</th>
+                                                    <th>{{_('Actions')}}</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -202,7 +202,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">History Details</h4>
+                    <h4 class="modal-title">{{_('History Details')}}</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -213,7 +213,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary float-right" data-dismiss="modal">
-                        Close
+                        {{_('Close')}}
                     </button>
                 </div>
             </div>
@@ -224,7 +224,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Clone to template</h4>
+                    <h4 class="modal-title">{{_('Clone to template')}}</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -234,10 +234,10 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary float-right" id="button_close" data-dismiss="modal">
-                        Close
+                        {{_('Close')}}
                     </button>
                     <button type="button" class="btn btn-primary float-right" id="button_save">
-                        Save
+                        {{_('Save')}}
                     </button>
                 </div>
             </div>
@@ -258,7 +258,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary float-right" data-dismiss="modal">
-                        Close
+                        {{_('Close')}}
                     </button>
                 </div>
             </div>
@@ -269,19 +269,19 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Sync Zones from backend</h4>
+                    <h4 class="modal-title">{{_('Sync Zones from backend')}}</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <div id="modal_bg_reload_content">
-                        <i class="fa fa-refresh fa-spin"></i> Update in progress ..
+                        <i class="fa fa-refresh fa-spin"></i> {{_('Update in progress')}} ..
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary float-right" data-dismiss="modal">
-                        Close
+                        {{_('Close')}}
                     </button>
                 </div>
             </div>

@@ -9,7 +9,9 @@ from powerdnsadmin.models.api_key import ApiKey
 from powerdnsadmin.models.base import db
 from powerdnsadmin.models.setting import Setting
 from powerdnsadmin.models.user import User
+from dotenv import load_dotenv
 
+load_dotenv()
 
 @pytest.fixture(scope="session")
 def app():

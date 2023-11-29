@@ -1,18 +1,28 @@
 import os
 import logging
-from flask import Flask
+from flask import Flask, session, request
 from flask_mail import Mail
 from werkzeug.middleware.proxy_fix import ProxyFix
 from flask_session import Session
 
+from flask_babel import Babel, _
+
 from .lib import utils
 
+RU = 'ru'
+EN = 'en'
+
+def get_locale():
+    if 'lang' in session:
+        return session['lang']
+    return request.accept_languages.best_match([RU, EN], default=RU)
 
 def create_app(config=None):
     from . import models, routes, services
     from .assets import assets
     app = Flask(__name__)
-
+    babel = Babel(app)
+    babel.init_app(app, default_locale=RU, locale_selector=get_locale)
     # Read log level from environment variable
     log_level_name = os.environ.get('PDNS_ADMIN_LOG_LEVEL', 'WARNING')
     log_level = logging.getLevelName(log_level_name.upper())
@@ -83,6 +93,9 @@ def create_app(config=None):
     app.jinja_env.filters['pretty_domain_name'] = utils.pretty_domain_name
     app.jinja_env.filters['format_datetime_local'] = utils.format_datetime
     app.jinja_env.filters['format_zone_type'] = utils.format_zone_type
+
+    # For Babel
+    app.jinja_env.globals['_'] = _
 
     # Register context proccessors
     from .models.setting import Setting

@@ -1,0 +1,177 @@
+# Russian translations for PROJECT.
+# Copyright (C) 2023 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2023.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2023-11-29 16:59+0300\n"
+"PO-Revision-Date: 2023-11-29 14:25+0300\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ru\n"
+"Language-Team: ru <LL@li.org>\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.13.1\n"
+
+#: powerdnsadmin/templates/admin_edit_account.html:21
+#: powerdnsadmin/templates/base.html:208
+msgid "Home"
+msgstr "Главная"
+
+#: powerdnsadmin/templates/admin_edit_account.html:22
+#: powerdnsadmin/templates/base.html:133
+msgid "Accounts"
+msgstr "Аккаунты"
+
+#: powerdnsadmin/templates/admin_history.html:10
+#: powerdnsadmin/templates/base.html:107
+msgid "Activity"
+msgstr "Аудит"
+
+#: powerdnsadmin/templates/base.html:73
+#: powerdnsadmin/templates/user_profile.html:10
+msgid "Edit Profile"
+msgstr "Кабинет"
+
+#: powerdnsadmin/templates/base.html:75
+msgid "Logout"
+msgstr "Выход"
+
+#: powerdnsadmin/templates/base.html:81
+msgid "Zone Management"
+msgstr "Управление зонами"
+
+#: powerdnsadmin/templates/base.html:85 powerdnsadmin/templates/base.html:202
+#: powerdnsadmin/templates/base.html:209
+#: powerdnsadmin/templates/dashboard.html:3
+#: powerdnsadmin/templates/dashboard.html:11
+#: powerdnsadmin/templates/dashboard.html:16
+msgid "Dashboard"
+msgstr "Панель"
+
+#: powerdnsadmin/templates/base.html:92
+msgid "Create Zone"
+msgstr "Создание зоны"
+
+#: powerdnsadmin/templates/base.html:96
+msgid "Administration"
+msgstr "Администрирование"
+
+#: powerdnsadmin/templates/base.html:100
+msgid "Global Search"
+msgstr "Поиск"
+
+#: powerdnsadmin/templates/base.html:115
+msgid "Server Statistics"
+msgstr "Статистика"
+
+#: powerdnsadmin/templates/base.html:121
+msgid "Server Configuration"
+msgstr "О сервере"
+
+#: powerdnsadmin/templates/base.html:127
+msgid "Zone Templates"
+msgstr "Шаблоны"
+
+#: powerdnsadmin/templates/base.html:139
+msgid "Users"
+msgstr "Пользователи"
+
+#: powerdnsadmin/templates/base.html:145
+msgid "API Keys"
+msgstr "API Ключи"
+
+#: powerdnsadmin/templates/base.html:152
+msgid "Settings"
+msgstr "Настройки"
+
+#: powerdnsadmin/templates/base.html:161
+msgid "Basic"
+msgstr "Общее"
+
+#: powerdnsadmin/templates/base.html:167
+msgid "Zone Records"
+msgstr "Записи"
+
+#: powerdnsadmin/templates/base.html:174
+msgid "Server"
+msgstr "Сервер"
+
+#: powerdnsadmin/templates/base.html:180
+msgid "Authentication"
+msgstr "Авторизация"
+
+#: powerdnsadmin/templates/base.html:203
+msgid "Control panel"
+msgstr "Система контроля"
+
+#: powerdnsadmin/templates/base.html:221
+msgid "A PowerDNS webinterface with advanced features."
+msgstr "Веб интерфейс PowerDNS, с расширенными функциями и методами авторизации "
+
+#: powerdnsadmin/templates/base.html:222
+msgid "Version"
+msgstr "Версия"
+
+#: powerdnsadmin/templates/dashboard.html:32
+#: powerdnsadmin/templates/dashboard.html:48
+msgid "Zones"
+msgstr "Зоны"
+
+#: powerdnsadmin/templates/dashboard.html:67
+msgid "Name"
+msgstr "Имя"
+
+#: powerdnsadmin/templates/dashboard.html:69
+msgid "Type"
+msgstr "Тип"
+
+#: powerdnsadmin/templates/dashboard.html:70
+msgid "Serial"
+msgstr "Серийный номер"
+
+#: powerdnsadmin/templates/dashboard.html:71
+msgid "Primary"
+msgstr "Основной"
+
+#: powerdnsadmin/templates/dashboard.html:72
+msgid "Account"
+msgstr "Аккаунты"
+
+#: powerdnsadmin/templates/dashboard.html:73
+msgid "Actions"
+msgstr "Действия"
+
+#: powerdnsadmin/templates/dashboard.html:205
+msgid "History Details"
+msgstr "Подробнее"
+
+#: powerdnsadmin/templates/dashboard.html:216
+#: powerdnsadmin/templates/dashboard.html:237
+#: powerdnsadmin/templates/dashboard.html:261
+#: powerdnsadmin/templates/dashboard.html:284
+msgid "Close"
+msgstr "Закрыть"
+
+#: powerdnsadmin/templates/dashboard.html:227
+msgid "Clone to template"
+msgstr "Клонировать шаблон"
+
+#: powerdnsadmin/templates/dashboard.html:240
+msgid "Save"
+msgstr "Сохранить"
+
+#: powerdnsadmin/templates/dashboard.html:272
+msgid "Sync Zones from backend"
+msgstr "Синхронизировать зоны"
+
+#: powerdnsadmin/templates/dashboard.html:279
+msgid "Update in progress"
+msgstr "Обновление"
+

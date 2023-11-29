@@ -1,0 +1,175 @@
+# Translations template for PROJECT.
+# Copyright (C) 2023 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2023.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2023-11-29 16:59+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.13.1\n"
+
+#: powerdnsadmin/templates/admin_edit_account.html:21
+#: powerdnsadmin/templates/base.html:208
+msgid "Home"
+msgstr ""
+
+#: powerdnsadmin/templates/admin_edit_account.html:22
+#: powerdnsadmin/templates/base.html:133
+msgid "Accounts"
+msgstr ""
+
+#: powerdnsadmin/templates/admin_history.html:10
+#: powerdnsadmin/templates/base.html:107
+msgid "Activity"
+msgstr ""
+
+#: powerdnsadmin/templates/base.html:73
+#: powerdnsadmin/templates/user_profile.html:10
+msgid "Edit Profile"
+msgstr ""
+
+#: powerdnsadmin/templates/base.html:75
+msgid "Logout"
+msgstr ""
+
+#: powerdnsadmin/templates/base.html:81
+msgid "Zone Management"
+msgstr ""
+
+#: powerdnsadmin/templates/base.html:85 powerdnsadmin/templates/base.html:202
+#: powerdnsadmin/templates/base.html:209
+#: powerdnsadmin/templates/dashboard.html:3
+#: powerdnsadmin/templates/dashboard.html:11
+#: powerdnsadmin/templates/dashboard.html:16
+msgid "Dashboard"
+msgstr ""
+
+#: powerdnsadmin/templates/base.html:92
+msgid "Create Zone"
+msgstr ""
+
+#: powerdnsadmin/templates/base.html:96
+msgid "Administration"
+msgstr ""
+
+#: powerdnsadmin/templates/base.html:100
+msgid "Global Search"
+msgstr ""
+
+#: powerdnsadmin/templates/base.html:115
+msgid "Server Statistics"
+msgstr ""
+
+#: powerdnsadmin/templates/base.html:121
+msgid "Server Configuration"
+msgstr ""
+
+#: powerdnsadmin/templates/base.html:127
+msgid "Zone Templates"
+msgstr ""
+
+#: powerdnsadmin/templates/base.html:139
+msgid "Users"
+msgstr ""
+
+#: powerdnsadmin/templates/base.html:145
+msgid "API Keys"
+msgstr ""
+
+#: powerdnsadmin/templates/base.html:152
+msgid "Settings"
+msgstr ""
+
+#: powerdnsadmin/templates/base.html:161
+msgid "Basic"
+msgstr ""
+
+#: powerdnsadmin/templates/base.html:167
+msgid "Zone Records"
+msgstr ""
+
+#: powerdnsadmin/templates/base.html:174
+msgid "Server"
+msgstr ""
+
+#: powerdnsadmin/templates/base.html:180
+msgid "Authentication"
+msgstr ""
+
+#: powerdnsadmin/templates/base.html:203
+msgid "Control panel"
+msgstr ""
+
+#: powerdnsadmin/templates/base.html:221
+msgid "A PowerDNS webinterface with advanced features."
+msgstr ""
+
+#: powerdnsadmin/templates/base.html:222
+msgid "Version"
+msgstr ""
+
+#: powerdnsadmin/templates/dashboard.html:32
+#: powerdnsadmin/templates/dashboard.html:48
+msgid "Zones"
+msgstr ""
+
+#: powerdnsadmin/templates/dashboard.html:67
+msgid "Name"
+msgstr ""
+
+#: powerdnsadmin/templates/dashboard.html:69
+msgid "Type"
+msgstr ""
+
+#: powerdnsadmin/templates/dashboard.html:70
+msgid "Serial"
+msgstr ""
+
+#: powerdnsadmin/templates/dashboard.html:71
+msgid "Primary"
+msgstr ""
+
+#: powerdnsadmin/templates/dashboard.html:72
+msgid "Account"
+msgstr ""
+
+#: powerdnsadmin/templates/dashboard.html:73
+msgid "Actions"
+msgstr ""
+
+#: powerdnsadmin/templates/dashboard.html:205
+msgid "History Details"
+msgstr ""
+
+#: powerdnsadmin/templates/dashboard.html:216
+#: powerdnsadmin/templates/dashboard.html:237
+#: powerdnsadmin/templates/dashboard.html:261
+#: powerdnsadmin/templates/dashboard.html:284
+msgid "Close"
+msgstr ""
+
+#: powerdnsadmin/templates/dashboard.html:227
+msgid "Clone to template"
+msgstr ""
+
+#: powerdnsadmin/templates/dashboard.html:240
+msgid "Save"
+msgstr ""
+
+#: powerdnsadmin/templates/dashboard.html:272
+msgid "Sync Zones from backend"
+msgstr ""
+
+#: powerdnsadmin/templates/dashboard.html:279
+msgid "Update in progress"
+msgstr ""
+
