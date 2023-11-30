@@ -27,18 +27,27 @@ There are several ways to run PowerDNS-Admin. The quickest way is to use Docker.
 If you are looking to install and run PowerDNS-Admin directly onto your system, check out
 the [wiki](https://github.com/PowerDNS-Admin/PowerDNS-Admin/blob/master/docs/wiki/) for ways to do that.
 
-#### Установка: используя docker-compose
+#### Установка: среды разработки
+```bash
+$ poetry add $(cat requirements.txt| xargs)
+$ make init
+$ make run 
+```
 
-1. Обновите конфигурацию   
-   * Отредактируйте файл `docker-compose.yml`, чтобы обновить строку подключения к базе данных в `SQLALCHEMY_DATABASE_URL`.
-   Другие переменные среды упоминаются в [legal_env vars](configs/docker_config.py).
-   * Чтобы использовать функцию Docker secrets, можно добавить `_FILE` к переменным среды и указать на файл с сохраненными в нем значениями.   
-   * Обязательно установите для переменной окружения `SECRET_KEY` значение long random строка (https://flask.palletsprojects.com/en/1.1.x/config/#SECRET_KEY)
+#### Помощь в переводе
+Редактируем файлы powerdnsadmin/template/*.html 
 
-2. Запустите контейнер docker
-   ```
-   $ docker-compose
-   ```
+  Пример 
+```html
+<p>Dashboard</p> -> <p>{{_(Dashboard)}}</p>
+```
+В проекте
+```bash
+$ make babel-extract # Извлечение слов
+$ make babel-update # Обновление файла powerdnsadmin/translations/ru/LC_MESSAGES/messages.po
+# Указываем перевод слова в messages.po после msgstr
+$ make babel-compile # Создать словарь
+```
 
 Затем вы можете получить доступ к PowerDNSAdmin, указав в своем браузере на http://localhost:9191
 

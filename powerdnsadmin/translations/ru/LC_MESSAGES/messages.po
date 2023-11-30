@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-11-30 18:39+0300\n"
+"POT-Creation-Date: 2023-11-30 19:04+0300\n"
 "PO-Revision-Date: 2023-11-29 14:25+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -120,6 +120,10 @@ msgstr "Веб интерфейс PowerDNS, с расширенными функ
 msgid "Version"
 msgstr "Версия"
 
+#: powerdnsadmin/templates/base.html:357
+msgid "Error"
+msgstr "Ошибка"
+
 #: powerdnsadmin/templates/base.html:367 powerdnsadmin/templates/base.html:388
 #: powerdnsadmin/templates/dashboard.html:218
 #: powerdnsadmin/templates/dashboard.html:239
@@ -142,17 +146,15 @@ msgstr "Срок действия вашей сессии подходит к к
 
 #: powerdnsadmin/templates/base.html:403
 msgid "To coninue your ssession, select "
-msgstr ""
+msgstr "Для продолжения работы нажмите "
 
 #: powerdnsadmin/templates/base.html:403 powerdnsadmin/templates/base.html:408
-#, fuzzy
 msgid "Stay Signed In"
-msgstr "Войти"
+msgstr "Остаться"
 
 #: powerdnsadmin/templates/base.html:411
-#, fuzzy
 msgid "Sign Out"
-msgstr "Войти"
+msgstr "Уйти"
 
 #: powerdnsadmin/templates/dashboard.html:34
 #: powerdnsadmin/templates/dashboard.html:50
@@ -235,18 +237,18 @@ msgstr "Войти"
 msgid "Create an account"
 msgstr "Создать аккаунт"
 
-msgid "Please input your username"
-msgstr "Требуется ввести логин"
+#~ msgid "Please input your username"
+#~ msgstr "Требуется ввести логин"
 
-msgid "Please input your password"
-msgstr "Требуется ввести пароль"
+#~ msgid "Please input your password"
+#~ msgstr "Требуется ввести пароль"
 
-msgid "Username"
-msgstr "Логин"
+#~ msgid "Username"
+#~ msgstr "Логин"
 
-msgid "Password"
-msgstr "Пароль"
+#~ msgid "Password"
+#~ msgstr "Пароль"
 
-msgid "OTP Token"
-msgstr "OTP Токен"
+#~ msgid "OTP Token"
+#~ msgstr "OTP Токен"
 

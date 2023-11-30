@@ -1,5 +1,4 @@
 FROM debian:bullseye-slim
-LABEL maintainer="k@ndk.name"
 
 ENV LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8
 
