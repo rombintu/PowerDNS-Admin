@@ -80,6 +80,14 @@ def before_request():
     session.modified = True
 
 
+@index_bp.route('/lang', methods=['GET'])
+@login_required
+def set_lang():
+    lang_code = request.args.get('lang')
+    session['lang'] = lang_code
+    print(session['lang'])
+    return redirect(url_for('dashboard.dashboard'))
+
 @index_bp.route('/', methods=['GET'])
 @login_required
 def index():

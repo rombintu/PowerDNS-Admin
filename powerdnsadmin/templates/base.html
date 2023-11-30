@@ -43,6 +43,15 @@
                     </a>
                 </li>
             </ul>
+            <ul class="navbar-nav ml-auto" style="margin-right: 10px;">
+                <li class="nav-item">
+                    {% if session.get('lang') == 'en' %}
+                        <a href="{{url_for('index.set_lang', lang='ru')}}" class="nav-link">RU</a>
+                    {% else %}
+                        <a href="{{url_for('index.set_lang', lang='en')}}" class="nav-link">EN</a>
+                    {% endif %}
+                </li>
+            </ul>
         </nav>
 
     {% endblock %}
@@ -276,7 +285,7 @@
                     $.jTimeout({
                         flashTitle: true,
                         flashTitleSpeed: 500,
-                        flashingTitleText: '**WARNING**',
+                        flashingTitleText: '**',
                         originalTitle: document.title,
                         timeoutAfter: {{ SETTING.get('session_timeout')|int * 60 }},
                         secondsPrior: 60,
@@ -355,7 +364,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary float-right" data-dismiss="modal">
-                        Close
+                        {{_('Close')}}
                     </button>
                 </div>
             </div>
@@ -366,7 +375,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Success</h4>
+                    <h4 class="modal-title">{{_('Success')}}</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -376,7 +385,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary float-right" data-dismiss="modal">
-                        Close
+                        {{_('Close')}}
                     </button>
                 </div>
             </div>
@@ -386,20 +395,20 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Session timeout warning</h4>
+                    <h4 class="modal-title">{{_('Session timeout warning')}}</h4>
                 </div>
                 <div class="modal-body">
-                    <p>Your session is about to expire. You will be automatically signed out in</p>
+                    <p>{{_('Your session is about to expire. You will be automatically signed out in')}}</p>
                     <h3><span id="modal-time"></span></h3>
-                    <p>To coninue your ssession, select <strong>Stay Signed In</strong></p>
+                    <p>{{_('To coninue your ssession, select ')}}<strong>{{_('Stay Signed In')}}</strong></p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-success float-right button_stay_signed_in"
                             data-dismiss="modal">
-                        Stay Signed In
+                        {{_('Stay Signed In')}}
                     </button>
                     <button type="button" class="btn btn-danger float-left button_sign_out" data-dismiss="modal">
-                        Sign Out
+                        {{_('Sign Out')}}
                     </button>
                 </div>
             </div>

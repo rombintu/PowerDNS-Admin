@@ -14,7 +14,7 @@ EN = 'en'
 
 def get_locale():
     if 'lang' in session:
-        return session['lang']
+        return session.get('lang')
     return request.accept_languages.best_match([RU, EN], default=RU)
 
 def create_app(config=None):

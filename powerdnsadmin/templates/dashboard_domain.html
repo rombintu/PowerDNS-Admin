@@ -46,23 +46,23 @@
             <div class="dropdown-menu" aria-labelledby="dropdownMenu">
                 <button class="dropdown-item btn-success" type="button"
                         onclick="window.location.href='{{ url_for('domain.domain', domain_name=domain.name) }}'">
-                    <i class="fa-solid fa-pencil"></i>&nbsp;Edit Records
+                    <i class="fa-solid fa-pencil"></i>&nbsp;{{_('Edit Records')}}
                 </button>
 
                 {% if current_user.role.name in ['Administrator', 'Operator'] %}
                     <button class="dropdown-item btn-danger" type="button"
                             onclick="window.location.href='{{ url_for('domain.setting', domain_name=domain.name) }}'">
-                        <i class="fa-solid fa-cog"></i>&nbsp;Zone Settings
+                        <i class="fa-solid fa-cog"></i>&nbsp;{{_('Zone Settings')}}
                     </button>
                     <button class="dropdown-item btn-success button_template" id="{{ domain.name }}" type="button">
-                        <i class="fa-solid fa-clone"></i>&nbsp;Create Template
+                        <i class="fa-solid fa-clone"></i>&nbsp;{{_('Create Template')}}
                     </button>
                 {% endif %}
 
                 {% if current_user.role.name in ['Administrator', 'Operator'] or allow_user_view_history %}
                     <button class="dropdown-item btn-primary" type="button"
                             onclick="window.location.href='{{ url_for('domain.changelog', domain_name=domain.name) }}'">
-                        <i class="fa-solid fa-history" aria-hidden="true"></i>&nbsp;Zone Changelog
+                        <i class="fa-solid fa-history" aria-hidden="true"></i>&nbsp;{{_('Zone Changelog')}}
                     </button>
                 {% endif %}
 
@@ -70,7 +70,7 @@
                     <div class="dropdown-divider"></div>
                     <button type="button" class="dropdown-item btn-secondary button_delete"
                             onclick="window.location.href='{{ url_for('domain.remove') }}'">
-                        <span style="color: red;"><i class="fa-solid fa-trash"></i>&nbsp;Remove Zone</span>
+                        <span style="color: red;"><i class="fa-solid fa-trash"></i>&nbsp;{{_('Remove Zone')}}</span>
                     </button>
                 {% endif %}
             </div>

@@ -41,3 +41,6 @@ the [wiki](https://github.com/PowerDNS-Admin/PowerDNS-Admin/blob/master/docs/wik
    ```
 
 Затем вы можете получить доступ к PowerDNSAdmin, указав в своем браузере на http://localhost:9191
+
+### Скриншот Панели
+![alt](./docs/screenshots/dashboard.png)
