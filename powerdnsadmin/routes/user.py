@@ -143,26 +143,26 @@ def image():
     if request.args.get('username', None) != current_user.username:
         abort(400)
 
-    setting = Setting()
+    # setting = Setting()
 
-    if session['authentication_type'] == 'LDAP':
-        search_filter = '(&({0}={1}){2})'.format(setting.get('ldap_filter_username'),
-                                                 current_user.username,
-                                                 setting.get('ldap_filter_basic'))
-        result = User().ldap_search(search_filter, setting.get('ldap_base_dn'))
-        if result and result[0] and result[0][0] and result[0][0][1]:
-            user_obj = result[0][0][1]
-            for key in ['jpegPhoto', 'thumbnailPhoto']:
-                if key in user_obj and user_obj[key] and user_obj[key][0]:
-                    current_app.logger.debug(f'Return {key} from ldap as user image')
-                    return return_image(user_obj[key][0])
+    # if session['authentication_type'] == 'LDAP':
+    #     search_filter = '(&({0}={1}){2})'.format(setting.get('ldap_filter_username'),
+    #                                              current_user.username,
+    #                                              setting.get('ldap_filter_basic'))
+    #     result = User().ldap_search(search_filter, setting.get('ldap_base_dn'))
+    #     if result and result[0] and result[0][0] and result[0][0][1]:
+    #         user_obj = result[0][0][1]
+    #         for key in ['jpegPhoto', 'thumbnailPhoto']:
+    #             if key in user_obj and user_obj[key] and user_obj[key][0]:
+    #                 current_app.logger.debug(f'Return {key} from ldap as user image')
+    #                 return return_image(user_obj[key][0])
 
-    email = current_user.email
-    if email and setting.get('gravatar_enabled'):
-        hash_ = hashlib.md5(email.encode('utf-8')).hexdigest()
-        url = f'https://s.gravatar.com/avatar/{hash_}?s=100'
-        current_app.logger.debug('Redirect user image request to gravatar')
-        return redirect(url, 307)
+    # email = current_user.email
+    # if email and setting.get('gravatar_enabled'):
+    #     hash_ = hashlib.md5(email.encode('utf-8')).hexdigest()
+    #     url = f'https://s.gravatar.com/avatar/{hash_}?s=100'
+    #     current_app.logger.debug('Redirect user image request to gravatar')
+    #     return redirect(url, 307)
 
     # Fallback to the local default image
     return current_app.send_static_file('img/user_image.png')

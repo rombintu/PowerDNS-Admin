@@ -16,7 +16,7 @@ let AuthenticationSettingsModel = function (user_data, api_url, csrf_token, sele
     let defaults = {
         // Local Authentication Settings
         local_db_enabled: true,
-        signup_enabled: true,
+        signup_enabled: false,
         pwd_enforce_characters: 0,
         pwd_min_len: 10,
         pwd_min_lowercase: 3,
@@ -26,86 +26,86 @@ let AuthenticationSettingsModel = function (user_data, api_url, csrf_token, sele
         pwd_enforce_complexity: 0,
         pwd_min_complexity: 11,
 
-        // LDAP Authentication Settings
-        ldap_enabled: false,
-        ldap_type: 'ldap',
-        ldap_uri: '',
-        ldap_base_dn: '',
-        ldap_admin_username: '',
-        ldap_admin_password: '',
-        ldap_domain: '',
-        ldap_filter_basic: '',
-        ldap_filter_username: '',
-        ldap_filter_group: '',
-        ldap_filter_groupname: '',
-        ldap_sg_enabled: false,
-        ldap_admin_group: '',
-        ldap_operator_group: '',
-        ldap_user_group: '',
-        autoprovisioning: false,
-        autoprovisioning_attribute: '',
-        urn_value: '',
-        purge: 0,
+        // // LDAP Authentication Settings
+        // ldap_enabled: false,
+        // ldap_type: 'ldap',
+        // ldap_uri: '',
+        // ldap_base_dn: '',
+        // ldap_admin_username: '',
+        // ldap_admin_password: '',
+        // ldap_domain: '',
+        // ldap_filter_basic: '',
+        // ldap_filter_username: '',
+        // ldap_filter_group: '',
+        // ldap_filter_groupname: '',
+        // ldap_sg_enabled: false,
+        // ldap_admin_group: '',
+        // ldap_operator_group: '',
+        // ldap_user_group: '',
+        // autoprovisioning: false,
+        // autoprovisioning_attribute: '',
+        // urn_value: '',
+        // purge: 0,
 
-        // Google OAuth2 Settings
-        google_oauth_enabled: false,
-        google_oauth_client_id: '',
-        google_oauth_client_secret: '',
-        google_oauth_scope: '',
-        google_base_url: '',
-        google_oauth_auto_configure: true,
-        google_oauth_metadata_url: '',
-        google_token_url: '',
-        google_authorize_url: '',
+        // // Google OAuth2 Settings
+        // google_oauth_enabled: false,
+        // google_oauth_client_id: '',
+        // google_oauth_client_secret: '',
+        // google_oauth_scope: '',
+        // google_base_url: '',
+        // google_oauth_auto_configure: true,
+        // google_oauth_metadata_url: '',
+        // google_token_url: '',
+        // google_authorize_url: '',
 
-        // GitHub OAuth2 Settings
-        github_oauth_enabled: false,
-        github_oauth_key: '',
-        github_oauth_secret: '',
-        github_oauth_scope: '',
-        github_oauth_api_url: '',
-        github_oauth_auto_configure: false,
-        github_oauth_metadata_url: '',
-        github_oauth_token_url: '',
-        github_oauth_authorize_url: '',
+        // // GitHub OAuth2 Settings
+        // github_oauth_enabled: false,
+        // github_oauth_key: '',
+        // github_oauth_secret: '',
+        // github_oauth_scope: '',
+        // github_oauth_api_url: '',
+        // github_oauth_auto_configure: false,
+        // github_oauth_metadata_url: '',
+        // github_oauth_token_url: '',
+        // github_oauth_authorize_url: '',
 
-        // Azure AD OAuth2 Settings
-        azure_oauth_enabled: false,
-        azure_oauth_key: '',
-        azure_oauth_secret: '',
-        azure_oauth_scope: '',
-        azure_oauth_api_url: '',
-        azure_oauth_auto_configure: true,
-        azure_oauth_metadata_url: '',
-        azure_oauth_token_url: '',
-        azure_oauth_authorize_url: '',
-        azure_sg_enabled: false,
-        azure_admin_group: '',
-        azure_operator_group: '',
-        azure_user_group: '',
-        azure_group_accounts_enabled: false,
-        azure_group_accounts_name: '',
-        azure_group_accounts_name_re: '',
-        azure_group_accounts_description: '',
-        azure_group_accounts_description_re: '',
+        // // Azure AD OAuth2 Settings
+        // azure_oauth_enabled: false,
+        // azure_oauth_key: '',
+        // azure_oauth_secret: '',
+        // azure_oauth_scope: '',
+        // azure_oauth_api_url: '',
+        // azure_oauth_auto_configure: true,
+        // azure_oauth_metadata_url: '',
+        // azure_oauth_token_url: '',
+        // azure_oauth_authorize_url: '',
+        // azure_sg_enabled: false,
+        // azure_admin_group: '',
+        // azure_operator_group: '',
+        // azure_user_group: '',
+        // azure_group_accounts_enabled: false,
+        // azure_group_accounts_name: '',
+        // azure_group_accounts_name_re: '',
+        // azure_group_accounts_description: '',
+        // azure_group_accounts_description_re: '',
 
-        // OIDC OAuth2 Settings
-        oidc_oauth_enabled: false,
-        oidc_oauth_key: '',
-        oidc_oauth_secret: '',
-        oidc_oauth_scope: '',
-        oidc_oauth_api_url: '',
-        oidc_oauth_auto_configure: true,
-        oidc_oauth_metadata_url: '',
-        oidc_oauth_token_url: '',
-        oidc_oauth_authorize_url: '',
-        oidc_oauth_logout_url: '',
-        oidc_oauth_username: '',
-        oidc_oauth_email: '',
-        oidc_oauth_firstname: '',
-        oidc_oauth_last_name: '',
-        oidc_oauth_account_name_property: '',
-        oidc_oauth_account_description_property: '',
+        // // OIDC OAuth2 Settings
+        // oidc_oauth_enabled: false,
+        // oidc_oauth_key: '',
+        // oidc_oauth_secret: '',
+        // oidc_oauth_scope: '',
+        // oidc_oauth_api_url: '',
+        // oidc_oauth_auto_configure: true,
+        // oidc_oauth_metadata_url: '',
+        // oidc_oauth_token_url: '',
+        // oidc_oauth_authorize_url: '',
+        // oidc_oauth_logout_url: '',
+        // oidc_oauth_username: '',
+        // oidc_oauth_email: '',
+        // oidc_oauth_firstname: '',
+        // oidc_oauth_last_name: '',
+        // oidc_oauth_account_name_property: '',
+        // oidc_oauth_account_description_property: '',
     }
 
     self.init = function (autoload) {
@@ -217,34 +217,34 @@ let AuthenticationSettingsModel = function (user_data, api_url, csrf_token, sele
             if (self.local_db_enabled()) {
                 enabled++;
             }
-            if (self.ldap_enabled()) {
-                enabled++;
-            }
-            if (self.google_oauth_enabled()) {
-                enabled++;
-            }
-            if (self.github_oauth_enabled()) {
-                enabled++;
-            }
-            if (self.azure_oauth_enabled()) {
-                enabled++;
-            }
-            if (self.oidc_oauth_enabled()) {
-                enabled++;
-            }
+            // if (self.ldap_enabled()) {
+            //     enabled++;
+            // }
+            // if (self.google_oauth_enabled()) {
+            //     enabled++;
+            // }
+            // if (self.github_oauth_enabled()) {
+            //     enabled++;
+            // }
+            // if (self.azure_oauth_enabled()) {
+            //     enabled++;
+            // }
+            // if (self.oidc_oauth_enabled()) {
+            //     enabled++;
+            // }
             return enabled > 0;
         };
 
-        let ldap_exclusive = function (value, element, params) {
-            let enabled = 0;
-            if (self.ldap_sg_enabled() === 1) {
-                enabled++;
-            }
-            if (self.autoprovisioning() === 1) {
-                enabled++;
-            }
-            return enabled < 2;
-        }
+        // let ldap_exclusive = function (value, element, params) {
+        //     let enabled = 0;
+        //     if (self.ldap_sg_enabled() === 1) {
+        //         enabled++;
+        //     }
+        //     if (self.autoprovisioning() === 1) {
+        //         enabled++;
+        //     }
+        //     return enabled < 2;
+        // }
 
         let uuid = function (value, element, params) {
             return uuidRegExp.test(value);
@@ -254,25 +254,25 @@ let AuthenticationSettingsModel = function (user_data, api_url, csrf_token, sele
             return self.local_db_enabled();
         };
 
-        let ldap_enabled = function (element) {
-            return self.ldap_enabled();
-        };
+        // let ldap_enabled = function (element) {
+        //     return self.ldap_enabled();
+        // };
 
-        let google_oauth_enabled = function (element) {
-            return self.google_oauth_enabled();
-        };
+        // let google_oauth_enabled = function (element) {
+        //     return self.google_oauth_enabled();
+        // };
 
-        let github_oauth_enabled = function (element) {
-            return self.github_oauth_enabled();
-        };
+        // let github_oauth_enabled = function (element) {
+        //     return self.github_oauth_enabled();
+        // };
 
-        let azure_oauth_enabled = function (element) {
-            return self.azure_oauth_enabled();
-        };
+        // let azure_oauth_enabled = function (element) {
+        //     return self.azure_oauth_enabled();
+        // };
 
-        let oidc_oauth_enabled = function (element) {
-            return self.oidc_oauth_enabled();
-        };
+        // let oidc_oauth_enabled = function (element) {
+        //     return self.oidc_oauth_enabled();
+        // };
 
         let enforce_characters = function (element) {
             return self.local_db_enabled() === 1 && self.pwd_enforce_characters() === 1;
@@ -282,64 +282,64 @@ let AuthenticationSettingsModel = function (user_data, api_url, csrf_token, sele
             return self.local_db_enabled() === 1 && self.pwd_enforce_complexity() === 1;
         };
 
-        let ldap_type_openldap = function (element) {
-            return self.ldap_enabled() && self.ldap_type() === 'ldap';
-        };
+        // let ldap_type_openldap = function (element) {
+        //     return self.ldap_enabled() && self.ldap_type() === 'ldap';
+        // };
 
-        let ldap_type_ad = function (element) {
-            return self.ldap_enabled() && self.ldap_type() === 'ad';
-        };
+        // let ldap_type_ad = function (element) {
+        //     return self.ldap_enabled() && self.ldap_type() === 'ad';
+        // };
 
-        let ldap_sg_enabled = function (element) {
-            return self.ldap_enabled() === 1 && self.ldap_sg_enabled() === 1;
-        }
+        // let ldap_sg_enabled = function (element) {
+        //     return self.ldap_enabled() === 1 && self.ldap_sg_enabled() === 1;
+        // }
 
-        let ldap_ap_enabled = function (element) {
-            return self.ldap_enabled() === 1 && self.autoprovisioning() === 1;
-        }
+        // let ldap_ap_enabled = function (element) {
+        //     return self.ldap_enabled() === 1 && self.autoprovisioning() === 1;
+        // }
 
-        let azure_gs_enabled = function (element) {
-            return self.azure_oauth_enabled() === 1 && self.azure_sg_enabled() === 1;
-        }
+        // let azure_gs_enabled = function (element) {
+        //     return self.azure_oauth_enabled() === 1 && self.azure_sg_enabled() === 1;
+        // }
 
-        let azure_gas_enabled = function (element) {
-            return self.azure_oauth_enabled() && self.azure_group_accounts_enabled();
-        }
+        // let azure_gas_enabled = function (element) {
+        //     return self.azure_oauth_enabled() && self.azure_group_accounts_enabled();
+        // }
 
-        let google_oauth_auto_configure_enabled = function (element) {
-            return self.google_oauth_enabled() && self.google_oauth_auto_configure();
-        }
+        // let google_oauth_auto_configure_enabled = function (element) {
+        //     return self.google_oauth_enabled() && self.google_oauth_auto_configure();
+        // }
 
-        let google_oauth_auto_configure_disabled = function (element) {
-            return self.google_oauth_enabled() && !self.google_oauth_auto_configure();
-        }
+        // let google_oauth_auto_configure_disabled = function (element) {
+        //     return self.google_oauth_enabled() && !self.google_oauth_auto_configure();
+        // }
 
-        let github_oauth_auto_configure_enabled = function (element) {
-            return self.github_oauth_enabled() && self.github_oauth_auto_configure();
-        }
+        // let github_oauth_auto_configure_enabled = function (element) {
+        //     return self.github_oauth_enabled() && self.github_oauth_auto_configure();
+        // }
 
-        let github_oauth_auto_configure_disabled = function (element) {
-            return self.github_oauth_enabled() && !self.github_oauth_auto_configure();
-        }
+        // let github_oauth_auto_configure_disabled = function (element) {
+        //     return self.github_oauth_enabled() && !self.github_oauth_auto_configure();
+        // }
 
-        let azure_oauth_auto_configure_enabled = function (element) {
-            return self.azure_oauth_enabled() && self.azure_oauth_auto_configure();
-        }
+        // let azure_oauth_auto_configure_enabled = function (element) {
+        //     return self.azure_oauth_enabled() && self.azure_oauth_auto_configure();
+        // }
 
-        let azure_oauth_auto_configure_disabled = function (element) {
-            return self.azure_oauth_enabled() && !self.azure_oauth_auto_configure();
-        }
+        // let azure_oauth_auto_configure_disabled = function (element) {
+        //     return self.azure_oauth_enabled() && !self.azure_oauth_auto_configure();
+        // }
 
-        let oidc_oauth_auto_configure_enabled = function (element) {
-            return self.oidc_oauth_enabled() && self.oidc_oauth_auto_configure();
-        }
+        // let oidc_oauth_auto_configure_enabled = function (element) {
+        //     return self.oidc_oauth_enabled() && self.oidc_oauth_auto_configure();
+        // }
 
-        let oidc_oauth_auto_configure_disabled = function (element) {
-            return self.oidc_oauth_enabled() && !self.oidc_oauth_auto_configure();
-        }
+        // let oidc_oauth_auto_configure_disabled = function (element) {
+        //     return self.oidc_oauth_enabled() && !self.oidc_oauth_auto_configure();
+        // }
 
         jQuery.validator.addMethod('auth_enabled', auth_enabled, 'At least one authentication method must be enabled.');
-        jQuery.validator.addMethod('ldap_exclusive', ldap_exclusive, 'The LDAP group security and role auto-provisioning features are mutually exclusive.');
+        // jQuery.validator.addMethod('ldap_exclusive', ldap_exclusive, 'The LDAP group security and role auto-provisioning features are mutually exclusive.');
         jQuery.validator.addMethod('uuid', uuid, 'A valid UUID is required.');
 
         target.validate({
@@ -374,11 +374,11 @@ let AuthenticationSettingsModel = function (user_data, api_url, csrf_token, sele
             },
             rules: {
                 local_db_enabled: 'auth_enabled',
-                ldap_enabled: 'auth_enabled',
-                google_oauth_enabled: 'auth_enabled',
-                github_oauth_enabled: 'auth_enabled',
-                azure_oauth_enabled: 'auth_enabled',
-                oidc_oauth_enabled: 'auth_enabled',
+                // ldap_enabled: 'auth_enabled',
+                // google_oauth_enabled: 'auth_enabled',
+                // github_oauth_enabled: 'auth_enabled',
+                // azure_oauth_enabled: 'auth_enabled',
+                // oidc_oauth_enabled: 'auth_enabled',
                 pwd_min_len: {
                     required: enforce_characters,
                     digits: true,
@@ -415,314 +415,314 @@ let AuthenticationSettingsModel = function (user_data, api_url, csrf_token, sele
                     min: 1,
                     max: 1000,
                 },
-                ldap_type: ldap_enabled,
-                ldap_uri: {
-                    required: ldap_enabled,
-                    minlength: 11,
-                    maxlength: 255,
-                },
-                ldap_base_dn: {
-                    required: ldap_enabled,
-                    minlength: 4,
-                    maxlength: 255,
-                },
-                ldap_admin_username: {
-                    required: ldap_type_openldap,
-                    minlength: 4,
-                    maxlength: 255,
-                },
-                ldap_admin_password: {
-                    required: ldap_type_openldap,
-                    minlength: 1,
-                    maxlength: 255,
-                },
-                ldap_domain: {
-                    required: ldap_type_ad,
-                    minlength: 1,
-                    maxlength: 255,
-                },
-                ldap_filter_basic: {
-                    required: ldap_enabled,
-                    minlength: 3,
-                    maxlength: 1000,
-                },
-                ldap_filter_username: {
-                    required: ldap_enabled,
-                    minlength: 1,
-                    maxlength: 100,
-                },
-                ldap_filter_group: {
-                    required: ldap_type_openldap,
-                    minlength: 3,
-                    maxlength: 100,
-                },
-                ldap_filter_groupname: {
-                    required: ldap_type_openldap,
-                    minlength: 1,
-                    maxlength: 100,
-                },
-                ldap_sg_enabled: {
-                    required: ldap_enabled,
-                    ldap_exclusive: true,
-                },
-                ldap_admin_group: {
-                    required: ldap_sg_enabled,
-                    minlength: 3,
-                    maxlength: 100,
-                },
-                ldap_operator_group: {
-                    required: ldap_sg_enabled,
-                    minlength: 3,
-                    maxlength: 100,
-                },
-                ldap_user_group: {
-                    required: ldap_sg_enabled,
-                    minlength: 3,
-                    maxlength: 100,
-                },
-                autoprovisioning: {
-                    required: ldap_enabled,
-                    ldap_exclusive: true,
-                },
-                autoprovisioning_attribute: {
-                    required: ldap_ap_enabled,
-                    minlength: 1,
-                    maxlength: 100,
-                },
-                urn_value: {
-                    required: ldap_ap_enabled,
-                    minlength: 1,
-                    maxlength: 100,
-                },
-                purge: ldap_enabled,
-                google_oauth_client_id: {
-                    required: google_oauth_enabled,
-                    minlength: 1,
-                    maxlength: 255,
-                },
-                google_oauth_client_secret: {
-                    required: google_oauth_enabled,
-                    minlength: 1,
-                    maxlength: 255,
-                },
-                google_oauth_scope: {
-                    required: google_oauth_enabled,
-                    minlength: 1,
-                    maxlength: 255,
-                },
-                google_base_url: {
-                    required: google_oauth_enabled,
-                    minlength: 1,
-                    maxlength: 255,
-                    url: true,
-                },
-                google_oauth_metadata_url: {
-                    required: google_oauth_auto_configure_enabled,
-                    minlength: 1,
-                    maxlength: 255,
-                    url: true,
-                },
-                google_token_url: {
-                    required: google_oauth_auto_configure_disabled,
-                    minlength: 1,
-                    maxlength: 255,
-                    url: true,
-                },
-                google_authorize_url: {
-                    required: google_oauth_auto_configure_disabled,
-                    minlength: 1,
-                    maxlength: 255,
-                    url: true,
-                },
-                github_oauth_key: {
-                    required: github_oauth_enabled,
-                    minlength: 1,
-                    maxlength: 255,
-                },
-                github_oauth_secret: {
-                    required: github_oauth_enabled,
-                    minlength: 1,
-                    maxlength: 255,
-                },
-                github_oauth_scope: {
-                    required: github_oauth_enabled,
-                    minlength: 1,
-                    maxlength: 255,
-                },
-                github_oauth_api_url: {
-                    required: github_oauth_enabled,
-                    minlength: 1,
-                    maxlength: 255,
-                    url: true,
-                },
-                github_oauth_metadata_url: {
-                    required: github_oauth_auto_configure_enabled,
-                    minlength: 1,
-                    maxlength: 255,
-                    url: true,
-                },
-                github_oauth_token_url: {
-                    required: github_oauth_auto_configure_disabled,
-                    minlength: 1,
-                    maxlength: 255,
-                    url: true,
-                },
-                github_oauth_authorize_url: {
-                    required: github_oauth_auto_configure_disabled,
-                    minlength: 1,
-                    maxlength: 255,
-                    url: true,
-                },
-                azure_oauth_key: {
-                    required: azure_oauth_enabled,
-                    minlength: 1,
-                    maxlength: 255,
-                    uuid: true,
-                },
-                azure_oauth_secret: {
-                    required: azure_oauth_enabled,
-                    minlength: 1,
-                    maxlength: 255,
-                },
-                azure_oauth_scope: {
-                    required: azure_oauth_enabled,
-                    minlength: 1,
-                    maxlength: 255,
-                },
-                azure_oauth_api_url: {
-                    required: azure_oauth_enabled,
-                    minlength: 1,
-                    maxlength: 255,
-                    url: true,
-                },
-                azure_oauth_metadata_url: {
-                    required: azure_oauth_auto_configure_enabled,
-                    minlength: 1,
-                    maxlength: 255,
-                    url: true,
-                },
-                azure_oauth_token_url: {
-                    required: azure_oauth_auto_configure_disabled,
-                    minlength: 1,
-                    maxlength: 255,
-                    url: true,
-                },
-                azure_oauth_authorize_url: {
-                    required: azure_oauth_auto_configure_disabled,
-                    minlength: 1,
-                    maxlength: 255,
-                    url: true,
-                },
-                azure_sg_enabled: azure_oauth_enabled,
-                azure_admin_group: {
-                    uuid: azure_gs_enabled,
-                },
-                azure_operator_group: {
-                    uuid: azure_gs_enabled,
-                },
-                azure_user_group: {
-                    uuid: azure_gs_enabled,
-                },
-                azure_group_accounts_enabled: azure_oauth_enabled,
-                azure_group_accounts_name: {
-                    required: azure_gas_enabled,
-                    minlength: 1,
-                    maxlength: 255,
-                },
-                azure_group_accounts_name_re: {
-                    required: azure_gas_enabled,
-                    minlength: 1,
-                    maxlength: 255,
-                },
-                azure_group_accounts_description: {
-                    required: azure_gas_enabled,
-                    minlength: 1,
-                    maxlength: 255,
-                },
-                azure_group_accounts_description_re: {
-                    required: azure_gas_enabled,
-                    minlength: 1,
-                    maxlength: 255,
-                },
-                oidc_oauth_key: {
-                    required: oidc_oauth_enabled,
-                    minlength: 1,
-                    maxlength: 255,
-                },
-                oidc_oauth_secret: {
-                    required: oidc_oauth_enabled,
-                    minlength: 1,
-                    maxlength: 255,
-                },
-                oidc_oauth_scope: {
-                    required: oidc_oauth_enabled,
-                    minlength: 1,
-                    maxlength: 255,
-                },
-                oidc_oauth_api_url: {
-                    required: oidc_oauth_enabled,
-                    minlength: 1,
-                    maxlength: 255,
-                    url: true,
-                },
-                oidc_oauth_metadata_url: {
-                    required: oidc_oauth_auto_configure_enabled,
-                    minlength: 1,
-                    maxlength: 255,
-                    url: true,
-                },
-                oidc_oauth_token_url: {
-                    required: oidc_oauth_auto_configure_disabled,
-                    minlength: 1,
-                    maxlength: 255,
-                    url: true,
-                },
-                oidc_oauth_authorize_url: {
-                    required: oidc_oauth_auto_configure_disabled,
-                    minlength: 1,
-                    maxlength: 255,
-                    url: true,
-                },
-                oidc_oauth_logout_url: {
-                    required: oidc_oauth_enabled,
-                    minlength: 1,
-                    maxlength: 255,
-                    url: true,
-                },
-                oidc_oauth_username: {
-                    required: oidc_oauth_enabled,
-                    minlength: 1,
-                    maxlength: 255,
-                },
-                oidc_oauth_email: {
-                    required: oidc_oauth_enabled,
-                    minlength: 1,
-                    maxlength: 255,
-                },
-                oidc_oauth_firstname: {
-                    minlength: 0,
-                    maxlength: 255,
-                },
-                oidc_oauth_last_name: {
-                    minlength: 0,
-                    maxlength: 255,
-                },
-                oidc_oauth_account_name_property: {
-                    minlength: 0,
-                    maxlength: 255,
-                },
-                oidc_oauth_account_description_property: {
-                    minlength: 0,
-                    maxlength: 255,
-                },
-            },
-            messages: {
-                ldap_sg_enabled: {
-                    ldap_exclusive: 'The LDAP group security feature is mutually exclusive with the LDAP role auto-provisioning feature.',
-                },
-                autoprovisioning: {
-                    ldap_exclusive: 'The LDAP role auto-provisioning feature is mutually exclusive with the LDAP group security feature.',
-                },
+            //     ldap_type: ldap_enabled,
+            //     ldap_uri: {
+            //         required: ldap_enabled,
+            //         minlength: 11,
+            //         maxlength: 255,
+            //     },
+            //     ldap_base_dn: {
+            //         required: ldap_enabled,
+            //         minlength: 4,
+            //         maxlength: 255,
+            //     },
+            //     ldap_admin_username: {
+            //         required: ldap_type_openldap,
+            //         minlength: 4,
+            //         maxlength: 255,
+            //     },
+            //     ldap_admin_password: {
+            //         required: ldap_type_openldap,
+            //         minlength: 1,
+            //         maxlength: 255,
+            //     },
+            //     ldap_domain: {
+            //         required: ldap_type_ad,
+            //         minlength: 1,
+            //         maxlength: 255,
+            //     },
+            //     ldap_filter_basic: {
+            //         required: ldap_enabled,
+            //         minlength: 3,
+            //         maxlength: 1000,
+            //     },
+            //     ldap_filter_username: {
+            //         required: ldap_enabled,
+            //         minlength: 1,
+            //         maxlength: 100,
+            //     },
+            //     ldap_filter_group: {
+            //         required: ldap_type_openldap,
+            //         minlength: 3,
+            //         maxlength: 100,
+            //     },
+            //     ldap_filter_groupname: {
+            //         required: ldap_type_openldap,
+            //         minlength: 1,
+            //         maxlength: 100,
+            //     },
+            //     ldap_sg_enabled: {
+            //         required: ldap_enabled,
+            //         ldap_exclusive: true,
+            //     },
+            //     ldap_admin_group: {
+            //         required: ldap_sg_enabled,
+            //         minlength: 3,
+            //         maxlength: 100,
+            //     },
+            //     ldap_operator_group: {
+            //         required: ldap_sg_enabled,
+            //         minlength: 3,
+            //         maxlength: 100,
+            //     },
+            //     ldap_user_group: {
+            //         required: ldap_sg_enabled,
+            //         minlength: 3,
+            //         maxlength: 100,
+            //     },
+            //     autoprovisioning: {
+            //         required: ldap_enabled,
+            //         ldap_exclusive: true,
+            //     },
+            //     autoprovisioning_attribute: {
+            //         required: ldap_ap_enabled,
+            //         minlength: 1,
+            //         maxlength: 100,
+            //     },
+            //     urn_value: {
+            //         required: ldap_ap_enabled,
+            //         minlength: 1,
+            //         maxlength: 100,
+            //     },
+            //     purge: ldap_enabled,
+            //     google_oauth_client_id: {
+            //         required: google_oauth_enabled,
+            //         minlength: 1,
+            //         maxlength: 255,
+            //     },
+            //     google_oauth_client_secret: {
+            //         required: google_oauth_enabled,
+            //         minlength: 1,
+            //         maxlength: 255,
+            //     },
+            //     google_oauth_scope: {
+            //         required: google_oauth_enabled,
+            //         minlength: 1,
+            //         maxlength: 255,
+            //     },
+            //     google_base_url: {
+            //         required: google_oauth_enabled,
+            //         minlength: 1,
+            //         maxlength: 255,
+            //         url: true,
+            //     },
+            //     google_oauth_metadata_url: {
+            //         required: google_oauth_auto_configure_enabled,
+            //         minlength: 1,
+            //         maxlength: 255,
+            //         url: true,
+            //     },
+            //     google_token_url: {
+            //         required: google_oauth_auto_configure_disabled,
+            //         minlength: 1,
+            //         maxlength: 255,
+            //         url: true,
+            //     },
+            //     google_authorize_url: {
+            //         required: google_oauth_auto_configure_disabled,
+            //         minlength: 1,
+            //         maxlength: 255,
+            //         url: true,
+            //     },
+            //     github_oauth_key: {
+            //         required: github_oauth_enabled,
+            //         minlength: 1,
+            //         maxlength: 255,
+            //     },
+            //     github_oauth_secret: {
+            //         required: github_oauth_enabled,
+            //         minlength: 1,
+            //         maxlength: 255,
+            //     },
+            //     github_oauth_scope: {
+            //         required: github_oauth_enabled,
+            //         minlength: 1,
+            //         maxlength: 255,
+            //     },
+            //     github_oauth_api_url: {
+            //         required: github_oauth_enabled,
+            //         minlength: 1,
+            //         maxlength: 255,
+            //         url: true,
+            //     },
+            //     github_oauth_metadata_url: {
+            //         required: github_oauth_auto_configure_enabled,
+            //         minlength: 1,
+            //         maxlength: 255,
+            //         url: true,
+            //     },
+            //     github_oauth_token_url: {
+            //         required: github_oauth_auto_configure_disabled,
+            //         minlength: 1,
+            //         maxlength: 255,
+            //         url: true,
+            //     },
+            //     github_oauth_authorize_url: {
+            //         required: github_oauth_auto_configure_disabled,
+            //         minlength: 1,
+            //         maxlength: 255,
+            //         url: true,
+            //     },
+            //     azure_oauth_key: {
+            //         required: azure_oauth_enabled,
+            //         minlength: 1,
+            //         maxlength: 255,
+            //         uuid: true,
+            //     },
+            //     azure_oauth_secret: {
+            //         required: azure_oauth_enabled,
+            //         minlength: 1,
+            //         maxlength: 255,
+            //     },
+            //     azure_oauth_scope: {
+            //         required: azure_oauth_enabled,
+            //         minlength: 1,
+            //         maxlength: 255,
+            //     },
+            //     azure_oauth_api_url: {
+            //         required: azure_oauth_enabled,
+            //         minlength: 1,
+            //         maxlength: 255,
+            //         url: true,
+            //     },
+            //     azure_oauth_metadata_url: {
+            //         required: azure_oauth_auto_configure_enabled,
+            //         minlength: 1,
+            //         maxlength: 255,
+            //         url: true,
+            //     },
+            //     azure_oauth_token_url: {
+            //         required: azure_oauth_auto_configure_disabled,
+            //         minlength: 1,
+            //         maxlength: 255,
+            //         url: true,
+            //     },
+            //     azure_oauth_authorize_url: {
+            //         required: azure_oauth_auto_configure_disabled,
+            //         minlength: 1,
+            //         maxlength: 255,
+            //         url: true,
+            //     },
+            //     azure_sg_enabled: azure_oauth_enabled,
+            //     azure_admin_group: {
+            //         uuid: azure_gs_enabled,
+            //     },
+            //     azure_operator_group: {
+            //         uuid: azure_gs_enabled,
+            //     },
+            //     azure_user_group: {
+            //         uuid: azure_gs_enabled,
+            //     },
+            //     azure_group_accounts_enabled: azure_oauth_enabled,
+            //     azure_group_accounts_name: {
+            //         required: azure_gas_enabled,
+            //         minlength: 1,
+            //         maxlength: 255,
+            //     },
+            //     azure_group_accounts_name_re: {
+            //         required: azure_gas_enabled,
+            //         minlength: 1,
+            //         maxlength: 255,
+            //     },
+            //     azure_group_accounts_description: {
+            //         required: azure_gas_enabled,
+            //         minlength: 1,
+            //         maxlength: 255,
+            //     },
+            //     azure_group_accounts_description_re: {
+            //         required: azure_gas_enabled,
+            //         minlength: 1,
+            //         maxlength: 255,
+            //     },
+            //     oidc_oauth_key: {
+            //         required: oidc_oauth_enabled,
+            //         minlength: 1,
+            //         maxlength: 255,
+            //     },
+            //     oidc_oauth_secret: {
+            //         required: oidc_oauth_enabled,
+            //         minlength: 1,
+            //         maxlength: 255,
+            //     },
+            //     oidc_oauth_scope: {
+            //         required: oidc_oauth_enabled,
+            //         minlength: 1,
+            //         maxlength: 255,
+            //     },
+            //     oidc_oauth_api_url: {
+            //         required: oidc_oauth_enabled,
+            //         minlength: 1,
+            //         maxlength: 255,
+            //         url: true,
+            //     },
+            //     oidc_oauth_metadata_url: {
+            //         required: oidc_oauth_auto_configure_enabled,
+            //         minlength: 1,
+            //         maxlength: 255,
+            //         url: true,
+            //     },
+            //     oidc_oauth_token_url: {
+            //         required: oidc_oauth_auto_configure_disabled,
+            //         minlength: 1,
+            //         maxlength: 255,
+            //         url: true,
+            //     },
+            //     oidc_oauth_authorize_url: {
+            //         required: oidc_oauth_auto_configure_disabled,
+            //         minlength: 1,
+            //         maxlength: 255,
+            //         url: true,
+            //     },
+            //     oidc_oauth_logout_url: {
+            //         required: oidc_oauth_enabled,
+            //         minlength: 1,
+            //         maxlength: 255,
+            //         url: true,
+            //     },
+            //     oidc_oauth_username: {
+            //         required: oidc_oauth_enabled,
+            //         minlength: 1,
+            //         maxlength: 255,
+            //     },
+            //     oidc_oauth_email: {
+            //         required: oidc_oauth_enabled,
+            //         minlength: 1,
+            //         maxlength: 255,
+            //     },
+            //     oidc_oauth_firstname: {
+            //         minlength: 0,
+            //         maxlength: 255,
+            //     },
+            //     oidc_oauth_last_name: {
+            //         minlength: 0,
+            //         maxlength: 255,
+            //     },
+            //     oidc_oauth_account_name_property: {
+            //         minlength: 0,
+            //         maxlength: 255,
+            //     },
+            //     oidc_oauth_account_description_property: {
+            //         minlength: 0,
+            //         maxlength: 255,
+            //     },
+            // },
+            // messages: {
+            //     ldap_sg_enabled: {
+            //         ldap_exclusive: 'The LDAP group security feature is mutually exclusive with the LDAP role auto-provisioning feature.',
+            //     },
+            //     autoprovisioning: {
+            //         ldap_exclusive: 'The LDAP role auto-provisioning feature is mutually exclusive with the LDAP group security feature.',
+            //     },
             },
         });
 
