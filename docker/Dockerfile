@@ -1,11 +1,11 @@
-FROM alpine:3.17 AS builder
+FROM alpine:3.18 AS builder
 
 ARG BUILD_DEPENDENCIES="build-base \
     libffi-dev \
     libpq-dev \
     libxml2-dev \
     mariadb-connector-c-dev \
-    openldap-dev \
+    # openldap-dev \
     python3-dev \
     xmlsec-dev \
     npm \
@@ -68,12 +68,13 @@ RUN mkdir -p /app && \
     cp -r /build/configs/docker_config.py /app/configs
 
 # Build image
-FROM alpine:3.17
+FROM alpine:3.18
 
 ENV FLASK_APP=/app/powerdnsadmin/__init__.py \
     USER=pda
 
-RUN apk add --no-cache mariadb-connector-c postgresql-client py3-gunicorn py3-pyldap py3-flask py3-psycopg2 xmlsec tzdata libcap && \
+# RUN apk add --no-cache mariadb-connector-c postgresql-client py3-gunicorn py3-pyldap py3-flask py3-psycopg2 xmlsec tzdata libcap && \
+RUN apk add --no-cache mariadb-connector-c postgresql-client py3-gunicorn py3-flask py3-psycopg2 xmlsec tzdata libcap && \
     addgroup -S ${USER} && \
     adduser -S -D -G ${USER} ${USER} && \
     mkdir /data && \
