@@ -32,7 +32,7 @@
                     {{ error }}
                 </div>
             {% endif %}
-            <p class="login-box-msg">Enter your personal details below</p>
+            <p class="login-box-msg">Enter your personal details</p>
             <form action="{{ url_for('index.register') }}" method="post" validator>
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
 
@@ -76,13 +76,13 @@
                     </div>
                 </div>
 
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <div class="input-group">
                         <div class="input-group-prepend">
                   <span class="input-group-text">
                     <i class="fas fa-envelope"></i>
                   </span>
-                        </div>
+                    </div>
                         <input type="email" class="form-control {{ 'is-invalid' if 'email' in error_messages else '' }}"
                                placeholder="Email" name="email" id="email" value="{{ request.form.email }}" required>
                         {% if 'email' in error_messages %}
@@ -92,9 +92,9 @@
                             </div>
                         {% endif %}
                     </div>
-                </div>
+                </div> -->
 
-                <p class="login-box-msg">Enter your account details below</p>
+                <p class="login-box-msg">Enter your account details</p>
 
                 <div class="form-group">
                     <div class="input-group">
@@ -189,8 +189,15 @@
     <!-- /.card -->
 </div>
 <!-- /.register-box -->
-<div class="text-center pt-3">
+<!-- <div class="text-center pt-3">
     <p>Powered by <a href="https://powerdnsadmin.org" target="_blank">PowerDNS-Admin</a></p>
+</div> -->
+<div class="text-center pt-3">
+    {% if version %}
+        <p><a href="https://github.com/rombintu/PowerDNS-Admin" target="_blank">{{version}}</a></p>
+    {% else %}
+        <p><a href="https://github.com/rombintu/PowerDNS-Admin" target="_blank">Cloudate</a></p>
+    {% endif %}
 </div>
 {% assets "js_login" -%}
     <script type="text/javascript" src="{{ ASSET_URL }}"></script>

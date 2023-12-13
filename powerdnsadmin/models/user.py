@@ -31,9 +31,9 @@ class User(db.Model):
     password = db.Column(db.String(64))
     firstname = db.Column(db.String(64))
     lastname = db.Column(db.String(64))
-    email = db.Column(db.String(128))
-    otp_secret = db.Column(db.String(16))
-    # confirmed = db.Column(db.SmallInteger, nullable=False, default=0)
+    # email = db.Column(db.String(128))
+    # otp_secret = db.Column(db.String(16))
+    confirmed = db.Column(db.SmallInteger, nullable=False, default=0) # TODO
     role_id = db.Column(db.Integer, db.ForeignKey('role.id'))
     role = db.relationship('Role', back_populates="users", lazy=True)
     accounts = None
@@ -46,9 +46,9 @@ class User(db.Model):
                  firstname=None,
                  lastname=None,
                  role_id=None,
-                 email=None,
-                 otp_secret=None,
-                #  confirmed=False,
+                #  email=None,
+                #  otp_secret=None,
+                 confirmed=False,
                  reload_info=True):
         self.id = id
         self.username = username
@@ -57,9 +57,9 @@ class User(db.Model):
         self.firstname = firstname
         self.lastname = lastname
         self.role_id = role_id
-        self.email = email
-        self.otp_secret = otp_secret
-        # self.confirmed = confirmed
+        # self.email = email
+        # self.otp_secret = otp_secret
+        self.confirmed = confirmed
 
         if reload_info:
             user_info = self.get_user_info_by_id(
@@ -70,10 +70,10 @@ class User(db.Model):
                 self.username = user_info.username
                 self.firstname = user_info.firstname
                 self.lastname = user_info.lastname
-                self.email = user_info.email
+                # self.email = user_info.email
                 self.role_id = user_info.role_id
-                self.otp_secret = user_info.otp_secret
-                # self.confirmed = user_info.confirmed
+                # self.otp_secret = user_info.otp_secret
+                self.confirmed = user_info.confirmed
 
     def is_authenticated(self):
         return True
@@ -90,13 +90,13 @@ class User(db.Model):
     def __repr__(self):
         return '<User {0}>'.format(self.username)
 
-    def get_totp_uri(self):
-        return "otpauth://totp/{0}:{1}?secret={2}&issuer=PowerDNS-Admin".format(
-            Setting().get('site_name'), self.username, self.otp_secret)
+    # def get_totp_uri(self):
+    #     return "otpauth://totp/{0}:{1}?secret={2}&issuer=PowerDNS-Admin".format(
+    #         Setting().get('site_name'), self.username, self.otp_secret)
 
-    def verify_totp(self, token):
-        totp = pyotp.TOTP(self.otp_secret)
-        return totp.verify(token, valid_window = 5)
+    # def verify_totp(self, token):
+    #     totp = pyotp.TOTP(self.otp_secret)
+    #     return totp.verify(token, valid_window = 5)
 
     def get_hashed_password(self, plain_text_password=None):
         # Hash a password for the first time
@@ -413,9 +413,9 @@ class User(db.Model):
             return {'status': False, 'msg': 'Username is already in use'}
 
         # check if email existed
-        user = User.query.filter(User.email == self.email).first()
-        if user:
-            return {'status': False, 'msg': 'Email address is already in use'}
+        # user = User.query.filter(User.email == self.email).first()
+        # if user:
+        #     return {'status': False, 'msg': 'Email address is already in use'}
 
         # first register user will be in Administrator role
         if self.role_id is None:
@@ -452,17 +452,17 @@ class User(db.Model):
             return {'status': False, 'msg': 'User does not exist'}
 
         # check if new email exists (only if changed)
-        if user.email != self.email:
-            checkuser = User.query.filter(User.email == self.email).first()
-            if checkuser:
-                return {
-                    'status': False,
-                    'msg': 'New email address is already in use'
-                }
+        # if user.email != self.email:
+        #     checkuser = User.query.filter(User.email == self.email).first()
+        #     if checkuser:
+        #         return {
+        #             'status': False,
+        #             'msg': 'New email address is already in use'
+        #         }
 
         user.firstname = self.firstname
         user.lastname = self.lastname
-        user.email = self.email
+        # user.email = self.email
 
         # store new password hash (only if changed)
         if hasattr(self, "plain_text_password"):
@@ -489,27 +489,27 @@ class User(db.Model):
                 user.password = self.get_hashed_password(
                  self.plain_text_password).decode("utf-8")
 
-        if self.email:
-            # Can not update to a new email that
-            # already been used.
-            existing_email = User.query.filter(
-                User.email == self.email,
-                User.username != self.username).first()
-            if existing_email:
-                return False
-            # If need to verify new email,
-            # update the "confirmed" status.
-            if user.email != self.email:
-                user.email = self.email
-                # if Setting().get('verify_user_email'):
-                #     user.confirmed = 0
+        # if self.email:
+        #     # Can not update to a new email that
+        #     # already been used.
+        #     existing_email = User.query.filter(
+        #         User.email == self.email,
+        #         User.username != self.username).first()
+        #     if existing_email:
+        #         return False
+        #     # If need to verify new email,
+        #     # update the "confirmed" status.
+        #     if user.email != self.email:
+        #         user.email = self.email
+        #         # if Setting().get('verify_user_email'):
+        #         #     user.confirmed = 0
 
-        if enable_otp is not None:
-            user.otp_secret = ""
+        # if enable_otp is not None:
+        #     user.otp_secret = ""
 
-        if enable_otp == True:
-            # generate the opt secret key
-            user.otp_secret = base64.b32encode(os.urandom(10)).decode('utf-8')
+        # if enable_otp == True:
+        #     # generate the opt secret key
+        #     user.otp_secret = base64.b32encode(os.urandom(10)).decode('utf-8')
 
         try:
             db.session.add(user)
@@ -519,12 +519,12 @@ class User(db.Model):
             db.session.rollback()
             return False
 
-    def update_confirmed(self, confirmed):
-        """
-        Update user email confirmation status
-        """
-        self.confirmed = confirmed
-        db.session.commit()
+    # def update_confirmed(self, confirmed):
+    #     """
+    #     Update user email confirmation status
+    #     """
+    #     self.confirmed = confirmed
+    #     db.session.commit()
 
     def get_domains(self):
         """

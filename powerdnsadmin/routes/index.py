@@ -794,10 +794,10 @@ def register():
             password = request.form.get('password', '')
             firstname = request.form.get('firstname', '').strip()
             lastname = request.form.get('lastname', '').strip()
-            email = request.form.get('email', '').strip()
+            # email = request.form.get('email', '').strip()
             rpassword = request.form.get('rpassword', '')
 
-            is_valid_email = re.compile(r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$')
+            # is_valid_email = re.compile(r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$')
 
             error_messages = {}
             if not firstname:
@@ -810,10 +810,10 @@ def register():
                 error_messages['password'] = 'Password is required'
             if not rpassword:
                 error_messages['rpassword'] = 'Password confirmation is required'
-            if not email:
-                error_messages['email'] = 'Email is required'
-            if not is_valid_email.match(email):
-                error_messages['email'] = 'Invalid email address'
+            # if not email:
+            #     error_messages['email'] = 'Email is required'
+            # if not is_valid_email.match(email):
+            #     error_messages['email'] = 'Invalid email address'
             if password != rpassword:
                 error_messages['password'] = 'Password confirmation does not match'
                 error_messages['rpassword'] = 'Password confirmation does not match'
@@ -830,7 +830,7 @@ def register():
                         plain_text_password=password,
                         firstname=firstname,
                         lastname=lastname,
-                        email=email
+                        # email=email
                         )
 
             (password_policy_pass, password_policy) = password_policy_check(user, password)
