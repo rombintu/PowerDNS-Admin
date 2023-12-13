@@ -2,7 +2,7 @@
     <a href="{{ url_for('domain.domain', domain_name=domain.name) }}"><strong>{{ domain.name | pretty_domain_name }}</strong></a>
 {% endmacro %}
 
-{% macro dnssec(domain) %}
+<!-- {% macro dnssec(domain) %}
     {% if domain.dnssec %}
         <td>
             <button class="btn badge btn-success button_dnssec" title="Edit DNSSEC" id="{{ domain.name }}"><i
@@ -14,7 +14,7 @@
                     class="fa-solid fa-lock-open"></i></button>
         </td>
     {% endif %}
-{% endmacro %}
+{% endmacro %} -->
 
 {% macro type(domain) %}
     {{ domain.type | format_zone_type }}
@@ -24,15 +24,19 @@
     {% if domain.serial == '0' %}{{ domain.notified_serial }}{% else %}{{ domain.serial }}{% endif %}
 {% endmacro %}
 
+<!-- {% macro date_serial(domain) %}
+    {{ domain.get_date_by_serial() }}
+{% endmacro %} -->
+
 {% macro master(domain) %}
-    {% if domain.master == '[]' %}N/A{% else %}{{ domain.master | display_master_name }}{% endif %}
+    {% if domain.master == '[]' %}-{% else %}{{ domain.master | display_master_name }}{% endif %}
 {% endmacro %}
 
 {% macro account(domain) %}
     {% if current_user.role.name in ['Administrator', 'Operator'] %}
-        {{ domain.account.name if domain.account else 'None' }}
+        {{ domain.account.name if domain.account else '-' }}
     {% else %}
-        None
+        -
     {% endif %}
 {% endmacro %}
 
@@ -66,7 +70,7 @@
                     </button>
                 {% endif %}
 
-                {% if current_user.role.name in ['Administrator', 'Operator'] or allow_user_remove_domain %}
+                {% if current_user.role.name in ['Administrator', 'Operator'] %}
                     <div class="dropdown-divider"></div>
                     <button type="button" class="dropdown-item btn-secondary button_delete"
                             onclick="window.location.href='{{ url_for('domain.remove') }}'">

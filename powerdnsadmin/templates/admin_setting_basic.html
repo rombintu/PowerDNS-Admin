@@ -1,18 +1,18 @@
 {% extends "base.html" %}
 {% set active_page = "admin_settings" %}
-{% block title %}<title>Basic Settings - {{ SITE_NAME }}</title>{% endblock %}
+{% block title %}<title>{{_('Basic Settings')}} - {{ SITE_NAME }}</title>{% endblock %}
 
 {% block dashboard_stat %}
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">Basic Settings</h1>
+                    <h1 class="m-0 text-dark">{{_('Basic Settings')}}</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ url_for('dashboard.dashboard') }}">{{_(Dashboard)}}</a></li>
-                        <li class="breadcrumb-item active">Basic Settings</li>
+                        <li class="breadcrumb-item active">{{_('Basic Settings')}}</li>
                     </ol>
                 </div>
             </div>
@@ -25,38 +25,39 @@
         <div class="container-fluid">
             <div class="card card-outline card-primary shadow">
                 <div class="card-header with-border">
-                    <h3 class="card-title">Settings Editor</h3>
+                    <h3 class="card-title">{{_('Settings Editor')}}</h3>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body table-responsive">
                     <table id="tbl_settings" class="table table-bordered table-striped table-hover table-sm">
                         <thead>
                         <tr>
-                            <th>Setting Name</th>
-                            <th>Current Value</th>
-                            <th>Action</th>
+                            <th>{{_('Setting Name')}}</th>
+                            <th>{{_('Current Value')}}</th>
+                            <th>{{_('Action')}}</th>
+                            <th>{{_('Description')}}</th>
                         </tr>
                         </thead>
                         <tbody>
-                        {% for setting in settings %}
+                        {% for setting, description in settings.items() %}
                             <tr class="odd">
                                 <td>
                                     <label for="value{{ loop.index }}">{{ setting }}</label>
                                 </td>
                                 {% if SETTING.get(setting) in [False] %}
-                                    <td><i class="fas fa-toggle-off"></i>&nbsp;Off</td>
+                                    <td><i class="fas fa-toggle-off"></i>&nbsp;</td>
                                     <td>
                                         <button type="button" class="btn btn-success setting-toggle-button"
                                                 id="{{ setting }}">
-                                            <i class="fa-solid fa-toggle-on"></i>&nbsp;Turn On
+                                            <i class="fa-solid fa-toggle-on"></i>&nbsp;{{_('On')}}
                                         </button>
                                     </td>
                                 {% elif SETTING.get(setting) in [True] %}
-                                    <td><i class="fas fa-toggle-on"></i>&nbsp;On</td>
+                                    <td><i class="fas fa-toggle-on"></i>&nbsp;</td>
                                     <td>
                                         <button type="button" class="btn btn-danger setting-toggle-button"
                                                 id="{{ setting }}">
-                                            <i class="fa-solid fa-toggle-off"></i>&nbsp;Turn Off
+                                            <i class="fa-solid fa-toggle-off"></i>&nbsp;{{_('Off')}}
                                         </button>
                                     </td>
                                 {% else %}
@@ -66,10 +67,13 @@
                                     <td>
                                         <button type="button" class="btn btn-primary setting-save-button"
                                                 id="{{ setting }}" data-target="value{{ loop.index }}">
-                                            <i class="fa-solid fa-save"></i>&nbsp;Save
+                                            <i class="fa-solid fa-save"></i>&nbsp;{{_('Save')}}
                                         </button>
                                     </td>
                                 {% endif %}
+                                    <td>
+                                        {{description}}
+                                    </td>
                             </tr>
                         {% endfor %}
                         </tbody>

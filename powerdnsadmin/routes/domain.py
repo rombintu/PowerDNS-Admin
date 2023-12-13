@@ -11,7 +11,7 @@ from flask_login import login_required, current_user, login_manager
 from ..lib.utils import pretty_domain_name
 from ..lib.utils import pretty_json
 from ..lib.utils import to_idna
-from ..decorators import can_create_domain, operator_role_required, can_access_domain, can_configure_dnssec, can_remove_domain
+from ..decorators import can_create_domain, operator_role_required, can_access_domain, can_remove_domain # can_configure_dnssec
 from ..models.user import User, Anonymous
 from ..models.account import Account
 from ..models.setting import Setting
@@ -69,7 +69,7 @@ def domain(domain_name):
     if not rrsets and domain.type != 'slave':
         abort(500)
 
-    quick_edit = Setting().get('record_quick_edit')
+    # quick_edit = Setting().get('record_quick_edit')
     records_allow_to_edit = Setting().get_records_allow_to_edit()
     forward_records_allow_to_edit = Setting(
     ).get_forward_records_allow_to_edit()
@@ -89,16 +89,16 @@ def domain(domain_name):
     #   - Find a way to make it consistent, or
     #   - Only allow one comment for that case
     if StrictVersion(Setting().get('pdns_version')) >= StrictVersion('4.0.0'):
-        pretty_v6 = Setting().get('pretty_ipv6_ptr')
+        # pretty_v6 = Setting().get('pretty_ipv6_ptr')
         for r in rrsets:
             if r['type'] in records_allow_to_edit:
                 r_name = r['name'].rstrip('.')
 
-                # If it is reverse zone and pretty_ipv6_ptr setting
-                # is enabled, we reformat the name for ipv6 records.
-                if pretty_v6 and r['type'] == 'PTR' and 'ip6.arpa' in r_name and '*' not in r_name:
-                    r_name = dns.reversename.to_address(
-                        dns.name.from_text(r_name))
+                # # If it is reverse zone and pretty_ipv6_ptr setting
+                # # is enabled, we reformat the name for ipv6 records.
+                # if pretty_v6 and r['type'] == 'PTR' and 'ip6.arpa' in r_name and '*' not in r_name:
+                #     r_name = dns.reversename.to_address(
+                #         dns.name.from_text(r_name))
 
                 # Create the list of records in format that
                 # PDA jinja2 template can understand.
@@ -122,7 +122,7 @@ def domain(domain_name):
         # Unsupported version
         abort(500)
 
-    if not re.search(r'ip6\.arpa|in-addr\.arpa$', domain_name):
+    if not re.search(r'ip6\.arpa|in-addr\.arpa$', domain_name): # TODO
         editable_records = forward_records_allow_to_edit
     else:
         editable_records = reverse_records_allow_to_edit
@@ -131,7 +131,7 @@ def domain(domain_name):
                            domain=domain,
                            records=records,
                            editable_records=editable_records,
-                           quick_edit=quick_edit,
+                        #    quick_edit=quick_edit,
                            ttl_options=ttl_options,
                            current_user=current_user,
                            allow_user_view_history=Setting().get('allow_user_view_history'))
@@ -340,35 +340,35 @@ def add():
             d = Domain()
 
             ### Test if a record same as the domain already exists in an upper level domain
-            if Setting().get('deny_domain_override'):
+            # if Setting().get('deny_domain_override'):
 
-                upper_domain = None
-                domain_override = False
-                domain_override_toggle = False
+            #     upper_domain = None
+            #     domain_override = False
+            #     domain_override_toggle = False
 
-                if current_user.role.name in ['Administrator', 'Operator']:
-                    domain_override = request.form.get('domain_override')
-                    domain_override_toggle = True
+            #     if current_user.role.name in ['Administrator', 'Operator']:
+            #         domain_override = request.form.get('domain_override')
+            #         domain_override_toggle = True
 
 
-                # If overriding box is not selected.
-                # False = Do not allow ovrriding, perform checks
-                # True = Allow overriding, do not perform checks
-                if not domain_override:
-                    upper_domain = d.is_overriding(domain_name)
+            #     # If overriding box is not selected.
+            #     # False = Do not allow ovrriding, perform checks
+            #     # True = Allow overriding, do not perform checks
+            #     if not domain_override:
+            #         upper_domain = d.is_overriding(domain_name)
 
-                if upper_domain:
-                    if current_user.role.name in ['Administrator', 'Operator']:
-                        accounts = Account.query.order_by(Account.name).all()
-                    else:
-                        accounts = current_user.get_accounts()
+            #     if upper_domain:
+            #         if current_user.role.name in ['Administrator', 'Operator']:
+            #             accounts = Account.query.order_by(Account.name).all()
+            #         else:
+            #             accounts = current_user.get_accounts()
                     
-                    msg = 'Zone already exists as a record under zone: {}'.format(upper_domain)
+            #         msg = 'Zone already exists as a record under zone: {}'.format(upper_domain)
                     
-                    return render_template('domain_add.html', 
-                                            domain_override_message=msg,
-                                            accounts=accounts,
-                                            domain_override_toggle=domain_override_toggle)
+            #         return render_template('domain_add.html', 
+            #                                 domain_override_message=msg,
+            #                                 accounts=accounts,
+            #                                 domain_override_toggle=domain_override_toggle)
            
             result = d.add(domain_name=domain_name,
                            domain_type=domain_type,
@@ -738,48 +738,48 @@ def info(domain_name):
     return make_response(jsonify(domain_info), 200)
 
 
-@domain_bp.route('/<path:domain_name>/dnssec', methods=['GET'])
-@login_required
-@can_access_domain
-def dnssec(domain_name):
-    domain = Domain()
-    dnssec = domain.get_domain_dnssec(domain_name)
-    return make_response(jsonify(dnssec), 200)
+# @domain_bp.route('/<path:domain_name>/dnssec', methods=['GET'])
+# @login_required
+# @can_access_domain
+# def dnssec(domain_name):
+#     domain = Domain()
+#     dnssec = domain.get_domain_dnssec(domain_name)
+#     return make_response(jsonify(dnssec), 200)
 
 
-@domain_bp.route('/<path:domain_name>/dnssec/enable', methods=['POST'])
-@login_required
-@can_access_domain
-@can_configure_dnssec
-def dnssec_enable(domain_name):
-    domain = Domain()
-    dnssec = domain.enable_domain_dnssec(domain_name)
-    domain_object = Domain.query.filter(domain_name == Domain.name).first()
-    history = History(
-        msg='DNSSEC was enabled for zone ' + domain_name ,
-        created_by=current_user.username,
-        domain_id=domain_object.id)
-    history.add()
-    return make_response(jsonify(dnssec), 200)
+# @domain_bp.route('/<path:domain_name>/dnssec/enable', methods=['POST'])
+# @login_required
+# @can_access_domain
+# @can_configure_dnssec
+# def dnssec_enable(domain_name):
+#     domain = Domain()
+#     dnssec = domain.enable_domain_dnssec(domain_name)
+#     domain_object = Domain.query.filter(domain_name == Domain.name).first()
+#     history = History(
+#         msg='DNSSEC was enabled for zone ' + domain_name ,
+#         created_by=current_user.username,
+#         domain_id=domain_object.id)
+#     history.add()
+#     return make_response(jsonify(dnssec), 200)
 
 
-@domain_bp.route('/<path:domain_name>/dnssec/disable', methods=['POST'])
-@login_required
-@can_access_domain
-@can_configure_dnssec
-def dnssec_disable(domain_name):
-    domain = Domain()
-    dnssec = domain.get_domain_dnssec(domain_name)
+# @domain_bp.route('/<path:domain_name>/dnssec/disable', methods=['POST'])
+# @login_required
+# @can_access_domain
+# @can_configure_dnssec
+# def dnssec_disable(domain_name):
+#     domain = Domain()
+#     dnssec = domain.get_domain_dnssec(domain_name)
 
-    for key in dnssec['dnssec']:
-        domain.delete_dnssec_key(domain_name, key['id'])
-    domain_object = Domain.query.filter(domain_name == Domain.name).first()
-    history = History(
-        msg='DNSSEC was disabled for zone ' + domain_name ,
-        created_by=current_user.username,
-        domain_id=domain_object.id)
-    history.add()
-    return make_response(jsonify({'status': 'ok', 'msg': 'DNSSEC removed.'}))
+#     for key in dnssec['dnssec']:
+#         domain.delete_dnssec_key(domain_name, key['id'])
+#     domain_object = Domain.query.filter(domain_name == Domain.name).first()
+#     history = History(
+#         msg='DNSSEC was disabled for zone ' + domain_name ,
+#         created_by=current_user.username,
+#         domain_id=domain_object.id)
+#     history.add()
+#     return make_response(jsonify({'status': 'ok', 'msg': 'DNSSEC removed.'}))
 
 
 @domain_bp.route('/<path:domain_name>/manage-setting', methods=['GET', 'POST'])

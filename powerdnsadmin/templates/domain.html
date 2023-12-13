@@ -260,7 +260,8 @@
         });
         // handle edit button and record click
         {% if domain.type != 'Slave' %}
-            $(document.body).on("click", ".button_edit{% if quick_edit %}, .row_record{% endif %}", function (e) {
+            // $(document.body).on("click", ".button_edit{% if quick_edit %}, .row_record{% endif %}", function (e) {
+            $(document.body).on("click", ".button_edit", function (e) {
                 e.stopPropagation();
                 if ($(this).is('tr')) {
                     var nRow = $(this)[0];

@@ -42,3 +42,4 @@ SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'pdns.db')
 # SAML Authnetication
 SAML_ENABLED = False
 SAML_ASSERTION_ENCRYPTED = True
+VERSION = "0.4.1-cloudate"

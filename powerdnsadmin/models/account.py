@@ -45,8 +45,8 @@ class Account(db.Model):
 
         allowed_characters = "abcdefghijklmnopqrstuvwxyz0123456789"
 
-        if Setting().get('account_name_extra_chars'):
-            allowed_characters += "_-."
+        # if Setting().get('account_name_extra_chars'):
+        #     allowed_characters += "_-."
 
         sanitized_name = ''.join(c for c in name.lower() if c in allowed_characters)
 

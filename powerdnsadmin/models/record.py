@@ -42,7 +42,7 @@ class Record(object):
         self.PDNS_API_KEY = Setting().get('pdns_api_key')
         self.PDNS_VERSION = Setting().get('pdns_version')
         self.API_EXTENDED_URL = utils.pdns_api_extended_uri(self.PDNS_VERSION)
-        self.PRETTY_IPV6_PTR = Setting().get('pretty_ipv6_ptr')
+        # self.PRETTY_IPV6_PTR = Setting().get('pretty_ipv6_ptr')
 
     def get_rrsets(self, domain):
         """
@@ -179,22 +179,22 @@ class Record(object):
             # If it is ipv6 reverse zone and PRETTY_IPV6_PTR is enabled,
             # We convert ipv6 address back to reverse record format
             # before submitting to PDNS API.
-            if self.PRETTY_IPV6_PTR and re.search(
-                    r'ip6\.arpa', domain_name
-            ) and record['record_type'] == 'PTR' and ':' in record[
-                    'record_name']:
-                record_name = dns.reversename.from_address(
-                    record['record_name']).to_text()
-            # Else, it is forward zone, then record name should be
-            # in format "<name>.<domain>.". If it is root
-            # domain name (name == '@' or ''), the name should
-            # be in format "<domain>."
-            else:
-                record_name = "{}.{}.".format(
-                    record["record_name"],
-                    domain_name) if record["record_name"] not in [
-                        '@', ''
-                    ] else domain_name + '.'
+            # if self.PRETTY_IPV6_PTR and re.search(
+            #         r'ip6\.arpa', domain_name
+            # ) and record['record_type'] == 'PTR' and ':' in record[
+            #         'record_name']:
+            #     record_name = dns.reversename.from_address(
+            #         record['record_name']).to_text()
+            # # Else, it is forward zone, then record name should be
+            # # in format "<name>.<domain>.". If it is root
+            # # domain name (name == '@' or ''), the name should
+            # # be in format "<domain>."
+            # else:
+            record_name = "{}.{}.".format(
+                record["record_name"],
+                domain_name) if record["record_name"] not in [
+                    '@', ''
+                ] else domain_name + '.'
 
             # Format the record content, it musts end
             # with a dot character if in following types

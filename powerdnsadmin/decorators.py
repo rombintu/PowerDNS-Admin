@@ -77,34 +77,31 @@ def can_access_domain(f):
     return decorated_function
 
 
-def can_configure_dnssec(f):
-    """
-    Grant access if:
-        - user is in Operator role or higher, or
-        - dnssec_admins_only is off
-    """
-    @wraps(f)
-    def decorated_function(*args, **kwargs):
-        if current_user.role.name not in [
-                'Administrator', 'Operator'
-        ] and Setting().get('dnssec_admins_only'):
-            abort(403)
+# def can_configure_dnssec(f):
+#     """
+#     Grant access if:
+#         - user is in Operator role or higher, or
+#         - dnssec_admins_only is off
+#     """
+#     @wraps(f)
+#     def decorated_function(*args, **kwargs):
+#         if current_user.role.name not in [
+#                 'Administrator', 'Operator'
+#         ] and Setting().get('dnssec_admins_only'):
+#             abort(403)
 
-        return f(*args, **kwargs)
+#         return f(*args, **kwargs)
 
-    return decorated_function
+#     return decorated_function
 
 def can_remove_domain(f):
     """
     Grant access if:
-        - user is in Operator role or higher, or
-        - allow_user_remove_domain is on
+        - user is in Operator role or higher
     """
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        if current_user.role.name not in [
-                'Administrator', 'Operator'
-        ] and not Setting().get('allow_user_remove_domain'):
+        if current_user.role.name not in ['Administrator', 'Operator']:
             abort(403)
         return f(*args, **kwargs)
 
@@ -115,14 +112,11 @@ def can_remove_domain(f):
 def can_create_domain(f):
     """
     Grant access if:
-        - user is in Operator role or higher, or
-        - allow_user_create_domain is on
+        - user is in Operator role or higher
     """
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        if current_user.role.name not in [
-                'Administrator', 'Operator'
-        ] and not Setting().get('allow_user_create_domain'):
+        if current_user.role.name not in ['Administrator', 'Operator']:
             abort(403)
         return f(*args, **kwargs)
 
@@ -170,14 +164,15 @@ def api_basic_auth(f):
                     plain_text_password=password)
 
         try:
-            if Setting().get('verify_user_email') and user.email and not user.confirmed:
-                current_app.logger.warning(
-                    'Basic authentication failed for user {} because of unverified email address'
-                    .format(username))
-                abort(401)
+            # if Setting().get('verify_user_email') and user.email and not user.confirmed:
+            #     current_app.logger.warning(
+            #         'Basic authentication failed for user {} because of unverified email address'
+            #         .format(username))
+            #     abort(401)
 
             auth_method = request.args.get('auth_method', 'LOCAL')
-            auth_method = 'LDAP' if auth_method != 'LOCAL' else 'LOCAL'
+            # auth_method = 'LDAP' if auth_method != 'LOCAL' else 'LOCAL'
+            auth_method = 'LOCAL'
             auth = user.is_validate(method=auth_method, src_ip=request.remote_addr)
 
             if not auth:
@@ -262,23 +257,20 @@ def api_role_can(action, roles=None, allow_self=False):
 def api_can_create_domain(f):
     """
     Grant access if:
-        - user is in Operator role or higher, or
-        - allow_user_create_domain is on
+        - user is in Operator role or higher
     """
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        if current_user.role.name not in [
-                'Administrator', 'Operator'
-        ] and not Setting().get('allow_user_create_domain'):
+        if current_user.role.name not in ['Administrator', 'Operator']:
             msg = "User {0} does not have enough privileges to create zone"
             current_app.logger.error(msg.format(current_user.username))
             raise NotEnoughPrivileges()
         
-        if Setting().get('deny_domain_override'):
-            req = request.get_json(force=True)
-            domain = Domain()
-            if req['name'] and domain.is_overriding(req['name']):
-                raise DomainOverrideForbidden()
+        # if Setting().get('deny_domain_override'):
+        #     req = request.get_json(force=True)
+        #     domain = Domain()
+        #     if req['name'] and domain.is_overriding(req['name']):
+        #         raise DomainOverrideForbidden()
 
         return f(*args, **kwargs)
 
@@ -288,26 +280,23 @@ def api_can_create_domain(f):
 def apikey_can_create_domain(f):
     """
     Grant access if:
-        - user is in Operator role or higher, or
-        - allow_user_create_domain is on
+        - user is in Operator role or higher
         and
-        - deny_domain_override is off or
+        # - deny_domain_override is off or
         - override_domain is true (from request)
     """
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        if g.apikey.role.name not in [
-                'Administrator', 'Operator'
-        ] and not Setting().get('allow_user_create_domain'):
+        if g.apikey.role.name not in ['Administrator', 'Operator']:
             msg = "ApiKey #{0} does not have enough privileges to create zone"
             current_app.logger.error(msg.format(g.apikey.id))
             raise NotEnoughPrivileges()
 
-        if Setting().get('deny_domain_override'):
-            req = request.get_json(force=True)
-            domain = Domain()
-            if req['name'] and domain.is_overriding(req['name']):
-                raise DomainOverrideForbidden()
+        # if Setting().get('deny_domain_override'):
+        #     req = request.get_json(force=True)
+        #     domain = Domain()
+        #     if req['name'] and domain.is_overriding(req['name']):
+        #         raise DomainOverrideForbidden()
 
         return f(*args, **kwargs)
 
@@ -326,8 +315,7 @@ def apikey_can_remove_domain(http_methods=[]):
             check_current_http_method = not http_methods or request.method in http_methods
 
             if (check_current_http_method and
-                g.apikey.role.name not in ['Administrator', 'Operator'] and
-                not Setting().get('allow_user_remove_domain')
+                g.apikey.role.name not in ['Administrator', 'Operator']
             ):
                 msg = "ApiKey #{0} does not have enough privileges to remove zone"
                 current_app.logger.error(msg.format(g.apikey.id))
@@ -376,27 +364,27 @@ def apikey_can_access_domain(f):
     return decorated_function
 
 
-def apikey_can_configure_dnssec(http_methods=[]):
-    """
-    Grant access if:
-        - user is in Operator role or higher, or
-        - dnssec_admins_only is off
-    """
-    def decorator(f=None):
-        @wraps(f)
-        def decorated_function(*args, **kwargs):
-            check_current_http_method = not http_methods or request.method in http_methods
+# def apikey_can_configure_dnssec(http_methods=[]):
+#     """
+#     Grant access if:
+#         - user is in Operator role or higher, or
+#         - dnssec_admins_only is off
+#     """
+#     def decorator(f=None):
+#         @wraps(f)
+#         def decorated_function(*args, **kwargs):
+#             check_current_http_method = not http_methods or request.method in http_methods
 
-            if (check_current_http_method and
-                g.apikey.role.name not in ['Administrator', 'Operator'] and
-                Setting().get('dnssec_admins_only')
-            ):
-                msg = "ApiKey #{0} does not have enough privileges to configure dnssec"
-                current_app.logger.error(msg.format(g.apikey.id))
-                raise DomainAccessForbidden(message=msg)
-            return f(*args, **kwargs) if f else None
-        return decorated_function
-    return decorator
+#             if (check_current_http_method and
+#                 g.apikey.role.name not in ['Administrator', 'Operator'] and
+#                 Setting().get('dnssec_admins_only')
+#             ):
+#                 msg = "ApiKey #{0} does not have enough privileges to configure dnssec"
+#                 current_app.logger.error(msg.format(g.apikey.id))
+#                 raise DomainAccessForbidden(message=msg)
+#             return f(*args, **kwargs) if f else None
+#         return decorated_function
+#     return decorator
 
 def allowed_record_types(f):
     @wraps(f)

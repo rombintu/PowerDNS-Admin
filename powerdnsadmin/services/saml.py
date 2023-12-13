@@ -28,7 +28,7 @@ class SAML(object):
                     config['SAML_IDP_SSO_BINDING'])
             else:
                 self.idp_data = OneLogin_Saml2_IdPMetadataParser.parse_remote(
-                    current_app.config['SAML_METADATA_URL'],
+                    current_app.config.get('SAML_METADATA_URL'),
                     entity_id=current_app.config.get('SAML_IDP_ENTITY_ID',
                                                      None))
             if self.idp_data is None:

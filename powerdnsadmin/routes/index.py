@@ -3,27 +3,27 @@ import re
 import json
 import traceback
 import datetime
-import ipaddress
+# import ipaddress
 import base64
 import string
 from zxcvbn import zxcvbn
-from distutils.util import strtobool
+# from distutils.util import strtobool
 from yaml import Loader, load
-from flask import Blueprint, render_template, make_response, url_for, current_app, g, session, request, redirect, abort
+from flask import Blueprint, render_template, make_response, url_for, current_app, g, session, request, redirect, abort, jsonify
 from flask_login import login_user, logout_user, login_required, current_user
 
 from .base import captcha, csrf, login_manager
 from ..lib import utils
-from ..decorators import dyndns_login_required
-from ..models.base import db
+# from ..decorators import dyndns_login_required
+# from ..models.base import db
 from ..models.user import User, Anonymous
 from ..models.role import Role
 from ..models.account import Account
-from ..models.account_user import AccountUser
-from ..models.domain import Domain
-from ..models.domain_user import DomainUser
-from ..models.domain_setting import DomainSetting
-from ..models.record import Record
+# from ..models.account_user import AccountUser
+# from ..models.domain import Domain
+# from ..models.domain_user import DomainUser
+# from ..models.domain_setting import DomainSetting
+# from ..models.record import Record
 from ..models.setting import Setting
 from ..models.history import History
 # from ..services.google import google_oauth
@@ -31,7 +31,7 @@ from ..models.history import History
 # from ..services.azure import azure_oauth
 # from ..services.oidc import oidc_oauth
 from ..services.saml import SAML
-from ..services.token import confirm_token
+# from ..services.token import confirm_token
 # from ..services.email import send_account_verification
 
 # google = None
@@ -96,7 +96,7 @@ def index():
 
 @index_bp.route('/ping', methods=['GET'])
 def ping():
-    return make_response('ok')
+    return jsonify({"status": "ok"})
 
 
 # @index_bp.route('/google/login')
@@ -166,6 +166,7 @@ def ping():
 @index_bp.route('/login', methods=['GET', 'POST'])
 def login():
     SAML_ENABLED = current_app.config.get('SAML_ENABLED', False)
+    VERSION = current_app.config.get("VERSION", None)
 
     if g.user is not None and current_user.is_authenticated:
         return redirect(url_for('dashboard.dashboard'))
@@ -466,7 +467,7 @@ def login():
     #     return authenticate_user(user, 'OIDC OAuth')
 
     if request.method == 'GET':
-        return render_template('login.html', saml_enabled=SAML_ENABLED)
+        return render_template('login.html', saml_enabled=SAML_ENABLED, version=VERSION)
     elif request.method == 'POST':
         # process Local-DB authentication
         username = request.form['username']
@@ -481,6 +482,7 @@ def login():
             return render_template(
                 'login.html',
                 saml_enabled=SAML_ENABLED,
+                version=VERSION,
                 error='Local authentication is disabled')
 
         user = User(username=username,
@@ -488,11 +490,12 @@ def login():
                     plain_text_password=password)
 
         try:
-            if Setting().get('verify_user_email') and user.email and not user.confirmed:
-                return render_template(
-                    'login.html',
-                    saml_enabled=SAML_ENABLED,
-                    error='Please confirm your email address first')
+            # if Setting().get('verify_user_email') and user.email and not user.confirmed:
+            #     return render_template(
+            #         'login.html',
+            #         saml_enabled=SAML_ENABLED,
+            #         version=VERSION,
+            #         error='Please confirm your email address first')
 
             auth = user.is_validate(method=auth_method,
                                     src_ip=request.remote_addr)
@@ -500,6 +503,7 @@ def login():
                 signin_history(user.username, auth_method, False)
                 return render_template('login.html',
                                        saml_enabled=SAML_ENABLED,
+                                       version=VERSION,
                                        error='Invalid credentials')
         except Exception as e:
             current_app.logger.error(
@@ -507,6 +511,7 @@ def login():
             current_app.logger.debug(traceback.format_exc())
             return render_template('login.html',
                                    saml_enabled=SAML_ENABLED,
+                                   version=VERSION,
                                    error=e)
 
         # check if user enabled OPT authentication
@@ -523,38 +528,38 @@ def login():
         #                                saml_enabled=SAML_ENABLED,
         #                                error='Token required')
 
-        if Setting().get('autoprovisioning') and auth_method != 'LOCAL':
-            urn_value = Setting().get('urn_value')
-            Entitlements = user.read_entitlements(Setting().get('autoprovisioning_attribute'))
-            if len(Entitlements) == 0 and Setting().get('purge'):
-                user.set_role("User")
-                user.revoke_privilege(True)
+        # if Setting().get('autoprovisioning') and auth_method != 'LOCAL':
+        #     urn_value = Setting().get('urn_value')
+        #     Entitlements = user.read_entitlements(Setting().get('autoprovisioning_attribute'))
+        #     if len(Entitlements) == 0 and Setting().get('purge'):
+        #         user.set_role("User")
+        #         user.revoke_privilege(True)
 
-            elif len(Entitlements) != 0:
-                if checkForPDAEntries(Entitlements, urn_value):
-                    user.updateUser(Entitlements)
-                else:
-                    current_app.logger.warning(
-                        'Not a single powerdns-admin record was found, possibly a typo in the prefix')
-                    if Setting().get('purge'):
-                        user.set_role("User")
-                        user.revoke_privilege(True)
-                        current_app.logger.warning('Procceding to revoke every privilige from ' + user.username + '.')
+        #     elif len(Entitlements) != 0:
+        #         if checkForPDAEntries(Entitlements, urn_value):
+        #             user.updateUser(Entitlements)
+        #         else:
+        #             current_app.logger.warning(
+        #                 'Not a single powerdns-admin record was found, possibly a typo in the prefix')
+        #             if Setting().get('purge'):
+        #                 user.set_role("User")
+        #                 user.revoke_privilege(True)
+        #                 current_app.logger.warning('Procceding to revoke every privilige from ' + user.username + '.')
 
         return authenticate_user(user, auth_method, remember_me)
 
 
-def checkForPDAEntries(Entitlements, urn_value):
-    """
-    Run through every record located in the ldap attribute given and determine if there are any valid powerdns-admin records
-    """
-    urnArguments = [x.lower() for x in urn_value.split(':')]
-    for Entitlement in Entitlements:
-        entArguments = Entitlement.split(':powerdns-admin')
-        entArguments = [x.lower() for x in entArguments[0].split(':')]
-        if (entArguments == urnArguments):
-            return True
-    return False
+# def checkForPDAEntries(Entitlements, urn_value):
+#     """
+#     Run through every record located in the ldap attribute given and determine if there are any valid powerdns-admin records
+#     """
+#     urnArguments = [x.lower() for x in urn_value.split(':')]
+#     for Entitlement in Entitlements:
+#         entArguments = Entitlement.split(':powerdns-admin')
+#         entArguments = [x.lower() for x in entArguments[0].split(':')]
+#         if (entArguments == urnArguments):
+#             return True
+#     return False
 
 
 def clear_session():
@@ -615,25 +620,22 @@ def signin_history(username, authenticator, success):
 #     return mygroups
 
 
-# Handle user login, write history and, if set, handle showing the register_otp QR code.
-# if Setting for OTP on first login is enabled, and OTP field is also enabled,
-# but user isn't using it yet, enable OTP, get QR code and display it, logging the user out.
 def authenticate_user(user, authenticator, remember=False):
     login_user(user, remember=remember)
     signin_history(user.username, authenticator, True)
-    if Setting().get('otp_force') and Setting().get('otp_field_enabled') and not user.otp_secret \
-            and session['authentication_type'] not in ['OAuth']:
-        user.update_profile(enable_otp=True)
-        user_id = current_user.id
-        prepare_welcome_user(user_id)
-        return redirect(url_for('index.welcome'))
+    # if Setting().get('otp_force') and Setting().get('otp_field_enabled') and not user.otp_secret \
+    #         and session['authentication_type'] not in ['OAuth']:
+    #     user.update_profile(enable_otp=True)
+    #     user_id = current_user.id
+    #     prepare_welcome_user(user_id)
+    #     return redirect(url_for('index.welcome'))
     return redirect(url_for('index.login'))
 
 
-# Prepare user to enter /welcome screen, otherwise they won't have permission to do so
-def prepare_welcome_user(user_id):
-    logout_user()
-    session['welcome_user_id'] = user_id
+# # Prepare user to enter /welcome screen, otherwise they won't have permission to do so
+# def prepare_welcome_user(user_id):
+#     logout_user()
+#     session['welcome_user_id'] = user_id
 
 
 @index_bp.route('/logout')
@@ -849,36 +851,37 @@ def register():
                 # else:
                 #     return render_template('register.html',
                 #                            error=result['msg'], captcha_enable=CAPTCHA_ENABLE)
-                    return redirect(url_for('index.welcome'))
+                    return redirect(url_for('index.index'))
             except Exception as e:
                 return render_template('register.html', error=e, captcha_enable=CAPTCHA_ENABLE)
         else:
             return render_template('errors/404.html'), 404
-
+    else:
+        return render_template('errors/403.html'), 403
 
 # Show welcome page on first login if otp_force is enabled
-@index_bp.route('/welcome', methods=['GET', 'POST'])
-def welcome():
-    if 'welcome_user_id' not in session:
-        return redirect(url_for('index.index'))
+# @index_bp.route('/welcome', methods=['GET', 'POST'])
+# def welcome():
+#     if 'welcome_user_id' not in session:
+#         return redirect(url_for('index.index'))
 
-    user = User(id=session['welcome_user_id'])
-    encoded_img_data = base64.b64encode(user.get_qrcode_value())
+#     user = User(id=session['welcome_user_id'])
+#     encoded_img_data = base64.b64encode(user.get_qrcode_value())
 
-    if request.method == 'GET':
-        return render_template('register_otp.html', qrcode_image=encoded_img_data.decode(), user=user)
-    elif request.method == 'POST':
-        otp_token = request.form.get('otptoken', '')
-        if otp_token and otp_token.isdigit():
-            good_token = user.verify_totp(otp_token)
-            if not good_token:
-                return render_template('register_otp.html', qrcode_image=encoded_img_data.decode(), user=user,
-                                       error="Invalid token")
-        else:
-            return render_template('register_otp.html', qrcode_image=encoded_img_data.decode(), user=user,
-                                   error="Token required")
-        session.pop('welcome_user_id')
-        return redirect(url_for('index.index'))
+#     if request.method == 'GET':
+#         return render_template('register_otp.html', qrcode_image=encoded_img_data.decode(), user=user)
+#     elif request.method == 'POST':
+#         otp_token = request.form.get('otptoken', '')
+#         if otp_token and otp_token.isdigit():
+#             good_token = user.verify_totp(otp_token)
+#             if not good_token:
+#                 return render_template('register_otp.html', qrcode_image=encoded_img_data.decode(), user=user,
+#                                        error="Invalid token")
+#         else:
+#             return render_template('register_otp.html', qrcode_image=encoded_img_data.decode(), user=user,
+#                                    error="Token required")
+#         session.pop('welcome_user_id')
+#         return redirect(url_for('index.index'))
 
 
 # @index_bp.route('/confirm/<token>', methods=['GET'])

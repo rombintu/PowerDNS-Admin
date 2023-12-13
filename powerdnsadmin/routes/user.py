@@ -1,5 +1,5 @@
 import datetime
-import hashlib
+# import hashlib
 import imghdr
 import mimetypes
 
@@ -55,31 +55,32 @@ def profile():
                 'Authenticated externally. User {0} information will not allowed to update the profile'
                 .format(current_user.username))
 
-        if request.data:
-            jdata = request.json
-            data = jdata['data']
-            if jdata['action'] == 'enable_otp':
-                if session['authentication_type'] in ['LOCAL', 'LDAP']:
-                    enable_otp = data['enable_otp']
-                    user = User(username=current_user.username)
-                    user.update_profile(enable_otp=enable_otp)
-                    return make_response(
-                        jsonify({
-                            'status':
-                            'ok',
-                            'msg':
-                            'Change OTP Authentication successfully. Status: {0}'
-                            .format(enable_otp)
-                        }), 200)
-                else:
-                    return make_response(
-                        jsonify({
-                            'status':
-                            'error',
-                            'msg':
-                            'User {0} is externally. You are not allowed to update the OTP'
-                            .format(current_user.username)
-                        }), 400)
+        # if request.data:
+            # jdata = request.json
+            # data = jdata['data']
+            # if jdata['action'] == 'enable_otp':
+            #     # if session['authentication_type'] in ['LOCAL', 'LDAP']:
+            #     if session['authentication_type'] in ['LOCAL']:
+            #         enable_otp = data['enable_otp']
+            #         user = User(username=current_user.username)
+            #         user.update_profile(enable_otp=enable_otp)
+            #         return make_response(
+            #             jsonify({
+            #                 'status':
+            #                 'ok',
+            #                 'msg':
+            #                 'Change OTP Authentication successfully. Status: {0}'
+            #                 .format(enable_otp)
+            #             }), 200)
+            #     else:
+            #         return make_response(
+            #             jsonify({
+            #                 'status':
+            #                 'error',
+            #                 'msg':
+            #                 'User {0} is externally. You are not allowed to update the OTP'
+            #                 .format(current_user.username)
+            #             }), 400)
 
         (password_policy_pass, password_policy) = password_policy_check(current_user.get_user_info_by_username(), new_password)
         if not password_policy_pass:

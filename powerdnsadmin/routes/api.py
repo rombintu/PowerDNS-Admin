@@ -11,9 +11,11 @@ from .base import csrf
 from ..decorators import (
     api_basic_auth, api_can_create_domain, is_json, apikey_auth,
     apikey_can_create_domain, apikey_can_remove_domain,
-    apikey_is_admin, apikey_can_access_domain, apikey_can_configure_dnssec,
+    apikey_is_admin, apikey_can_access_domain, 
+    # apikey_can_configure_dnssec,
     api_role_can, apikey_or_basic_auth,
-    callback_if_request_body_contains_key, allowed_record_types, allowed_record_ttl
+    # callback_if_request_body_contains_key, allowed_record_types, allowed_record_ttl
+    allowed_record_types, allowed_record_ttl,
 )
 from ..lib import utils, helper
 from ..lib.errors import (
@@ -49,11 +51,12 @@ account_schema = AccountSchema(many=True)
 account_single_schema = AccountSchema()
 
 def is_custom_header_api():
-    custom_header_setting = Setting().get('custom_history_header')
-    if custom_header_setting != '' and custom_header_setting in request.headers: 
-        return request.headers[custom_header_setting] 
-    else: 
-        return g.apikey.description 
+    # custom_header_setting = Setting().get('custom_history_header')
+    # if custom_header_setting != '' and custom_header_setting in request.headers: 
+    #     return request.headers[custom_header_setting] 
+    # else: 
+    #     return g.apikey.description 
+    return g.apikey.description
 
 def get_user_domains():
     domains = db.session.query(Domain) \
@@ -182,7 +185,12 @@ def before_request():
 
 @apilist_bp.route('/api', methods=['GET'])
 def index():
-    return '[{"url": "/api/v1", "version": 1}]', 200
+    return make_response(
+                jsonify({
+                    "url": "/api/v1",
+                    "version": 1,
+                    "status": 200,
+                }))
 
 
 @api_bp.route('/pdnsadmin/zones', methods=['POST'])
@@ -1058,28 +1066,28 @@ def api_remove_account_user(account_id, user_id):
     return '', 204
 
 
-@api_bp.route(
-    '/servers/<string:server_id>/zones/<string:zone_id>/cryptokeys',
-    methods=['GET', 'POST'])
-@apikey_auth
-@apikey_can_access_domain
-@apikey_can_configure_dnssec(http_methods=['POST'])
-@csrf.exempt
-def api_zone_cryptokeys(server_id, zone_id):
-    resp = helper.forward_request()
-    return resp.content, resp.status_code, resp.headers.items()
+# @api_bp.route(
+#     '/servers/<string:server_id>/zones/<string:zone_id>/cryptokeys',
+#     methods=['GET', 'POST'])
+# @apikey_auth
+# @apikey_can_access_domain
+# @apikey_can_configure_dnssec(http_methods=['POST'])
+# @csrf.exempt
+# def api_zone_cryptokeys(server_id, zone_id):
+#     resp = helper.forward_request()
+#     return resp.content, resp.status_code, resp.headers.items()
 
 
-@api_bp.route(
-    '/servers/<string:server_id>/zones/<string:zone_id>/cryptokeys/<string:cryptokey_id>',
-    methods=['GET', 'PUT', 'DELETE'])
-@apikey_auth
-@apikey_can_access_domain
-@apikey_can_configure_dnssec()
-@csrf.exempt
-def api_zone_cryptokey(server_id, zone_id, cryptokey_id):
-    resp = helper.forward_request()
-    return resp.content, resp.status_code, resp.headers.items()
+# @api_bp.route(
+#     '/servers/<string:server_id>/zones/<string:zone_id>/cryptokeys/<string:cryptokey_id>',
+#     methods=['GET', 'PUT', 'DELETE'])
+# @apikey_auth
+# @apikey_can_access_domain
+# @apikey_can_configure_dnssec()
+# @csrf.exempt
+# def api_zone_cryptokey(server_id, zone_id, cryptokey_id):
+#     resp = helper.forward_request()
+#     return resp.content, resp.status_code, resp.headers.items()
 
 
 @api_bp.route(
@@ -1100,9 +1108,9 @@ def api_zone_subpath_forward(server_id, zone_id, subpath):
 @allowed_record_ttl
 @apikey_can_access_domain
 @apikey_can_remove_domain(http_methods=['DELETE'])
-@callback_if_request_body_contains_key(apikey_can_configure_dnssec()(),
-                                       http_methods=['PUT'],
-                                       keys=['dnssec', 'nsec3param'])
+# @callback_if_request_body_contains_key(apikey_can_configure_dnssec()(),
+#                                        http_methods=['PUT'],
+#                                        keys=['dnssec', 'nsec3param'])
 @csrf.exempt
 def api_zone_forward(server_id, zone_id):
     resp = helper.forward_request()
@@ -1113,31 +1121,31 @@ def api_zone_forward(server_id, zone_id):
     created_by_value=is_custom_header_api()
     if 200 <= status < 300:
         current_app.logger.debug("Request to powerdns API successful")
-        if Setting().get('enable_api_rr_history'):
-            if request.method in ['POST', 'PATCH']:
-                data = request.get_json(force=True)
-                history = History(
-                    msg='Apply record changes to zone {0}'.format(zone_id.rstrip('.')),
-                    detail = json.dumps({
-                        'domain': zone_id.rstrip('.'),
-                        'add_rrsets': list(filter(lambda r: r['changetype'] == "REPLACE", data['rrsets'])),
-                        'del_rrsets': list(filter(lambda r: r['changetype'] == "DELETE", data['rrsets']))
-                    }),
-                    created_by=created_by_value,
-                    domain_id=Domain().get_id_by_name(zone_id.rstrip('.')))
-                history.add()
-            elif request.method == 'DELETE':
-                history = History(msg='Deleted zone {0}'.format(zone_id.rstrip('.')),
-                                  detail='',
-                                  created_by=created_by_value,
-                                  domain_id=Domain().get_id_by_name(zone_id.rstrip('.')))
-                history.add()
-            elif request.method != 'GET':
-                history = History(msg='Updated zone {0}'.format(zone_id.rstrip('.')),
-                                  detail='',
-                                  created_by=created_by_value,
-                                  domain_id=Domain().get_id_by_name(zone_id.rstrip('.')))
-                history.add()
+        # if Setting().get('enable_api_rr_history'):
+        if request.method in ['POST', 'PATCH']:
+            data = request.get_json(force=True)
+            history = History(
+                msg='Apply record changes to zone {0}'.format(zone_id.rstrip('.')),
+                detail = json.dumps({
+                    'domain': zone_id.rstrip('.'),
+                    'add_rrsets': list(filter(lambda r: r['changetype'] == "REPLACE", data['rrsets'])),
+                    'del_rrsets': list(filter(lambda r: r['changetype'] == "DELETE", data['rrsets']))
+                }),
+                created_by=created_by_value,
+                domain_id=Domain().get_id_by_name(zone_id.rstrip('.')))
+            history.add()
+        elif request.method == 'DELETE':
+            history = History(msg='Deleted zone {0}'.format(zone_id.rstrip('.')),
+                                detail='',
+                                created_by=created_by_value,
+                                domain_id=Domain().get_id_by_name(zone_id.rstrip('.')))
+            history.add()
+        elif request.method != 'GET':
+            history = History(msg='Updated zone {0}'.format(zone_id.rstrip('.')),
+                                detail='',
+                                created_by=created_by_value,
+                                domain_id=Domain().get_id_by_name(zone_id.rstrip('.')))
+            history.add()
     return resp.content, resp.status_code, resp.headers.items()
 
 

@@ -7,6 +7,7 @@ from ast import literal_eval
 from flask import Blueprint, render_template, render_template_string, make_response, url_for, current_app, request, \
     redirect, jsonify, abort, flash, session
 from flask_login import login_required, current_user
+from flask_babel import gettext
 
 from ..decorators import operator_role_required, admin_role_required, history_access_required
 from ..models.user import User
@@ -999,38 +1000,38 @@ def convert_histories(histories):
 @login_required
 @history_access_required
 def history():
-    if request.method == 'POST':
-        if current_user.role.name != 'Administrator':
-            return make_response(
-                jsonify({
-                    'status': 'error',
-                    'msg': 'You do not have permission to remove history.'
-                }), 401)
+    # if request.method == 'POST':
+    #     if current_user.role.name != 'Administrator':
+    #         return make_response(
+    #             jsonify({
+    #                 'status': 'error',
+    #                 'msg': 'You do not have permission to remove history.'
+    #             }), 401)
 
-        if Setting().get('preserve_history'):
-            return make_response(
-                jsonify({
-                    'status': 'error',
-                    'msg': 'History removal is not allowed (toggle preserve_history in settings).'
-                }), 401)
+    #     if Setting().get('preserve_history'):
+    #         return make_response(
+    #             jsonify({
+    #                 'status': 'error',
+    #                 'msg': 'History removal is not allowed (toggle preserve_history in settings).'
+    #             }), 401)
 
-        h = History()
-        result = h.remove_all()
-        if result:
-            history = History(msg='Remove all histories',
-                              created_by=current_user.username)
-            history.add()
-            return make_response(
-                jsonify({
-                    'status': 'ok',
-                    'msg': 'Changed user role successfully.'
-                }), 200)
-        else:
-            return make_response(
-                jsonify({
-                    'status': 'error',
-                    'msg': 'Can not remove histories.'
-                }), 500)
+    #     h = History()
+    #     result = h.remove_all()
+    #     if result:
+    #         history = History(msg='Remove all histories',
+    #                           created_by=current_user.username)
+    #         history.add()
+    #         return make_response(
+    #             jsonify({
+    #                 'status': 'ok',
+    #                 'msg': 'Changed user role successfully.'
+    #             }), 200)
+    #     else:
+    #         return make_response(
+    #             jsonify({
+    #                 'status': 'error',
+    #                 'msg': 'Can not remove histories.'
+    #             }), 500)
 
     if request.method == 'GET':
         doms = accounts = users = ""
@@ -1351,41 +1352,41 @@ def history_table():  # ajax call data
 @login_required
 @operator_role_required
 def setting_basic():
-    settings = [
-        'account_name_extra_chars',
-        'allow_user_create_domain',
-        'allow_user_remove_domain',
-        'allow_user_view_history',
-        'auto_ptr',
-        'bg_domain_updates',
-        'custom_css',
-        'default_domain_table_size',
-        'default_record_table_size',
-        'delete_sso_accounts',
-        'custom_history_header',
-        'deny_domain_override',
-        'dnssec_admins_only',
-        'enable_api_rr_history',
-        'enforce_api_ttl',
-        'fullscreen_layout',
-        'gravatar_enabled',
-        'login_ldap_first',
-        'maintenance',
-        'max_history_records',
-        'otp_field_enabled',
-        'otp_force',
-        'pdns_api_timeout',
-        'preserve_history',
-        'pretty_ipv6_ptr',
-        'record_helper',
-        'record_quick_edit',
-        'session_timeout',
-        'site_name',
-        'ttl_options',
-        'verify_ssl_connections',
-        'verify_user_email',
-        'warn_session_timeout',
-    ]
+    settings = {
+        # 'account_name_extra_chars': gettext(u' '),
+        # 'allow_user_create_domain': gettext(u' '),
+        # 'allow_user_remove_domain': gettext(u' '),
+        'allow_user_view_history': gettext(u'Allow users to view the history of actions '),
+        'auto_ptr': gettext(u'Automatic creation of a PTR record'),
+        'bg_domain_updates': gettext(u'Automatic updating of domain information. Turn it on for more performance'),
+        # 'custom_css': gettext(u' '),
+        'default_domain_table_size': gettext(u'Default value of the table on the domain page'),
+        'default_record_table_size': gettext(u'Default value of the table on the record page'),
+        # 'delete_sso_accounts': gettext(u' '),
+        # 'custom_history_header': gettext(u' '),
+        # 'deny_domain_override': gettext(u' '),
+        # 'dnssec_admins_only': gettext(u' '),
+        # 'enable_api_rr_history': gettext(u' '),
+        'enforce_api_ttl': gettext(u'Getting all the values via the API. Default: disable'),
+        # 'fullscreen_layout': gettext(u' '),
+        # 'gravatar_enabled': gettext(u' '),
+        # 'login_ldap_first': gettext(u' '),
+        'maintenance': gettext(u'Switch the service to maintenance mode'),
+        'max_history_records': gettext(u'Maximum value of visible record rows'),
+        # 'otp_field_enabled': gettext(u' '),
+        # 'otp_force': gettext(u' '),
+        'pdns_api_timeout': gettext(u'API session timeout'),
+        # 'preserve_history': gettext(u' '),
+        # 'pretty_ipv6_ptr': gettext(u' '),
+        'record_helper': gettext(u'Assistance in creating a zone and writing to a domain'),
+        # 'record_quick_edit': gettext(u' '),
+        'session_timeout': gettext(u'User session timeout'),
+        'site_name': gettext(u'The name of the service. Displayed in some places'),
+        'ttl_options': gettext(u'Setting TTL options, by time, separated by commas'),
+        'verify_ssl_connections': gettext(u'Checking for the users SSL connection'),
+        # 'verify_user_email': gettext(u' '),
+        'warn_session_timeout': gettext(u'A warning about long inactivity. Allows the user to keep the session active'),
+    }
 
     return render_template('admin_setting_basic.html', settings=settings)
 
@@ -1686,7 +1687,7 @@ def edit_template(template):
         t = DomainTemplate.query.filter(
             DomainTemplate.name == template).first()
         records_allow_to_edit = Setting().get_records_allow_to_edit()
-        quick_edit = Setting().get('record_quick_edit')
+        # quick_edit = Setting().get('record_quick_edit')
         ttl_options = Setting().get_ttl_options()
         if t is not None:
             records = []
@@ -1705,7 +1706,7 @@ def edit_template(template):
                                    template=t.name,
                                    records=records,
                                    editable_records=records_allow_to_edit,
-                                   quick_edit=quick_edit,
+                                #    quick_edit=quick_edit,
                                    ttl_options=ttl_options)
     except Exception as e:
         current_app.logger.error(

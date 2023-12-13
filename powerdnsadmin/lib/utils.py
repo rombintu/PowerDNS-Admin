@@ -209,7 +209,8 @@ def validate_ipaddress(address):
     except ValueError:
         pass
     else:
-        if isinstance(ip, (ipaddress.IPv4Address, ipaddress.IPv6Address)):
+        # if isinstance(ip, (ipaddress.IPv4Address, ipaddress.IPv6Address)):
+        if isinstance(ip, (ipaddress.IPv4Address)):
             return [ip]
     return []
 

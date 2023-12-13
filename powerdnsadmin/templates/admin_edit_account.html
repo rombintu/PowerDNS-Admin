@@ -62,7 +62,7 @@
                                     <span class="form-control-feedback"></span>
                                     {% if invalid_accountname %}
                                         <span class="help-block text-danger">Cannot be blank and must only contain alphanumeric
-                    characters{% if SETTING.get('account_name_extra_chars') %}, dots, hyphens or underscores{% endif %}.
+                    characters.
                   </span>
                                     {% elif duplicate_accountname %}
                                         <span class="help-block text-danger">Account name already in use.</span>
@@ -181,9 +181,7 @@
                             <p>
                                 <strong>Name</strong> is an account identifier. It will be lowercase and can contain
                                 alphanumeric
-                                characters{% if SETTING.get('account_name_extra_chars') %}, dots, hyphens and
-                                underscores (no space or other special character is allowed)
-                            {% else %} (no extra character is allowed){% endif %}.<br/>
+                                characters.<br/>
                                 <strong>Description</strong> is a user-friendly name for this account.<br/>
                                 <strong>Contact person</strong> is the name of a contact person at the account.<br/>
                                 <strong>Mail Address</strong> is an e-mail address for the contact person.

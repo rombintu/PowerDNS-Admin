@@ -29,7 +29,7 @@
                     <div class="card card-outline card-secondary">
                         <div class="card-header with-border">
                             <h3 class="card-title">Activity Search</h3>
-                            {% if current_user.role.name == 'Administrator' %}
+                            <!-- {% if current_user.role.name == 'Administrator' %}
                                 <div class="card-tools">
                                     <button type="button" class="btn btn-danger" data-toggle="modal"
                                             data-target="#modal_clear_history" title="Clear Activity">
@@ -37,7 +37,7 @@
                                         Clear Activity
                                     </button>
                                 </div>
-                            {% endif %}
+                            {% endif %} -->
                         </div>
                         <form id="history-search-form" autocomplete="off">
                             <div class="card-body clearfix">
@@ -512,7 +512,7 @@
 
 {% block modals %}
     <!-- Clear History Confirmation Box -->
-    <div class="modal fade modal-warning" id="modal_clear_history">
+    <!-- <div class="modal fade modal-warning" id="modal_clear_history">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -533,7 +533,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- History Details Box -->
     <div class="modal fade" id="modal_history_info">
         <div class="modal-dialog modal-lg">

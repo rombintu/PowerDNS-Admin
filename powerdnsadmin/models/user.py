@@ -33,7 +33,7 @@ class User(db.Model):
     lastname = db.Column(db.String(64))
     email = db.Column(db.String(128))
     otp_secret = db.Column(db.String(16))
-    confirmed = db.Column(db.SmallInteger, nullable=False, default=0)
+    # confirmed = db.Column(db.SmallInteger, nullable=False, default=0)
     role_id = db.Column(db.Integer, db.ForeignKey('role.id'))
     role = db.relationship('Role', back_populates="users", lazy=True)
     accounts = None
@@ -48,7 +48,7 @@ class User(db.Model):
                  role_id=None,
                  email=None,
                  otp_secret=None,
-                 confirmed=False,
+                #  confirmed=False,
                  reload_info=True):
         self.id = id
         self.username = username
@@ -59,7 +59,7 @@ class User(db.Model):
         self.role_id = role_id
         self.email = email
         self.otp_secret = otp_secret
-        self.confirmed = confirmed
+        # self.confirmed = confirmed
 
         if reload_info:
             user_info = self.get_user_info_by_id(
@@ -73,7 +73,7 @@ class User(db.Model):
                 self.email = user_info.email
                 self.role_id = user_info.role_id
                 self.otp_secret = user_info.otp_secret
-                self.confirmed = user_info.confirmed
+                # self.confirmed = user_info.confirmed
 
     def is_authenticated(self):
         return True
@@ -501,8 +501,8 @@ class User(db.Model):
             # update the "confirmed" status.
             if user.email != self.email:
                 user.email = self.email
-                if Setting().get('verify_user_email'):
-                    user.confirmed = 0
+                # if Setting().get('verify_user_email'):
+                #     user.confirmed = 0
 
         if enable_otp is not None:
             user.otp_secret = ""
@@ -634,29 +634,29 @@ class User(db.Model):
         return stream.getvalue()
 
 
-    def read_entitlements(self, key):
-        """
-        Get entitlements from ldap server associated with this user
-        """
-        LDAP_BASE_DN = Setting().get('ldap_base_dn')
-        LDAP_FILTER_USERNAME = Setting().get('ldap_filter_username')
-        LDAP_FILTER_BASIC = Setting().get('ldap_filter_basic')
-        searchFilter = "(&({0}={1}){2})".format(LDAP_FILTER_USERNAME,
-                                                        self.username,
-                                                        LDAP_FILTER_BASIC)
-        current_app.logger.debug('Ldap searchFilter {0}'.format(searchFilter))
-        ldap_result = self.ldap_search(searchFilter, LDAP_BASE_DN, [key])
-        current_app.logger.debug('Ldap search result: {0}'.format(ldap_result))
-        entitlements=[]
-        if ldap_result:
-            dict=ldap_result[0][0][1]
-            if len(dict)!=0:
-                for entitlement in dict[key]:
-                    entitlements.append(entitlement.decode("utf-8"))
-            else:
-                e="Not found value in the autoprovisioning attribute field "
-                current_app.logger.warning("Cannot apply autoprovisioning on user: {}".format(e))
-        return entitlements
+    # def read_entitlements(self, key):
+    #     """
+    #     Get entitlements from ldap server associated with this user
+    #     """
+    #     LDAP_BASE_DN = Setting().get('ldap_base_dn')
+    #     LDAP_FILTER_USERNAME = Setting().get('ldap_filter_username')
+    #     LDAP_FILTER_BASIC = Setting().get('ldap_filter_basic')
+    #     searchFilter = "(&({0}={1}){2})".format(LDAP_FILTER_USERNAME,
+    #                                                     self.username,
+    #                                                     LDAP_FILTER_BASIC)
+    #     current_app.logger.debug('Ldap searchFilter {0}'.format(searchFilter))
+    #     ldap_result = self.ldap_search(searchFilter, LDAP_BASE_DN, [key])
+    #     current_app.logger.debug('Ldap search result: {0}'.format(ldap_result))
+    #     entitlements=[]
+    #     if ldap_result:
+    #         dict=ldap_result[0][0][1]
+    #         if len(dict)!=0:
+    #             for entitlement in dict[key]:
+    #                 entitlements.append(entitlement.decode("utf-8"))
+    #         else:
+    #             e="Not found value in the autoprovisioning attribute field "
+    #             current_app.logger.warning("Cannot apply autoprovisioning on user: {}".format(e))
+    #     return entitlements
 
     def updateUser(self, Entitlements):
         """

@@ -11,8 +11,8 @@ from ..models.account_user import AccountUser
 from ..models.domain import Domain
 from ..models.domain_user import DomainUser
 from ..models.setting import Setting
-from ..models.history import History
-from ..models.server import Server
+# from ..models.history import History
+# from ..models.server import Server
 from ..models.base import db
 
 dashboard_bp = Blueprint('dashboard',
@@ -38,11 +38,12 @@ class ZoneTabs:
     tabs = {
         'forward': TabInfo("", None),
         'reverse_ipv4': TabInfo("in-addr.arpa", '%.in-addr.arpa'),
-        'reverse_ipv6': TabInfo("ip6.arpa", '%.ip6.arpa'),
+        # 'reverse_ipv6': TabInfo("ip6.arpa", '%.ip6.arpa'),
     }
     """Dict of unique tab id to a TabInfo."""
 
-    order = ['forward', 'reverse_ipv4', 'reverse_ipv6']
+    # order = ['forward', 'reverse_ipv4', 'reverse_ipv6']
+    order = ['forward', 'reverse_ipv4']
     """List of tab ids in the order they will appear."""
 
 
@@ -92,8 +93,15 @@ def domains_custom(tab_id):
     render = template.make_module(
         vars={"current_user": current_user, "allow_user_view_history": Setting().get('allow_user_view_history')})
 
+    # columns = [
+    #     Domain.name, Domain.dnssec, Domain.type, Domain.serial, Domain.master,
+    #     Domain.account_id
+    # ]
     columns = [
-        Domain.name, Domain.dnssec, Domain.type, Domain.serial, Domain.master,
+        Domain.name, 
+        Domain.type,
+        Domain.serial, 
+        Domain.master,
         Domain.account_id
     ]
 
@@ -150,9 +158,10 @@ def domains_custom(tab_id):
     for domain in domains:
         data.append([
             render.name(domain),
-            render.dnssec(domain),
+            # render.dnssec(domain),
             render.type(domain),
             render.serial(domain),
+            # render.date_serial(domain),
             render.master(domain),
             render.account(domain),
             render.actions(domain),

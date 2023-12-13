@@ -11,9 +11,9 @@
     {% assets "css_login" -%}
         <link rel="stylesheet" href="{{ ASSET_URL }}">
     {%- endassets %}
-    {% if SETTING.get('custom_css') %}
+    <!-- {% if SETTING.get('custom_css') %}
         <link rel="stylesheet" href="/static/custom/{{ SETTING.get('custom_css') }}">
-    {% endif %}
+    {% endif %} -->
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
@@ -107,12 +107,12 @@
                 <a href="{{ url_for('index.register') }}" class="text-center">
                     {{_('Create an account')}}
                 </a>
-                {% if SETTING.get('verify_user_email') %}
+                <!-- {% if SETTING.get('verify_user_email') %}
                     <br/>
                     <a href="{{ url_for('index.resend_confirmation_email') }}" class="text-center">
                         Resend confirmation email
                     </a>
-                {% endif %}
+                {% endif %} -->
             {% endif %}
         </div>
         <!-- /.card-body -->
@@ -121,7 +121,11 @@
 </div>
 <!-- /.login-box -->
 <div class="text-center pt-3">
-    <p>{{_('Powered by ')}}<a href="https://github.com/rombintu/PowerDNS-Admin" target="_blank">Cloudate</a></p>
+    {% if version %}
+        <p><a href="https://github.com/rombintu/PowerDNS-Admin" target="_blank">{{version}}</a></p>
+    {% else %}
+        <p><a href="https://github.com/rombintu/PowerDNS-Admin" target="_blank">Cloudate</a></p>
+    {% endif %}
 </div>
 {% assets "js_login" -%}
     <script type="text/javascript" src="{{ ASSET_URL }}"></script>

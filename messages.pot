@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-11-30 19:04+0300\n"
+"POT-Creation-Date: 2023-12-13 17:23+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,20 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.13.1\n"
+
+#: powerdnsadmin/routes/admin.py:1359
+msgid "Allow users to view the history of actions "
+msgstr ""
+
+#: powerdnsadmin/routes/admin.py:1360 powerdnsadmin/routes/admin.py:1361
+#: powerdnsadmin/routes/admin.py:1363 powerdnsadmin/routes/admin.py:1364
+#: powerdnsadmin/routes/admin.py:1370 powerdnsadmin/routes/admin.py:1374
+#: powerdnsadmin/routes/admin.py:1375 powerdnsadmin/routes/admin.py:1378
+#: powerdnsadmin/routes/admin.py:1381 powerdnsadmin/routes/admin.py:1383
+#: powerdnsadmin/routes/admin.py:1384 powerdnsadmin/routes/admin.py:1385
+#: powerdnsadmin/routes/admin.py:1386 powerdnsadmin/routes/admin.py:1388
+msgid " "
+msgstr ""
 
 #: powerdnsadmin/templates/admin_edit_account.html:21
 #: powerdnsadmin/templates/base.html:217
@@ -30,6 +44,51 @@ msgstr ""
 #: powerdnsadmin/templates/admin_history.html:10
 #: powerdnsadmin/templates/base.html:116
 msgid "Activity"
+msgstr ""
+
+#: powerdnsadmin/templates/admin_setting_authentication.html:327
+msgid "Save Settings"
+msgstr ""
+
+#: powerdnsadmin/templates/admin_setting_basic.html:3
+#: powerdnsadmin/templates/admin_setting_basic.html:10
+#: powerdnsadmin/templates/admin_setting_basic.html:15
+msgid "Basic Settings"
+msgstr ""
+
+#: powerdnsadmin/templates/admin_setting_basic.html:28
+msgid "Settings Editor"
+msgstr ""
+
+#: powerdnsadmin/templates/admin_setting_basic.html:35
+msgid "Setting Name"
+msgstr ""
+
+#: powerdnsadmin/templates/admin_setting_basic.html:36
+msgid "Current Value"
+msgstr ""
+
+#: powerdnsadmin/templates/admin_setting_basic.html:37
+msgid "Action"
+msgstr ""
+
+#: powerdnsadmin/templates/admin_setting_basic.html:38
+msgid "Description"
+msgstr ""
+
+#: powerdnsadmin/templates/admin_setting_basic.html:48
+#: powerdnsadmin/templates/admin_setting_basic.html:60
+msgid "Off"
+msgstr ""
+
+#: powerdnsadmin/templates/admin_setting_basic.html:52
+#: powerdnsadmin/templates/admin_setting_basic.html:56
+msgid "On"
+msgstr ""
+
+#: powerdnsadmin/templates/admin_setting_basic.html:70
+#: powerdnsadmin/templates/dashboard.html:243
+msgid "Save"
 msgstr ""
 
 #: powerdnsadmin/templates/base.html:82
@@ -114,43 +173,43 @@ msgstr ""
 msgid "A PowerDNS webinterface with advanced features."
 msgstr ""
 
-#: powerdnsadmin/templates/base.html:231
+#: powerdnsadmin/templates/base.html:232
 msgid "Version"
 msgstr ""
 
-#: powerdnsadmin/templates/base.html:357
+#: powerdnsadmin/templates/base.html:361
 msgid "Error"
 msgstr ""
 
-#: powerdnsadmin/templates/base.html:367 powerdnsadmin/templates/base.html:388
-#: powerdnsadmin/templates/dashboard.html:218
-#: powerdnsadmin/templates/dashboard.html:239
-#: powerdnsadmin/templates/dashboard.html:263
-#: powerdnsadmin/templates/dashboard.html:286
+#: powerdnsadmin/templates/base.html:371 powerdnsadmin/templates/base.html:392
+#: powerdnsadmin/templates/dashboard.html:219
+#: powerdnsadmin/templates/dashboard.html:240
+#: powerdnsadmin/templates/dashboard.html:264
+#: powerdnsadmin/templates/dashboard.html:287
 msgid "Close"
 msgstr ""
 
-#: powerdnsadmin/templates/base.html:378
+#: powerdnsadmin/templates/base.html:382
 msgid "Success"
 msgstr ""
 
-#: powerdnsadmin/templates/base.html:398
+#: powerdnsadmin/templates/base.html:402
 msgid "Session timeout warning"
 msgstr ""
 
-#: powerdnsadmin/templates/base.html:401
+#: powerdnsadmin/templates/base.html:405
 msgid "Your session is about to expire. You will be automatically signed out in"
 msgstr ""
 
-#: powerdnsadmin/templates/base.html:403
+#: powerdnsadmin/templates/base.html:407
 msgid "To coninue your ssession, select "
 msgstr ""
 
-#: powerdnsadmin/templates/base.html:403 powerdnsadmin/templates/base.html:408
+#: powerdnsadmin/templates/base.html:407 powerdnsadmin/templates/base.html:412
 msgid "Stay Signed In"
 msgstr ""
 
-#: powerdnsadmin/templates/base.html:411
+#: powerdnsadmin/templates/base.html:415
 msgid "Sign Out"
 msgstr ""
 
@@ -171,67 +230,63 @@ msgstr ""
 msgid "Serial"
 msgstr ""
 
-#: powerdnsadmin/templates/dashboard.html:73
+#: powerdnsadmin/templates/dashboard.html:74
 msgid "Primary"
 msgstr ""
 
-#: powerdnsadmin/templates/dashboard.html:74
+#: powerdnsadmin/templates/dashboard.html:75
 msgid "Account"
 msgstr ""
 
-#: powerdnsadmin/templates/dashboard.html:75
+#: powerdnsadmin/templates/dashboard.html:76
 msgid "Actions"
 msgstr ""
 
-#: powerdnsadmin/templates/dashboard.html:207
+#: powerdnsadmin/templates/dashboard.html:208
 msgid "History Details"
 msgstr ""
 
-#: powerdnsadmin/templates/dashboard.html:229
+#: powerdnsadmin/templates/dashboard.html:230
 msgid "Clone to template"
 msgstr ""
 
-#: powerdnsadmin/templates/dashboard.html:242
-msgid "Save"
-msgstr ""
-
-#: powerdnsadmin/templates/dashboard.html:274
+#: powerdnsadmin/templates/dashboard.html:275
 msgid "Sync Zones from backend"
 msgstr ""
 
-#: powerdnsadmin/templates/dashboard.html:281
+#: powerdnsadmin/templates/dashboard.html:282
 msgid "Update in progress"
 msgstr ""
 
-#: powerdnsadmin/templates/dashboard_domain.html:49
+#: powerdnsadmin/templates/dashboard_domain.html:53
 msgid "Edit Records"
 msgstr ""
 
-#: powerdnsadmin/templates/dashboard_domain.html:55
+#: powerdnsadmin/templates/dashboard_domain.html:59
 msgid "Zone Settings"
 msgstr ""
 
-#: powerdnsadmin/templates/dashboard_domain.html:58
+#: powerdnsadmin/templates/dashboard_domain.html:62
 msgid "Create Template"
 msgstr ""
 
-#: powerdnsadmin/templates/dashboard_domain.html:65
+#: powerdnsadmin/templates/dashboard_domain.html:69
 msgid "Zone Changelog"
 msgstr ""
 
-#: powerdnsadmin/templates/dashboard_domain.html:73
+#: powerdnsadmin/templates/dashboard_domain.html:77
 msgid "Remove Zone"
 msgstr ""
 
-#: powerdnsadmin/templates/login.html:93
+#: powerdnsadmin/templates/login.html:89
 msgid "Remember Me"
 msgstr ""
 
-#: powerdnsadmin/templates/login.html:98
+#: powerdnsadmin/templates/login.html:94
 msgid "Sign In"
 msgstr ""
 
-#: powerdnsadmin/templates/login.html:146
+#: powerdnsadmin/templates/login.html:108
 msgid "Create an account"
 msgstr ""
 

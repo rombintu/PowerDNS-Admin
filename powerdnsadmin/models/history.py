@@ -1,6 +1,6 @@
-import traceback
+# import traceback
 
-from flask import current_app
+# from flask import current_app
 from datetime import datetime
 
 from .base import db
@@ -40,17 +40,17 @@ class History(db.Model):
         db.session.add(h)
         db.session.commit()
 
-    def remove_all(self):
-        """
-        Remove all history from DB
-        """
-        try:
-            db.session.query(History).delete()
-            db.session.commit()
-            current_app.logger.info("Removed all history")
-            return True
-        except Exception as e:
-            db.session.rollback()
-            current_app.logger.error("Cannot remove history. DETAIL: {0}".format(e))
-            current_app.logger.debug(traceback.format_exc())
-            return False
+    # def remove_all(self):
+    #     """
+    #     Remove all history from DB
+    #     """
+    #     try:
+    #         db.session.query(History).delete()
+    #         db.session.commit()
+    #         current_app.logger.info("Removed all history")
+    #         return True
+    #     except Exception as e:
+    #         db.session.rollback()
+    #         current_app.logger.error("Cannot remove history. DETAIL: {0}".format(e))
+    #         current_app.logger.debug(traceback.format_exc())
+    #         return False

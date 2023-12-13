@@ -95,7 +95,7 @@
                                     <div class="tab-pane fade {{ 'show active' if 'password' in error_messages else '' }}"
                                             id="tabs-password">
                                         {% if not current_user.password %}
-                                            Your account password is managed via LDAP which isn't supported to
+                                            Your account password is managed via another service which isn't supported to
                                             change here.
                                         {% else %}
                                             <form action="{{ user_profile }}" method="post">
