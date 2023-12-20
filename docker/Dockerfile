@@ -10,7 +10,8 @@ ARG BUILD_DEPENDENCIES="build-base \
     xmlsec-dev \
     npm \
     yarn \
-    cargo"
+    cargo \
+    python3-poetry"
 
 ENV LC_ALL=en_US.UTF-8 \
     LANG=en_US.UTF-8 \
@@ -27,11 +28,12 @@ RUN apk add --no-cache ${BUILD_DEPENDENCIES} && \
 WORKDIR /build
 
 # We copy just the requirements.txt first to leverage Docker cache
-COPY ./requirements.txt /build/requirements.txt
+COPY ./pyproject.toml /build/
 
 # Get application dependencies
-RUN pip install --upgrade pip && \
-    pip install --use-pep517 -r requirements.txt
+# RUN pip install --upgrade pip && \
+#     pip install --use-pep517 -r requirements.txt
+RUN poetry install
 
 # Add sources
 COPY . /build
@@ -74,25 +76,25 @@ ENV FLASK_APP=/app/powerdnsadmin/__init__.py \
     USER=pda
 
 # RUN apk add --no-cache mariadb-connector-c postgresql-client py3-gunicorn py3-pyldap py3-flask py3-psycopg2 xmlsec tzdata libcap && \
-RUN apk add --no-cache mariadb-connector-c postgresql-client py3-gunicorn py3-flask py3-psycopg2 xmlsec tzdata libcap && \
-    addgroup -S ${USER} && \
-    adduser -S -D -G ${USER} ${USER} && \
-    mkdir /data && \
-    chown ${USER}:${USER} /data && \
-    setcap cap_net_bind_service=+ep $(readlink -f /usr/bin/python3) && \
-    apk del libcap
+RUN apk add --no-cache mariadb-connector-c postgresql-client py3-gunicorn py3-flask py3-psycopg2 xmlsec tzdata libcap
+RUN addgroup -S powerdnsadmin
+RUN adduser -S -D -G powerdnsadmin powerdnsadmin
+RUN mkdir /data 
+RUN chown powerdnsadmin:powerdnsadmin /data
+RUN setcap cap_net_bind_service=+ep $(readlink -f /usr/bin/python3)
+RUN apk del libcap
 
 COPY --from=builder /usr/bin/flask /usr/bin/
 COPY --from=builder /usr/lib/python3.10/site-packages /usr/lib/python3.10/site-packages/
-COPY --from=builder --chown=root:${USER} /app /app/
-COPY ./docker/entrypoint.sh /usr/bin/
+COPY --from=builder --chown=root:powerdnsadmin /app /app/
+COPY ./entrypoint.sh /usr/bin/
 
 WORKDIR /app
-RUN chown ${USER}:${USER} ./configs /app && \
+RUN chown powerdnsadmin:powerdnsadmin ./configs /app && \
     cat ./powerdnsadmin/default_config.py ./configs/docker_config.py > ./powerdnsadmin/docker_config.py
 
 EXPOSE 80/tcp
-USER ${USER}
+USER powerdnsadmin
 HEALTHCHECK CMD ["wget","--output-document=-","--quiet","--tries=1","http://127.0.0.1/"]
 ENTRYPOINT ["entrypoint.sh"]
 CMD ["gunicorn","powerdnsadmin:create_app()"]
