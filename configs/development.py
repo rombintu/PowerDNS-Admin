@@ -206,3 +206,4 @@ SAML_ENABLED = False
 
 # An optional list of remote authentication tied cookies to be removed upon logout
 # REMOTE_USER_COOKIES=['MOD_AUTH_CAS', 'MOD_AUTH_CAS_S']
+VERSION = "0.4.1-cloudate"

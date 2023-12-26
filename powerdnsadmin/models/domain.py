@@ -68,6 +68,9 @@ class Domain(db.Model):
         format_date = date.strftime('%d.%m.%Y')
         inc = serial_str[8:]
         return f'{format_date} ({inc})'
+    
+    def get_sni(self):
+        return int(str(self.serial)[8:])
 
     def add_setting(self, setting, value):
         try:

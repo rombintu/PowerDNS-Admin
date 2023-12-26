@@ -1,19 +1,19 @@
 {% extends "base.html" %}
 {% set active_page = "admin_settings" %}
-{% block title %}<title>Authentication Settings - {{ SITE_NAME }}</title>{% endblock %}
+{% block title %}<title>{{_('Authentication Settings')}} - {{ SITE_NAME }}</title>{% endblock %}
 
 {% block dashboard_stat %}
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">Authentication Settings</h1>
+                    <h1 class="m-0 text-dark">{{_('Authentication Settings')}}</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ url_for('dashboard.dashboard') }}">Home</a></li>
-                        <li class="breadcrumb-item">Settings</li>
-                        <li class="breadcrumb-item active">Authentication Settings</li>
+                        <li class="breadcrumb-item"><a href="{{ url_for('dashboard.dashboard') }}">{{_('Dashboard')}}</a></li>
+                        <li class="breadcrumb-item">{{_('Settings')}}</li>
+                        <li class="breadcrumb-item active">{{_('Authentication Settings')}}</li>
                     </ol>
                 </div>
             </div>
@@ -29,7 +29,7 @@
                     <form id="settings-editor">
                         <div class="card card-outline card-primary shadow">
                             <div class="card-header">
-                                <h3 class="card-title">Settings Editor</h3>
+                                <h3 class="card-title">{{_('Settings Editor')}}</h3>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -54,7 +54,7 @@
                                     <button type="button" class="close" aria-hidden="true"
                                             data-bind="click: save_failed(false)">×
                                     </button>
-                                    <h5><i class="icon fas fa-ban"></i> Error!</h5>
+                                    <h5><i class="icon fas fa-ban"></i> {{_('Error')}}</h5>
                                     These settings could <strong>not</strong> be saved to the database!
                                 </div>
                                 <div class="alert alert-dismissible" style="display: none;"
@@ -88,9 +88,9 @@
                                             <div class="row">
                                                 <div class="col-12 col-sm-6 col-lg-4">
                                                     <div class="card">
-                                                        <div class="card-header">
+                                                        <!-- <div class="card-header">
                                                             <h3 class="card-title">Local Authentication Settings</h3>
-                                                        </div>
+                                                        </div> -->
                                                         <!-- /.card-header -->
                                                         <div class="card-body">
                                                             <div class="form-group">
@@ -185,7 +185,7 @@
                                                 <div class="col-12 col-sm-6 col-lg-8">
                                                     <div class="card">
                                                         <div class="card-header">
-                                                            <h3 class="card-title">Settings Help</h3>
+                                                            <h3 class="card-title">{{_('Help')}}</h3>
                                                         </div>
                                                         <!-- /.card-header -->
                                                         <div class="card-body">
@@ -283,9 +283,9 @@
                                             <div class="row">
                                                 <div class="col-12 col-sm-6 col-lg-4">
                                                     <div class="card">
-                                                        <div class="card-header">
+                                                        <!-- <div class="card-header">
                                                             <h3 class="card-title">Sudis Authentication Settings</h3>
-                                                        </div>
+                                                        </div> -->
                                                         <!-- /.card-header -->
                                                         <div class="card-body">
                                                             
@@ -300,7 +300,7 @@
                                                 <div class="col-12 col-sm-6 col-lg-8">
                                                     <div class="card">
                                                         <div class="card-header">
-                                                            <h3 class="card-title">Settings Help</h3>
+                                                            <h3 class="card-title">{{_('Help')}}</h3>
                                                         </div>
                                                         <!-- /.card-header -->
                                                         <div class="card-body">
@@ -324,7 +324,7 @@
                                 <div class="error"></div>
                                 <button type="button" class="btn btn-primary"
                                         title="Save Settings" data-bind="click: onSaveClick">
-                                    <i class="fa-solid fa-save"></i>&nbsp;{{_('Save Settings')}}
+                                    <i class="fa-solid fa-save"></i>&nbsp;{{_('Save')}}
                                 </button>
                             </div>
                             <!-- /.card-footer -->

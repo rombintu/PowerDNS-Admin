@@ -1,0 +1,7 @@
+@font-face {
+    font-family: 'Ubuntu Mono';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Ubuntu Mono Regular'), local('UbuntuMono-Regular'),
+         url('static/assets/fonts/UbuntuMono-Regular.ttf') format('ttf');
+}

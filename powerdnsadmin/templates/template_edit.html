@@ -116,18 +116,7 @@
             "searching": true,
             "ordering": true,
             "info": true,
-            "autoWidth": false,
-            {% if SETTING.get('default_record_table_size')|string in ['5','15','20'] %}
-                "lengthMenu": [[5, 15, 20, -1],
-                    [5, 15, 20, "All"]],
-            {% else %}
-                "lengthMenu": [[5, 15, 20, {{ SETTING.get('default_record_table_size') }}, -1],
-                    [5, 15, 20, {{ SETTING.get('default_record_table_size') }}, "All"]],
-            {% endif %}
-            "pageLength": {{ SETTING.get('default_record_table_size') }},
-            "language": {
-                "lengthMenu": " _MENU_ records"
-            },
+            "autoWidth": true,
             "retrieve": true,
             "columnDefs": [
                 {

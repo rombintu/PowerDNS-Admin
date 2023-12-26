@@ -7,6 +7,7 @@
         <link rel="icon" href="{{ url_for('static', filename='img/favicon.png') }}">
         {% block title %}<title>{{ SITE_NAME }}</title>{% endblock %}
         <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/style.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/ubuntu_mono.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/source_sans_pro.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/roboto_mono.css') }}">
         <!-- Tell the browser to be responsive to screen width -->
@@ -15,9 +16,6 @@
         <meta name="format-detection" content="telephone=no">
         {% assets "css_main" -%}
             <link rel="stylesheet" href="{{ ASSET_URL }}">{%- endassets %}
-        <!-- {% if SETTING.get('custom_css') %}
-            <link rel="stylesheet" href="/static/custom/{{ SETTING.get('custom_css') }}">
-        {% endif %} -->
         {% block head_styles %}{% endblock %}
     {% endblock %}
 </head>
@@ -59,23 +57,24 @@
     <aside class="main-sidebar sidebar-dark-primary">
         <!-- Logo -->
         <a href="{{ url_for('index.index') }}" class="brand-link">
-            <img src="{{ url_for('static', filename='img/favicon.png') }}" alt="PowerDNS-Admin FavIcon"
-                 class="brand-image img-circle elevation-3" style="opacity: .8">
-            <span class="brand-text font-weight-light">
-        {% if SETTING.get('site_name') %}
-            <b>{{ SITE_NAME }}</b>
-        {% else %}
-            <b>PowerDNS</b>-Admin
-        {% endif %}
-      </span>
+            <img src="{{ url_for('static', filename='img/cloudate.svg') }}" alt="PowerDNS-Admin"
+                style="width: 100%;">
+            <!-- <span class="brand-text font-weight-light">
+                {% if SETTING.get('site_name') %}
+                    <b>{{ SITE_NAME }}</b>
+                {% else %}
+                    <b>PowerDNS</b>-Admin
+                {% endif %}
+            </span> -->
         </a>
         <!-- sidebar: style can be found in sidebar.less -->
         <div class="sidebar">
             {% if current_user.id is defined %}
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-                    <div class="image">
+                    <!-- <div>
                         <img src="{{ user_image_url }}" class="img-circle elevation-2" alt="User Image">
-                    </div>
+                        <i class="nav-icon fa-solid fa-street-view"></i>
+                    </div> -->
                     <div class="info">
                         <p>{{ current_user.firstname }} {{ current_user.lastname }}</p>
                         <span>
@@ -94,14 +93,6 @@
                             <p>{{_('Dashboard')}}</p>
                         </a>
                     </li>
-                    <!-- {% if SETTING.get('allow_user_create_domain') or current_user.role.name in ['Administrator', 'Operator'] %}
-                        <li class="{{ 'nav-item active' if active_page == 'nav-item new_domain' else 'nav-item' }}">
-                            <a href="{{ url_for('domain.add') }}" class="nav-link">
-                                <i class="nav-icon fa-solid fa-plus"></i>
-                                <p>{{_('Create Zone')}}</p>
-                            </a>
-                        </li>
-                    {% endif %} -->
                     <li class="nav-header">{{_('Administration')}}</li>
                     <li class="{{ 'nav-item active' if active_page == 'admin_global_search' else 'nav-item' }}">
                         <a href="{{ url_for('admin.global_search') }}" class="nav-link">
@@ -193,6 +184,12 @@
                             </ul>
                         </li>
                     {% endif %}
+                    <li class="{{ 'nav-item active' if active_page == 'docs_page' else 'nav-item' }}" style="margin-bottom: 0;">
+                        <a href="{{ url_for('dashboard.documentation') }}" class="nav-link">
+                            <i class="nav-icon fa-solid fa-info"></i>
+                            <p>{{_('Documentation')}}</p>
+                        </a>
+                    </li>
                 </ul>
             {% endif %}
         </div>

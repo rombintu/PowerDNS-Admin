@@ -18,7 +18,7 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ url_for('dashboard.dashboard') }}">{{_(Dashboard)}}</a></li>
+                        <li class="breadcrumb-item"><a href="{{ url_for('dashboard.dashboard') }}">{{_('Dashboard')}}</a></li>
                         <li class="breadcrumb-item"><a href="{{ url_for('admin.manage_user') }}">Users</a></li>
                         <li class="breadcrumb-item active">{{ action_label }} User</li>
                     </ol>
@@ -47,7 +47,7 @@
                                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
                                             &times;
                                         </button>
-                                        <h4><i class="fa-solid fa-ban"></i> Error!</h4>
+                                        <h4><i class="fa-solid fa-ban"></i> {{_('Error')}}</h4>
                                         {{ error }}
                                     </div>
                                     <span class="help-block">{{ error }}</span>

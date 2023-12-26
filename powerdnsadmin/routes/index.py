@@ -478,6 +478,10 @@ def login():
         session['authentication_type'] = 'LOCAL'
         remember_me = True # if 'remember' in request.form else False
 
+        via_sudis = request.form.get("via_sudis")
+        
+        if via_sudis == "on":
+            return redirect(url_for("index.saml_login"))
         if auth_method == 'LOCAL' and not Setting().get('local_db_enabled'):
             return render_template(
                 'login.html',

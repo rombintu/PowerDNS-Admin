@@ -24,9 +24,9 @@
     {% if domain.serial == '0' %}{{ domain.notified_serial }}{% else %}{{ domain.serial }}{% endif %}
 {% endmacro %}
 
-<!-- {% macro date_serial(domain) %}
-    {{ domain.get_date_by_serial() }}
-{% endmacro %} -->
+{% macro sni(domain) %}
+    {{ domain.get_sni() }}
+{% endmacro %}
 
 {% macro master(domain) %}
     {% if domain.master == '[]' %}-{% else %}{{ domain.master | display_master_name }}{% endif %}
@@ -70,13 +70,13 @@
                     </button>
                 {% endif %}
 
-                {% if current_user.role.name in ['Administrator', 'Operator'] %}
+                <!-- {% if current_user.role.name in ['Administrator', 'Operator'] %}
                     <div class="dropdown-divider"></div>
                     <button type="button" class="dropdown-item btn-secondary button_delete"
                             onclick="window.location.href='{{ url_for('domain.remove') }}'">
                         <span style="color: red;"><i class="fa-solid fa-trash"></i>&nbsp;{{_('Remove Zone')}}</span>
                     </button>
-                {% endif %}
+                {% endif %} -->
             </div>
         </div>
     </td>

@@ -9,7 +9,7 @@ BIND_ADDRESS="${BIND_ADDRESS:-0.0.0.0:80}"
 
 GUNICORN_ARGS="-t ${GUNICORN_TIMEOUT} --workers ${GUNICORN_WORKERS} --bind ${BIND_ADDRESS} --log-level ${GUNICORN_LOGLEVEL}"
 if [ "$1" == gunicorn ]; then
-    /bin/sh -c "flask db upgrade"
+    /bin/sh -c "python -m flask db upgrade"
     exec "$@" $GUNICORN_ARGS
 
 else

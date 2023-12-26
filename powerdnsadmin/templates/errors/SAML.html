@@ -1,17 +1,17 @@
 {% extends "base.html" %}
-{% block title %}<title>SAML Authentication Error - {{ SITE_NAME }}</title>{% endblock %}
+{% block title %}<title>{{_('SAML Authentication Error')}} - {{ SITE_NAME }}</title>{% endblock %}
 
 {% block dashboard_stat %}
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">SAML Authentication Error</h1>
+                    <h1 class="m-0 text-dark">{{_('SAML Authentication Error')}}</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ url_for('dashboard.dashboard') }}">{{_(Dashboard)}}</a></li>
-                        <li class="breadcrumb-item active">SAML Authentication Error</li>
+                        <li class="breadcrumb-item"><a href="{{ url_for('dashboard.dashboard') }}">{{_('Dashboard')}}</a></li>
+                        <li class="breadcrumb-item active">{{_('SAML Authentication Error')}}</li>
                     </ol>
                 </div>
             </div>
@@ -23,7 +23,7 @@
     <section class="content">
         <div class="error-page">
             <div>
-                <h1 class="headline text-yellow" style="font-size:46px;">SAML Authentication Error</h1>
+                <h1 class="headline text-yellow" style="font-size:46px;">{{_('SAML Authentication Error')}}</h1>
             </div>
             <br/>
             <br/>

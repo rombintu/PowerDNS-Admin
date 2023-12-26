@@ -1,17 +1,16 @@
-FROM alpine:3.18 AS builder
+FROM alpine:3.17 AS builder
 
 ARG BUILD_DEPENDENCIES="build-base \
     libffi-dev \
     libpq-dev \
     libxml2-dev \
     mariadb-connector-c-dev \
-    # openldap-dev \
     python3-dev \
     xmlsec-dev \
     npm \
     yarn \
-    cargo \
-    python3-poetry"
+    poetry \
+    cargo"
 
 ENV LC_ALL=en_US.UTF-8 \
     LANG=en_US.UTF-8 \
@@ -28,11 +27,11 @@ RUN apk add --no-cache ${BUILD_DEPENDENCIES} && \
 WORKDIR /build
 
 # We copy just the requirements.txt first to leverage Docker cache
-COPY ./pyproject.toml /build/
+COPY pyproject.toml poetry.lock /build/
 
 # Get application dependencies
-# RUN pip install --upgrade pip && \
-#     pip install --use-pep517 -r requirements.txt
+# RUN pip install --upgrade pip
+RUN poetry config virtualenvs.in-project true && poetry env use python
 RUN poetry install
 
 # Add sources
@@ -42,7 +41,7 @@ COPY . /build
 RUN yarn install --pure-lockfile --production && \
     yarn cache clean && \
     sed -i -r -e "s|'rcssmin',\s?'cssrewrite'|'rcssmin'|g" /build/powerdnsadmin/assets.py && \
-    flask assets build
+    poetry run flask assets build
 
 RUN mv /build/powerdnsadmin/static /tmp/static && \
     mkdir /build/powerdnsadmin/static && \
@@ -70,31 +69,31 @@ RUN mkdir -p /app && \
     cp -r /build/configs/docker_config.py /app/configs
 
 # Build image
-FROM alpine:3.18
+FROM alpine:3.17
 
 ENV FLASK_APP=/app/powerdnsadmin/__init__.py \
     USER=pda
 
-# RUN apk add --no-cache mariadb-connector-c postgresql-client py3-gunicorn py3-pyldap py3-flask py3-psycopg2 xmlsec tzdata libcap && \
-RUN apk add --no-cache mariadb-connector-c postgresql-client py3-gunicorn py3-flask py3-psycopg2 xmlsec tzdata libcap
-RUN addgroup -S powerdnsadmin
-RUN adduser -S -D -G powerdnsadmin powerdnsadmin
-RUN mkdir /data 
-RUN chown powerdnsadmin:powerdnsadmin /data
-RUN setcap cap_net_bind_service=+ep $(readlink -f /usr/bin/python3)
-RUN apk del libcap
+RUN apk add --no-cache mariadb-connector-c postgresql-client py3-gunicorn py3-pyldap py3-flask py3-psycopg2 xmlsec tzdata libcap && \
+    addgroup -S pda && \
+    adduser -S -D -G pda pda && \
+    mkdir /data && \
+    chown pda:pda /data && \
+    setcap cap_net_bind_service=+ep $(readlink -f /usr/bin/python3) && \
+    apk del libcap
 
-COPY --from=builder /usr/bin/flask /usr/bin/
-COPY --from=builder /usr/lib/python3.10/site-packages /usr/lib/python3.10/site-packages/
-COPY --from=builder --chown=root:powerdnsadmin /app /app/
-COPY ./entrypoint.sh /usr/bin/
+
+COPY --from=builder /build/.venv/bin/flask /usr/bin/
+COPY --from=builder /build/.venv/lib/python3.10/site-packages /usr/lib/python3.10/site-packages/
+COPY --from=builder --chown=root:pda /app /app/
+COPY docker/entrypoint.sh /usr/bin/
 
 WORKDIR /app
-RUN chown powerdnsadmin:powerdnsadmin ./configs /app && \
+RUN chown pda:pda ./configs /app && \
     cat ./powerdnsadmin/default_config.py ./configs/docker_config.py > ./powerdnsadmin/docker_config.py
 
 EXPOSE 80/tcp
-USER powerdnsadmin
+USER pda
 HEALTHCHECK CMD ["wget","--output-document=-","--quiet","--tries=1","http://127.0.0.1/"]
 ENTRYPOINT ["entrypoint.sh"]
 CMD ["gunicorn","powerdnsadmin:create_app()"]

@@ -70,7 +70,7 @@
                                                     <!-- <th>DNSSEC</th> -->
                                                     <th>{{_('Type')}}</th>
                                                     <th>{{_('Serial')}}</th>
-                                                    <!-- <th>{{_('Date by SN')}}</th> -->
+                                                    <th>{{_('SNI')}}</th>
                                                     <th>{{_('Primary')}}</th>
                                                     <th>{{_('Account')}}</th>
                                                     <th>{{_('Actions')}}</th>
@@ -113,11 +113,11 @@
             $(id).DataTable({
                 "paging": true,
                 "lengthChange": true,
-                language: {
-                    searchPlaceholder: "",
+                "language": {
+                    "searchPlaceholder": "",
                 },
                 "searching": true,
-                "ordering": true,
+                "ordering": false,
                 "columnDefs": [
                     {"orderable": false, "targets": [-1]}
                 ],
@@ -125,15 +125,7 @@
                 "serverSide": true,
                 "ajax": url,
                 "info": false,
-                "autoWidth": false,
-                {% if SETTING.get('default_domain_table_size')|string in ['10','25','50','100'] %}
-                    "lengthMenu": [[10, 25, 50, 100, -1],
-                        [10, 25, 50, 100, "All"]],
-                {% else %}
-                    "lengthMenu": [[10, 25, 50, 100, {{ SETTING.get('default_domain_table_size') }}, -1],
-                        [10, 25, 50, 100, {{ SETTING.get('default_domain_table_size') }}, "All"]],
-                {% endif %}
-                "pageLength": {{ SETTING.get('default_domain_table_size') }}
+                "autoWidth": false
             });
         }
 
@@ -181,22 +173,22 @@
             modal.modal('show');
         });
 
-        {% if current_user.role.name in ['Administrator', 'Operator'] or not SETTING.get('dnssec_admins_only') %}
-            $(document.body).on("click", ".button_dnssec", function () {
-                var domain = $(this).prop('id');
-                getdnssec($SCRIPT_ROOT + '/domain/' + domain + '/dnssec', domain);
-            });
+        // {% if current_user.role.name in ['Administrator', 'Operator'] or not SETTING.get('dnssec_admins_only') %}
+        //     $(document.body).on("click", ".button_dnssec", function () {
+        //         var domain = $(this).prop('id');
+        //         getdnssec($SCRIPT_ROOT + '/domain/' + domain + '/dnssec', domain);
+        //     });
 
-            $(document.body).on("click", ".button_dnssec_enable", function () {
-                var domain = $(this).prop('id');
-                enable_dns_sec($SCRIPT_ROOT + '/domain/' + domain + '/dnssec/enable', '{{ csrf_token() }}');
-            });
+        //     $(document.body).on("click", ".button_dnssec_enable", function () {
+        //         var domain = $(this).prop('id');
+        //         enable_dns_sec($SCRIPT_ROOT + '/domain/' + domain + '/dnssec/enable', '{{ csrf_token() }}');
+        //     });
 
-            $(document.body).on("click", ".button_dnssec_disable", function () {
-                var domain = $(this).prop('id');
-                enable_dns_sec($SCRIPT_ROOT + '/domain/' + domain + '/dnssec/disable', '{{ csrf_token() }}');
-            });
-        {% endif %}
+        //     $(document.body).on("click", ".button_dnssec_disable", function () {
+        //         var domain = $(this).prop('id');
+        //         enable_dns_sec($SCRIPT_ROOT + '/domain/' + domain + '/dnssec/disable', '{{ csrf_token() }}');
+        //     });
+        // {% endif %}
     </script>
 {% endblock %}
 

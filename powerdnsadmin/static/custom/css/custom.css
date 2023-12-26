@@ -3,8 +3,12 @@
     width: 70% !important;
 }
 
-table td {
+/* table td {
     font-family:'Roboto Mono' !important;
+} */
+
+table td {
+    font-family:'Ubuntu Mono' !important;
 }
 
 /*Fit default macbook screen*/

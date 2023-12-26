@@ -11,7 +11,7 @@
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ url_for('dashboard.dashboard') }}">{{_(Dashboard)}}</a></li>
+                        <li class="breadcrumb-item"><a href="{{ url_for('dashboard.dashboard') }}">{{_('Dashboard')}}</a></li>
                         <li class="breadcrumb-item active">Zone Record Settings</li>
                     </ol>
                 </div>
@@ -30,7 +30,7 @@
                         <input type="hidden" name="create" value="{{ create }}">
                         <div class="card card-outline card-primary shadow">
                             <div class="card-header">
-                                <h3 class="card-title">Settings Editor</h3>
+                                <h3 class="card-title">{{_('Settings Editor')}}</h3>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -62,7 +62,7 @@
                             <!-- /.card-body -->
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary float-right" title="Save Settings">
-                                    <i class="fa-solid fa-save"></i>&nbsp;Save Settings
+                                    <i class="fa-solid fa-save"></i>&nbsp;{{_('Save')}}
                                 </button>
                             </div>
                             <!-- /.card-footer -->
@@ -75,7 +75,7 @@
                 <div class="col-12 col-sm-6 col-lg-8">
                     <div class="card card-outline card-secondary shadow">
                         <div class="card-header">
-                            <h3 class="card-title">Settings Editor Help</h3>
+                            <h3 class="card-title">{{_('Help')}}</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">

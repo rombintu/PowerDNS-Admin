@@ -11,9 +11,6 @@
     {% assets "css_login" -%}
         <link rel="stylesheet" href="{{ ASSET_URL }}">
     {%- endassets %}
-    <!-- {% if SETTING.get('custom_css') %}
-        <link rel="stylesheet" href="/static/custom/{{ SETTING.get('custom_css') }}">
-    {% endif %} -->
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
@@ -51,68 +48,35 @@
                         <span class="help-block with-errors"></span>
                     </div>
                     
-                    <!-- {% if SETTING.get('ldap_enabled') and SETTING.get('local_db_enabled') %}
-                        <div class="form-group">
-                            <select class="form-control" name="auth_method">
-                                <option value="LOCAL">
-                                    LOCAL Authentication
-                                </option>
-                                {% if SETTING.get('login_ldap_first') %}
-                                    <option value="LDAP" selected="selected">
-                                        LDAP Authentication
-                                    </option>
-                                {% else %}
-                                    <option value="LDAP">
-                                        LDAP Authentication
-                                    </option>
-                                {% endif %}
-                            </select>
-                        </div>
-                    {% elif SETTING.get('ldap_enabled') and not SETTING.get('local_db_enabled') %}
-                        <div class="form-group">
-                            <input type="hidden" name="auth_method" value="LDAP">
-                        </div>
-                    {% elif SETTING.get('local_db_enabled') and not SETTING.get('ldap_enabled') %}
-                        <div class="form-group">
-                            <input type="hidden" name="auth_method" value="LOCAL">
-                        </div>
-                    {% else %}
-                        <div class="form-group">
-                            <input type="hidden" name="auth_method" value="LOCAL">
-                        </div>
-                    {% endif %} -->
                     <div class="row">
-                        <!-- <div class="col-8">
-                            <div class="icheck-primary">
-                                <input type="checkbox" id="remember">
-                                <label for="remember">
-                                    {{_('Remember Me')}}
-                                </label>
+                        {% if saml_enabled %}
+                            <div class="col-8" style="display: flex; align-items: center;">
+                                <div class="icheck">
+                                    <input type="checkbox" id="via_sudis" name="via_sudis">
+                                    <label for="sudis">
+                                        {{_('Via')}} <i class="fa-solid fa-shield"></i> {{_('Sudis')}}
+                                    </label>
+                                </div>
                             </div>
-                        </div> -->
+                        {% endif %}
                         <div class="col">
                             <button type="submit" class="btn btn-primary btn-block">{{_('Sign In')}}</button>
+                            
+                                <!-- <a href="{{ url_for('index.saml_login') }}" class="btn btn-warning btn-block">
+                                    <i class="fa-solid fa-shield"></i> {{_('SUDIS')}}
+                                </a> -->
+                            
                         </div>
                     </div>
                 </form>
             {% endif %}
             
-            {% if saml_enabled %}
-                <a href="{{ url_for('index.saml_login') }}">
-                    SAML login
-                </a>
-            {% endif %}
+            
             {% if SETTING.get('signup_enabled') %}
                 <br>
                 <a href="{{ url_for('index.register') }}" class="text-center">
                     {{_('Create an account')}}
                 </a>
-                <!-- {% if SETTING.get('verify_user_email') %}
-                    <br/>
-                    <a href="{{ url_for('index.resend_confirmation_email') }}" class="text-center">
-                        Resend confirmation email
-                    </a>
-                {% endif %} -->
             {% endif %}
         </div>
         <!-- /.card-body -->

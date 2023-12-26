@@ -34,7 +34,7 @@ $ make run
 
   Пример 
 ```html
-<p>Dashboard</p> -> <p>{{_(Dashboard)}}</p>
+<p>Dashboard</p> -> <p>{{_('Dashboard')}}</p>
 ```
 В проекте
 ```bash

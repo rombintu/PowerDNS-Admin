@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-12-13 17:23+0300\n"
+"POT-Creation-Date: 2023-12-14 13:43+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,18 +21,66 @@ msgstr ""
 msgid "Allow users to view the history of actions "
 msgstr ""
 
-#: powerdnsadmin/routes/admin.py:1360 powerdnsadmin/routes/admin.py:1361
-#: powerdnsadmin/routes/admin.py:1363 powerdnsadmin/routes/admin.py:1364
-#: powerdnsadmin/routes/admin.py:1370 powerdnsadmin/routes/admin.py:1374
-#: powerdnsadmin/routes/admin.py:1375 powerdnsadmin/routes/admin.py:1378
-#: powerdnsadmin/routes/admin.py:1381 powerdnsadmin/routes/admin.py:1383
-#: powerdnsadmin/routes/admin.py:1384 powerdnsadmin/routes/admin.py:1385
-#: powerdnsadmin/routes/admin.py:1386 powerdnsadmin/routes/admin.py:1388
-msgid " "
+#: powerdnsadmin/routes/admin.py:1360
+msgid "Automatic creation of a PTR record"
+msgstr ""
+
+#: powerdnsadmin/routes/admin.py:1361
+msgid "Automatic updating of domain information. Turn it on for more performance"
+msgstr ""
+
+#: powerdnsadmin/routes/admin.py:1363
+msgid "Default value of the table on the domain page"
+msgstr ""
+
+#: powerdnsadmin/routes/admin.py:1364
+msgid "Default value of the table on the record page"
+msgstr ""
+
+#: powerdnsadmin/routes/admin.py:1370
+msgid "Getting all the values via the API. Default: disable"
+msgstr ""
+
+#: powerdnsadmin/routes/admin.py:1374
+msgid "Switch the service to maintenance mode"
+msgstr ""
+
+#: powerdnsadmin/routes/admin.py:1375
+msgid "Maximum value of visible record rows"
+msgstr ""
+
+#: powerdnsadmin/routes/admin.py:1378
+msgid "API session timeout"
+msgstr ""
+
+#: powerdnsadmin/routes/admin.py:1381
+msgid "Assistance in creating a zone and writing to a domain"
+msgstr ""
+
+#: powerdnsadmin/routes/admin.py:1383
+msgid "User session timeout"
+msgstr ""
+
+#: powerdnsadmin/routes/admin.py:1384
+msgid "The name of the service. Displayed in some places"
+msgstr ""
+
+#: powerdnsadmin/routes/admin.py:1385
+msgid "Setting TTL options, by time, separated by commas"
+msgstr ""
+
+#: powerdnsadmin/routes/admin.py:1386
+msgid "Checking for the users SSL connection"
+msgstr ""
+
+#: powerdnsadmin/routes/admin.py:1388
+msgid ""
+"A warning about long inactivity. Allows the user to keep the session "
+"active"
 msgstr ""
 
 #: powerdnsadmin/templates/admin_edit_account.html:21
-#: powerdnsadmin/templates/base.html:217
+#: powerdnsadmin/templates/base.html:223
 msgid "Home"
 msgstr ""
 
@@ -41,23 +89,100 @@ msgstr ""
 msgid "Accounts"
 msgstr ""
 
+#: powerdnsadmin/templates/admin_edit_account.html:50
+#: powerdnsadmin/templates/admin_edit_user.html:50
+#: powerdnsadmin/templates/admin_setting_authentication.html:57
+#: powerdnsadmin/templates/admin_setting_pdns.html:41
+#: powerdnsadmin/templates/base.html:367
+#: powerdnsadmin/templates/errors/400.html:9
+#: powerdnsadmin/templates/errors/400.html:14
+#: powerdnsadmin/templates/errors/400.html:25
+#: powerdnsadmin/templates/errors/403.html:10
+#: powerdnsadmin/templates/errors/403.html:15
+#: powerdnsadmin/templates/errors/404.html:9
+#: powerdnsadmin/templates/errors/404.html:14
+#: powerdnsadmin/templates/errors/404.html:25
+#: powerdnsadmin/templates/errors/500.html:9
+#: powerdnsadmin/templates/errors/500.html:14
+#: powerdnsadmin/templates/errors/500.html:25
+msgid "Error"
+msgstr ""
+
+#: powerdnsadmin/templates/admin_edit_key.html:23
+#: powerdnsadmin/templates/admin_edit_user.html:21
+#: powerdnsadmin/templates/admin_global_search.html:15
+#: powerdnsadmin/templates/admin_history.html:14
+#: powerdnsadmin/templates/admin_manage_account.html:14
+#: powerdnsadmin/templates/admin_manage_keys.html:14
+#: powerdnsadmin/templates/admin_manage_user.html:14
+#: powerdnsadmin/templates/admin_server_configuration.html:16
+#: powerdnsadmin/templates/admin_server_statistics.html:16
+#: powerdnsadmin/templates/admin_setting_authentication.html:14
+#: powerdnsadmin/templates/admin_setting_basic.html:14
+#: powerdnsadmin/templates/admin_setting_pdns.html:14
+#: powerdnsadmin/templates/admin_setting_records.html:14
+#: powerdnsadmin/templates/base.html:94 powerdnsadmin/templates/base.html:217
+#: powerdnsadmin/templates/base.html:224
+#: powerdnsadmin/templates/dashboard.html:3
+#: powerdnsadmin/templates/dashboard.html:11
+#: powerdnsadmin/templates/docs.html:14 powerdnsadmin/templates/domain.html:13
+#: powerdnsadmin/templates/domain_add.html:16
+#: powerdnsadmin/templates/domain_changelog.html:24
+#: powerdnsadmin/templates/domain_remove.html:16
+#: powerdnsadmin/templates/domain_setting.html:32
+#: powerdnsadmin/templates/errors/400.html:13
+#: powerdnsadmin/templates/errors/403.html:14
+#: powerdnsadmin/templates/errors/404.html:13
+#: powerdnsadmin/templates/errors/500.html:13
+#: powerdnsadmin/templates/errors/SAML.html:13
+#: powerdnsadmin/templates/template.html:14
+#: powerdnsadmin/templates/user_profile.html:14
+msgid "Dashboard"
+msgstr ""
+
 #: powerdnsadmin/templates/admin_history.html:10
 #: powerdnsadmin/templates/base.html:116
 msgid "Activity"
 msgstr ""
 
+#: powerdnsadmin/templates/admin_setting_authentication.html:3
+#: powerdnsadmin/templates/admin_setting_authentication.html:10
+#: powerdnsadmin/templates/admin_setting_authentication.html:16
+msgid "Authentication Settings"
+msgstr ""
+
+#: powerdnsadmin/templates/admin_setting_authentication.html:15
+#: powerdnsadmin/templates/base.html:161
+msgid "Settings"
+msgstr ""
+
+#: powerdnsadmin/templates/admin_setting_authentication.html:32
+#: powerdnsadmin/templates/admin_setting_basic.html:28
+#: powerdnsadmin/templates/admin_setting_pdns.html:32
+#: powerdnsadmin/templates/admin_setting_records.html:33
+msgid "Settings Editor"
+msgstr ""
+
+#: powerdnsadmin/templates/admin_setting_authentication.html:188
+#: powerdnsadmin/templates/admin_setting_authentication.html:303
+#: powerdnsadmin/templates/admin_setting_pdns.html:87
+#: powerdnsadmin/templates/admin_setting_records.html:78
+#: powerdnsadmin/templates/docs.html:28
+msgid "Help"
+msgstr ""
+
 #: powerdnsadmin/templates/admin_setting_authentication.html:327
-msgid "Save Settings"
+#: powerdnsadmin/templates/admin_setting_basic.html:70
+#: powerdnsadmin/templates/admin_setting_pdns.html:74
+#: powerdnsadmin/templates/admin_setting_records.html:65
+#: powerdnsadmin/templates/dashboard.html:243
+msgid "Save"
 msgstr ""
 
 #: powerdnsadmin/templates/admin_setting_basic.html:3
 #: powerdnsadmin/templates/admin_setting_basic.html:10
 #: powerdnsadmin/templates/admin_setting_basic.html:15
 msgid "Basic Settings"
-msgstr ""
-
-#: powerdnsadmin/templates/admin_setting_basic.html:28
-msgid "Settings Editor"
 msgstr ""
 
 #: powerdnsadmin/templates/admin_setting_basic.html:35
@@ -76,19 +201,12 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
-#: powerdnsadmin/templates/admin_setting_basic.html:48
-#: powerdnsadmin/templates/admin_setting_basic.html:60
-msgid "Off"
-msgstr ""
-
 #: powerdnsadmin/templates/admin_setting_basic.html:52
-#: powerdnsadmin/templates/admin_setting_basic.html:56
 msgid "On"
 msgstr ""
 
-#: powerdnsadmin/templates/admin_setting_basic.html:70
-#: powerdnsadmin/templates/dashboard.html:243
-msgid "Save"
+#: powerdnsadmin/templates/admin_setting_basic.html:60
+msgid "Off"
 msgstr ""
 
 #: powerdnsadmin/templates/base.html:82
@@ -103,13 +221,6 @@ msgstr ""
 
 #: powerdnsadmin/templates/base.html:90
 msgid "Zone Management"
-msgstr ""
-
-#: powerdnsadmin/templates/base.html:94 powerdnsadmin/templates/base.html:211
-#: powerdnsadmin/templates/base.html:218
-#: powerdnsadmin/templates/dashboard.html:3
-#: powerdnsadmin/templates/dashboard.html:11
-msgid "Dashboard"
 msgstr ""
 
 #: powerdnsadmin/templates/base.html:101
@@ -145,10 +256,6 @@ msgstr ""
 msgid "API Keys"
 msgstr ""
 
-#: powerdnsadmin/templates/base.html:161
-msgid "Settings"
-msgstr ""
-
 #: powerdnsadmin/templates/base.html:170
 msgid "Basic"
 msgstr ""
@@ -165,23 +272,25 @@ msgstr ""
 msgid "Authentication"
 msgstr ""
 
-#: powerdnsadmin/templates/base.html:212
+#: powerdnsadmin/templates/base.html:199 powerdnsadmin/templates/docs.html:3
+#: powerdnsadmin/templates/docs.html:10 powerdnsadmin/templates/docs.html:15
+#: powerdnsadmin/templates/docs.html:33
+msgid "Documentation"
+msgstr ""
+
+#: powerdnsadmin/templates/base.html:218
 msgid "Control panel"
 msgstr ""
 
-#: powerdnsadmin/templates/base.html:230
+#: powerdnsadmin/templates/base.html:236
 msgid "A PowerDNS webinterface with advanced features."
 msgstr ""
 
-#: powerdnsadmin/templates/base.html:232
+#: powerdnsadmin/templates/base.html:238
 msgid "Version"
 msgstr ""
 
-#: powerdnsadmin/templates/base.html:361
-msgid "Error"
-msgstr ""
-
-#: powerdnsadmin/templates/base.html:371 powerdnsadmin/templates/base.html:392
+#: powerdnsadmin/templates/base.html:377 powerdnsadmin/templates/base.html:398
 #: powerdnsadmin/templates/dashboard.html:219
 #: powerdnsadmin/templates/dashboard.html:240
 #: powerdnsadmin/templates/dashboard.html:264
@@ -189,27 +298,27 @@ msgstr ""
 msgid "Close"
 msgstr ""
 
-#: powerdnsadmin/templates/base.html:382
+#: powerdnsadmin/templates/base.html:388
 msgid "Success"
 msgstr ""
 
-#: powerdnsadmin/templates/base.html:402
+#: powerdnsadmin/templates/base.html:408
 msgid "Session timeout warning"
 msgstr ""
 
-#: powerdnsadmin/templates/base.html:405
+#: powerdnsadmin/templates/base.html:411
 msgid "Your session is about to expire. You will be automatically signed out in"
 msgstr ""
 
-#: powerdnsadmin/templates/base.html:407
+#: powerdnsadmin/templates/base.html:413
 msgid "To coninue your ssession, select "
 msgstr ""
 
-#: powerdnsadmin/templates/base.html:407 powerdnsadmin/templates/base.html:412
+#: powerdnsadmin/templates/base.html:413 powerdnsadmin/templates/base.html:418
 msgid "Stay Signed In"
 msgstr ""
 
-#: powerdnsadmin/templates/base.html:415
+#: powerdnsadmin/templates/base.html:421
 msgid "Sign Out"
 msgstr ""
 
@@ -288,5 +397,12 @@ msgstr ""
 
 #: powerdnsadmin/templates/login.html:108
 msgid "Create an account"
+msgstr ""
+
+#: powerdnsadmin/templates/errors/SAML.html:2
+#: powerdnsadmin/templates/errors/SAML.html:9
+#: powerdnsadmin/templates/errors/SAML.html:14
+#: powerdnsadmin/templates/errors/SAML.html:26
+msgid "SAML Authentication Error"
 msgstr ""
 

@@ -100,7 +100,8 @@ def domains_custom(tab_id):
     columns = [
         Domain.name, 
         Domain.type,
-        Domain.serial, 
+        Domain.serial,
+        int,
         Domain.master,
         Domain.account_id
     ]
@@ -149,8 +150,9 @@ def domains_custom(tab_id):
     filtered_count = domains.count()
 
     start = int(request.args.get("start", 0))
-    length = min(int(request.args.get("length", 0)), max(100, int(Setting().get('default_domain_table_size'))))
-
+    # length = min(int(request.args.get("length", 0)), max(100, int(Setting().get('default_domain_table_size'))))
+    length = min(int(request.args.get("length", 0)), max(100, 10))
+    
     if length != -1:
         domains = domains[start:start + length]
 
@@ -161,7 +163,7 @@ def domains_custom(tab_id):
             # render.dnssec(domain),
             render.type(domain),
             render.serial(domain),
-            # render.date_serial(domain),
+            render.sni(domain),
             render.master(domain),
             render.account(domain),
             render.actions(domain),
@@ -212,3 +214,9 @@ def domains_updater():
         "result": d,
     }
     return jsonify(response_data)
+
+@dashboard_bp.route('/documentation', methods=['GET', 'POST'])
+@login_required
+def documentation():
+    return render_template('docs.html',
+                           pdns_version=Setting().get('pdns_version'))

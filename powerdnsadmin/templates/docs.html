@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% set active_page = "docs_page" %}
+{% block title %}<title>{{_('Documentation')}} - {{ SITE_NAME }}</title>{% endblock %}
+
+{% block dashboard_stat %}
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">{{_('Documentation')}}</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="{{ url_for('dashboard.dashboard') }}">{{_('Dashboard')}}</a></li>
+                        <li class="breadcrumb-item active">{{_('Documentation')}}</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <section class="content">
+        <div class="container-fluid">
+            <div class="card card-outline card-primary shadow">
+                <div class="card-header">
+                    <h3 class="card-title">{{_('Help')}}</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <p>
+                        {{_('Documentation')}}
+                    </p>
+                </div>
+                <!-- /.card-body -->
+            </div>
+        </div>
+        <!-- /.container-fluid -->
+    </section>
+{% endblock %}
+
+{% block extrascripts %}
+    <script>
+        
+    </script>
+{% endblock %}
