@@ -2,15 +2,15 @@ import os
 import base64
 # import traceback
 import bcrypt
-import pyotp
+# import pyotp
 # import ldap
 # import ldap.filter
 # from collections import OrderedDict
 from flask import current_app
 from flask_login import AnonymousUserMixin
 from sqlalchemy import orm
-import qrcode as qrc
-import qrcode.image.svg as qrc_svg
+# import qrcode as qrc
+# import qrcode.image.svg as qrc_svg
 from io import BytesIO
 
 from .base import db
@@ -33,7 +33,7 @@ class User(db.Model):
     lastname = db.Column(db.String(64))
     # email = db.Column(db.String(128))
     # otp_secret = db.Column(db.String(16))
-    confirmed = db.Column(db.SmallInteger, nullable=False, default=0) # TODO
+    # confirmed = db.Column(db.SmallInteger, nullable=False, default=0) # TODO
     role_id = db.Column(db.Integer, db.ForeignKey('role.id'))
     role = db.relationship('Role', back_populates="users", lazy=True)
     accounts = None
@@ -48,7 +48,7 @@ class User(db.Model):
                  role_id=None,
                 #  email=None,
                 #  otp_secret=None,
-                 confirmed=False,
+                #  confirmed=False,
                  reload_info=True):
         self.id = id
         self.username = username
@@ -59,7 +59,7 @@ class User(db.Model):
         self.role_id = role_id
         # self.email = email
         # self.otp_secret = otp_secret
-        self.confirmed = confirmed
+        # self.confirmed = confirmed
 
         if reload_info:
             user_info = self.get_user_info_by_id(
@@ -73,7 +73,7 @@ class User(db.Model):
                 # self.email = user_info.email
                 self.role_id = user_info.role_id
                 # self.otp_secret = user_info.otp_secret
-                self.confirmed = user_info.confirmed
+                # self.confirmed = user_info.confirmed
 
     def is_authenticated(self):
         return True
@@ -626,12 +626,12 @@ class User(db.Model):
             accounts.append(q[1])
         return accounts
 
-    def get_qrcode_value(self):
-        img = qrc.make(self.get_totp_uri(),
-                    image_factory=qrc_svg.SvgPathImage)
-        stream = BytesIO()
-        img.save(stream)
-        return stream.getvalue()
+    # def get_qrcode_value(self):
+    #     img = qrc.make(self.get_totp_uri(),
+    #                 image_factory=qrc_svg.SvgPathImage)
+    #     stream = BytesIO()
+    #     img.save(stream)
+    #     return stream.getvalue()
 
 
     # def read_entitlements(self, key):

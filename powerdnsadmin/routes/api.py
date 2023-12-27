@@ -15,7 +15,7 @@ from ..decorators import (
     # apikey_can_configure_dnssec,
     api_role_can, apikey_or_basic_auth,
     # callback_if_request_body_contains_key, allowed_record_types, allowed_record_ttl
-    allowed_record_types, allowed_record_ttl,
+    allowed_record_types, allowed_record_ttl, api_is_enable
 )
 from ..lib import utils, helper
 from ..lib.errors import (
@@ -184,6 +184,7 @@ def before_request():
 
 
 @apilist_bp.route('/api', methods=['GET'])
+@api_is_enable
 def index():
     return make_response(
                 jsonify({
@@ -194,6 +195,7 @@ def index():
 
 
 @api_bp.route('/pdnsadmin/zones', methods=['POST'])
+@api_is_enable
 @api_basic_auth
 @api_can_create_domain
 @csrf.exempt
@@ -250,6 +252,7 @@ def api_login_create_zone():
 
 
 @api_bp.route('/pdnsadmin/zones', methods=['GET'])
+@api_is_enable
 @api_basic_auth
 def api_login_list_zones():
     if current_user.role.name not in ['Administrator', 'Operator']:
@@ -262,6 +265,7 @@ def api_login_list_zones():
 
 
 @api_bp.route('/pdnsadmin/zones/<string:domain_name>', methods=['DELETE'])
+@api_is_enable
 @api_basic_auth
 @api_can_create_domain
 @csrf.exempt
@@ -319,6 +323,7 @@ def api_login_delete_zone(domain_name):
 
 
 @api_bp.route('/pdnsadmin/apikeys', methods=['POST'])
+@api_is_enable
 @api_basic_auth
 @csrf.exempt
 def api_generate_apikey():
@@ -418,6 +423,7 @@ def api_generate_apikey():
 
 @api_bp.route('/pdnsadmin/apikeys', defaults={'domain_name': None})
 @api_bp.route('/pdnsadmin/apikeys/<string:domain_name>')
+@api_is_enable
 @api_basic_auth
 def api_get_apikeys(domain_name):
     apikeys = []
@@ -458,6 +464,7 @@ def api_get_apikeys(domain_name):
 
 
 @api_bp.route('/pdnsadmin/apikeys/<int:apikey_id>', methods=['GET'])
+@api_is_enable
 @api_basic_auth
 def api_get_apikey(apikey_id):
     apikey = ApiKey.query.get(apikey_id)
@@ -475,6 +482,7 @@ def api_get_apikey(apikey_id):
 
 
 @api_bp.route('/pdnsadmin/apikeys/<int:apikey_id>', methods=['DELETE'])
+@api_is_enable
 @api_basic_auth
 @csrf.exempt
 def api_delete_apikey(apikey_id):
@@ -513,6 +521,7 @@ def api_delete_apikey(apikey_id):
 
 
 @api_bp.route('/pdnsadmin/apikeys/<int:apikey_id>', methods=['PUT'])
+@api_is_enable
 @api_basic_auth
 @csrf.exempt
 def api_update_apikey(apikey_id):
@@ -660,6 +669,7 @@ def api_update_apikey(apikey_id):
 
 @api_bp.route('/pdnsadmin/users', defaults={'username': None})
 @api_bp.route('/pdnsadmin/users/<string:username>')
+@api_is_enable
 @api_basic_auth
 @api_role_can('list users', allow_self=True)
 def api_list_users(username=None):
@@ -674,6 +684,7 @@ def api_list_users(username=None):
 
 
 @api_bp.route('/pdnsadmin/users', methods=['POST'])
+@api_is_enable
 @api_basic_auth
 @api_role_can('create users', allow_self=True)
 @csrf.exempt
@@ -691,9 +702,9 @@ def api_create_user():
     )
     firstname = data['firstname'] if 'firstname' in data else None
     lastname = data['lastname'] if 'lastname' in data else None
-    email = data['email'] if 'email' in data else None
-    otp_secret = data['otp_secret'] if 'otp_secret' in data else None
-    confirmed = data['confirmed'] if 'confirmed' in data else None
+    # email = data['email'] if 'email' in data else None
+    # otp_secret = data['otp_secret'] if 'otp_secret' in data else None
+    # confirmed = data['confirmed'] if 'confirmed' in data else None
     role_name = data['role_name'] if 'role_name' in data else None
     role_id = data['role_id'] if 'role_id' in data else None
 
@@ -701,11 +712,11 @@ def api_create_user():
     if not username:
         current_app.logger.debug('Invalid username {}'.format(username))
         abort(400)
-    if not confirmed:
-        confirmed = False
-    elif confirmed is not True:
-        current_app.logger.debug('Invalid confirmed {}'.format(confirmed))
-        abort(400)
+    # if not confirmed:
+    #     confirmed = False
+    # elif confirmed is not True:
+    #     current_app.logger.debug('Invalid confirmed {}'.format(confirmed))
+    #     abort(400)
 
     if not plain_text_password and not password:
         plain_text_password = ''.join(
@@ -726,19 +737,19 @@ def api_create_user():
         firstname=firstname,
         lastname=lastname,
         role_id=role_id,
-        email=email,
-        otp_secret=otp_secret,
-        confirmed=confirmed,
+        # email=email,
+        # otp_secret=otp_secret,
+        # confirmed=confirmed,
     )
     try:
         result = user.create_local_user()
     except Exception as e:
-        current_app.logger.error('Create user ({}, {}) error: {}'.format(
-            username, email, e))
+        current_app.logger.error('Create user ({}) error: {}'.format(
+            username, e))
         raise UserCreateFail(message='User create failed')
     if not result['status']:
-        current_app.logger.warning('Create user ({}, {}) error: {}'.format(
-            username, email, result['msg']))
+        current_app.logger.warning('Create user ({}) error: {}'.format(
+            username, result['msg']))
         raise UserCreateDuplicate(message=result['msg'])
 
     history = History(msg='Created user {0}'.format(user.username),
@@ -748,6 +759,7 @@ def api_create_user():
 
 
 @api_bp.route('/pdnsadmin/users/<int:user_id>', methods=['PUT'])
+@api_is_enable
 @api_basic_auth
 @api_role_can('update users', allow_self=True)
 @csrf.exempt
@@ -765,9 +777,9 @@ def api_update_user(user_id):
     )
     firstname = data['firstname'] if 'firstname' in data else None
     lastname = data['lastname'] if 'lastname' in data else None
-    email = data['email'] if 'email' in data else None
-    otp_secret = data['otp_secret'] if 'otp_secret' in data else None
-    confirmed = data['confirmed'] if 'confirmed' in data else None
+    # email = data['email'] if 'email' in data else None
+    # otp_secret = data['otp_secret'] if 'otp_secret' in data else None
+    # confirmed = data['confirmed'] if 'confirmed' in data else None
     role_name = data['role_name'] if 'role_name' in data else None
     role_id = data['role_id'] if 'role_id' in data else None
 
@@ -788,12 +800,12 @@ def api_update_user(user_id):
         user.firstname = firstname
     if lastname is not None:
         user.lastname = lastname
-    if email is not None:
-        user.email = email
-    if otp_secret is not None:
-        user.otp_secret = otp_secret
-    if confirmed is not None:
-        user.confirmed = confirmed
+    # if email is not None:
+    #     user.email = email
+    # if otp_secret is not None:
+    #     user.otp_secret = otp_secret
+    # if confirmed is not None:
+    #     user.confirmed = confirmed
     if role_name is not None:
         user.role_id = get_role_id(role_name, role_id)
     elif role_id is not None:
@@ -803,12 +815,12 @@ def api_update_user(user_id):
     try:
         result = user.update_local_user()
     except Exception as e:
-        current_app.logger.error('Create user ({}, {}) error: {}'.format(
-            username, email, e))
+        current_app.logger.error('Create user ({}) error: {}'.format(
+            username, e))
         raise UserUpdateFail(message='User update failed')
     if not result['status']:
-        current_app.logger.warning('Update user ({}, {}) error: {}'.format(
-            username, email, result['msg']))
+        current_app.logger.warning('Update user ({}) error: {}'.format(
+            username, result['msg']))
         if result['msg'].startswith('New email'):
             raise UserUpdateFailEmail(message=result['msg'])
         else:
@@ -821,6 +833,7 @@ def api_update_user(user_id):
 
 
 @api_bp.route('/pdnsadmin/users/<int:user_id>', methods=['DELETE'])
+@api_is_enable
 @api_basic_auth
 @api_role_can('delete users')
 @csrf.exempt
@@ -855,6 +868,7 @@ def api_delete_user(user_id):
 
 @api_bp.route('/pdnsadmin/accounts', defaults={'account_name': None})
 @api_bp.route('/pdnsadmin/accounts/<string:account_name>')
+@api_is_enable
 @api_basic_auth
 @api_role_can('list accounts')
 def api_list_accounts(account_name):
@@ -874,6 +888,7 @@ def api_list_accounts(account_name):
 
 
 @api_bp.route('/pdnsadmin/accounts', methods=['POST'])
+@api_is_enable
 @api_basic_auth
 @csrf.exempt
 def api_create_account():
@@ -918,6 +933,7 @@ def api_create_account():
 
 
 @api_bp.route('/pdnsadmin/accounts/<int:account_id>', methods=['PUT'])
+@api_is_enable
 @api_basic_auth
 @api_role_can('update accounts')
 @csrf.exempt
@@ -960,6 +976,7 @@ def api_update_account(account_id):
 
 
 @api_bp.route('/pdnsadmin/accounts/<int:account_id>', methods=['DELETE'])
+@api_is_enable
 @api_basic_auth
 @api_role_can('delete accounts')
 @csrf.exempt
@@ -993,6 +1010,7 @@ def api_delete_account(account_id):
 
 @api_bp.route('/pdnsadmin/accounts/users/<int:account_id>', methods=['GET'])
 @api_bp.route('/pdnsadmin/accounts/<int:account_id>/users', methods=['GET'])
+@api_is_enable
 @api_basic_auth
 @api_role_can('list account users')
 def api_list_account_users(account_id):
@@ -1010,6 +1028,7 @@ def api_list_account_users(account_id):
 @api_bp.route(
     '/pdnsadmin/accounts/<int:account_id>/users/<int:user_id>',
     methods=['PUT'])
+@api_is_enable
 @api_basic_auth
 @api_role_can('add user to account')
 @csrf.exempt
@@ -1038,6 +1057,7 @@ def api_add_account_user(account_id, user_id):
 @api_bp.route(
     '/pdnsadmin/accounts/<int:account_id>/users/<int:user_id>',
     methods=['DELETE'])
+@api_is_enable
 @api_basic_auth
 @api_role_can('remove user from account')
 @csrf.exempt
@@ -1093,6 +1113,7 @@ def api_remove_account_user(account_id, user_id):
 @api_bp.route(
     '/servers/<string:server_id>/zones/<string:zone_id>/<path:subpath>',
     methods=['GET', 'POST', 'PUT', 'PATCH', 'DELETE'])
+@api_is_enable
 @apikey_auth
 @apikey_can_access_domain
 @csrf.exempt
@@ -1103,6 +1124,7 @@ def api_zone_subpath_forward(server_id, zone_id, subpath):
 
 @api_bp.route('/servers/<string:server_id>/zones/<string:zone_id>',
               methods=['GET', 'PUT', 'PATCH', 'DELETE'])
+@api_is_enable
 @apikey_auth
 @allowed_record_types
 @allowed_record_ttl
@@ -1150,6 +1172,7 @@ def api_zone_forward(server_id, zone_id):
 
 
 @api_bp.route('/servers/<path:subpath>', methods=['GET', 'PUT'])
+@api_is_enable
 @apikey_auth
 @apikey_is_admin
 @csrf.exempt
@@ -1159,6 +1182,7 @@ def api_server_sub_forward(subpath):
 
 
 @api_bp.route('/servers/<string:server_id>/zones', methods=['POST'])
+@api_is_enable
 @apikey_auth
 @apikey_can_create_domain
 @csrf.exempt
@@ -1190,6 +1214,7 @@ def api_create_zone(server_id):
 
 
 @api_bp.route('/servers/<string:server_id>/zones', methods=['GET'])
+@api_is_enable
 @apikey_auth
 def api_get_zones(server_id):
     if server_id == 'pdnsadmin':
@@ -1215,6 +1240,7 @@ def api_get_zones(server_id):
 
 
 @api_bp.route('/servers', methods=['GET'])
+@api_is_enable
 @apikey_auth
 def api_server_forward():
     resp = helper.forward_request()
@@ -1222,6 +1248,7 @@ def api_server_forward():
 
 
 @api_bp.route('/servers/<string:server_id>', methods=['GET'])
+@api_is_enable
 @apikey_auth
 def api_server_config_forward(server_id):
     resp = helper.forward_request()
@@ -1230,6 +1257,7 @@ def api_server_config_forward(server_id):
 
 # The endpoint to synchronize Domains in background
 @api_bp.route('/sync_domains', methods=['GET'])
+@api_is_enable
 @apikey_or_basic_auth
 def sync_domains():
     domain = Domain()
@@ -1238,6 +1266,7 @@ def sync_domains():
 
 
 @api_bp.route('/health', methods=['GET'])
+@api_is_enable
 @apikey_auth
 def health():
     domain = Domain()

@@ -82,6 +82,14 @@ class NotEnoughPrivileges(StructuredException):
         self.message = message
         self.name = name
 
+class ApiIsDisable(StructuredException):
+    status_code = 403
+
+    def __init__(self, name=None, message="API is disable. Try again later"):
+        StructuredException.__init__(self)
+        self.message = message
+        self.name = name
+
 
 class RequestIsNotJSON(StructuredException):
     status_code = 400

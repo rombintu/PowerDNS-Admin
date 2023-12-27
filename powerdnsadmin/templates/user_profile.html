@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% set active_page = "user_profile" %}
-{% block title %}<title>Edit Profile - {{ SITE_NAME }}</title>{% endblock %}
+{% block title %}<title>{{_('Edit Profile')}} - {{ SITE_NAME }}</title>{% endblock %}
 
 {% block dashboard_stat %}
     <div class="content-header">
@@ -27,7 +27,7 @@
                 <div class="col-12 col-sm-6">
                     <div class="card card-outline card-primary shadow">
                         <div class="card-header">
-                            <h3 class="card-title">Profile Editor</h3>
+                            <h3 class="card-title">{{_('Editor')}}</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -73,17 +73,17 @@
                                                    id="lastname" placeholder="{{ current_user.lastname }}"
                                                    {% if session['authentication_type'] != 'LOCAL' %}disabled{% endif %}>
                                         </div>
-                                        <div class="form-group">
+                                        <!-- <div class="form-group">
                                             <label for="email">E-Mail</label> <input type="email"
                                                                                      class="form-control"
                                                                                      name="email" id="email"
                                                                                      placeholder="{{ current_user.email }}"
                                                                                      {% if session['authentication_type'] != 'LOCAL' %}disabled{% endif %}>
-                                        </div>
+                                        </div> -->
                                         {% if session['authentication_type'] == 'LOCAL' %}
                                             <div class="form-group">
-                                                <button type="submit" class="btn btn-primary" title="Save Profile">
-                                                    <i class="fa-solid fa-floppy-disk"></i>&nbsp;Save Profile
+                                                <button type="submit" class="btn btn-primary" title="{{_('Save Profile')}}">
+                                                    <i class="fa-solid fa-floppy-disk"></i>&nbsp;{{_('Save')}}
                                                 </button>
                                             </div>
                                         {% endif %}
@@ -119,8 +119,8 @@
                                                            id="rpassword">
                                                 </div>
                                                 <div class="form-group">
-                                                    <button type="submit" class="btn btn-primary" title="Save Password">
-                                                        <i class="fa-solid fa-floppy-disk"></i>&nbsp;Save Password
+                                                    <button type="submit" class="btn btn-primary" title="{{_('Save Password')}}">
+                                                        <i class="fa-solid fa-floppy-disk"></i>&nbsp;{{_('Save')}}
                                                     </button>
                                                 </div>
                                             </form>
@@ -129,7 +129,7 @@
                                     <!-- /.tab-pane -->
                                 {% endif %}
 
-                                <div class="tab-pane fade" id="tabs-authentication">
+                                <!-- <div class="tab-pane fade" id="tabs-authentication">
                                     <form action="{{ user_profile }}" method="post">
                                         <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
                                         <div class="form-group">
@@ -181,10 +181,10 @@
                                                 </div>
                                             {% endif %}
                                         </div>
-                                        <!-- /.form-group -->
+                            
                                     </form>
-                                </div>
-                                <!-- /.tab-pane -->
+                                </div> -->
+                            
                             </div>
                             <!-- /.tab-content -->
                         </div>
@@ -200,7 +200,7 @@
     </section>
 {% endblock %}
 
-{% block extrascripts %}
+<!-- {% block extrascripts %}
     <script>
 
         // initialize pretty checkboxes
@@ -225,4 +225,4 @@
             });
         });
     </script>
-{% endblock %}
+{% endblock %} -->

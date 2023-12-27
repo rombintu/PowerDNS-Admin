@@ -47,7 +47,7 @@ def profile():
         if session['authentication_type'] == 'LOCAL':
             firstname = request.form.get('firstname', '').strip()
             lastname = request.form.get('lastname', '').strip()
-            email = request.form.get('email', '').strip()
+            # email = request.form.get('email', '').strip()
             new_password = request.form.get('password', '')
         else:
             firstname = lastname = email = new_password = ''
@@ -96,7 +96,7 @@ def profile():
                     plain_text_password=new_password,
                     firstname=firstname,
                     lastname=lastname,
-                    email=email,
+                    # email=email,
                     reload_info=False)
 
         user.update_profile()
@@ -104,66 +104,66 @@ def profile():
         return render_template('user_profile.html')
 
 
-@user_bp.route('/qrcode')
-@login_required
-def qrcode():
-    if not current_user:
-        return redirect(url_for('index'))
+# @user_bp.route('/qrcode')
+# @login_required
+# def qrcode():
+#     if not current_user:
+#         return redirect(url_for('index'))
 
-    return current_user.get_qrcode_value(), 200, {
-        'Content-Type': 'image/svg+xml',
-        'Cache-Control': 'no-cache, no-store, must-revalidate',
-        'Pragma': 'no-cache',
-        'Expires': '0'
-    }
+#     return current_user.get_qrcode_value(), 200, {
+#         'Content-Type': 'image/svg+xml',
+#         'Cache-Control': 'no-cache, no-store, must-revalidate',
+#         'Pragma': 'no-cache',
+#         'Expires': '0'
+#     }
 
 
-@user_bp.route('/image', methods=['GET'])
-@login_required
-def image():
-    """Returns the user profile image or avatar."""
+# @user_bp.route('/image', methods=['GET'])
+# @login_required
+# def image():
+#     """Returns the user profile image or avatar."""
 
-    @after_this_request
-    def add_cache_headers(response_):
-        """When the response is ok, add cache headers."""
-        if 200 <= response_.status_code <= 399:
-            response_.cache_control.private = True
-            response_.cache_control.max_age = int(datetime.timedelta(days=1).total_seconds())
-        return response_
+#     @after_this_request
+#     def add_cache_headers(response_):
+#         """When the response is ok, add cache headers."""
+#         if 200 <= response_.status_code <= 399:
+#             response_.cache_control.private = True
+#             response_.cache_control.max_age = int(datetime.timedelta(days=1).total_seconds())
+#         return response_
 
-    def return_image(content, content_type=None):
-        """Return the given binary image content. Guess the type if not given."""
-        if not content_type:
-            guess = mimetypes.guess_type('example.' + imghdr.what(None, h=content))
-            if guess and guess[0]:
-                content_type = guess[0]
+#     def return_image(content, content_type=None):
+#         """Return the given binary image content. Guess the type if not given."""
+#         if not content_type:
+#             guess = mimetypes.guess_type('example.' + imghdr.what(None, h=content))
+#             if guess and guess[0]:
+#                 content_type = guess[0]
 
-        return content, 200, {'Content-Type': content_type}
+#         return content, 200, {'Content-Type': content_type}
 
-    # To prevent "cache poisoning", the username query parameter is required
-    if request.args.get('username', None) != current_user.username:
-        abort(400)
+#     # To prevent "cache poisoning", the username query parameter is required
+#     if request.args.get('username', None) != current_user.username:
+#         abort(400)
 
-    # setting = Setting()
+#     # setting = Setting()
 
-    # if session['authentication_type'] == 'LDAP':
-    #     search_filter = '(&({0}={1}){2})'.format(setting.get('ldap_filter_username'),
-    #                                              current_user.username,
-    #                                              setting.get('ldap_filter_basic'))
-    #     result = User().ldap_search(search_filter, setting.get('ldap_base_dn'))
-    #     if result and result[0] and result[0][0] and result[0][0][1]:
-    #         user_obj = result[0][0][1]
-    #         for key in ['jpegPhoto', 'thumbnailPhoto']:
-    #             if key in user_obj and user_obj[key] and user_obj[key][0]:
-    #                 current_app.logger.debug(f'Return {key} from ldap as user image')
-    #                 return return_image(user_obj[key][0])
+#     # if session['authentication_type'] == 'LDAP':
+#     #     search_filter = '(&({0}={1}){2})'.format(setting.get('ldap_filter_username'),
+#     #                                              current_user.username,
+#     #                                              setting.get('ldap_filter_basic'))
+#     #     result = User().ldap_search(search_filter, setting.get('ldap_base_dn'))
+#     #     if result and result[0] and result[0][0] and result[0][0][1]:
+#     #         user_obj = result[0][0][1]
+#     #         for key in ['jpegPhoto', 'thumbnailPhoto']:
+#     #             if key in user_obj and user_obj[key] and user_obj[key][0]:
+#     #                 current_app.logger.debug(f'Return {key} from ldap as user image')
+#     #                 return return_image(user_obj[key][0])
 
-    # email = current_user.email
-    # if email and setting.get('gravatar_enabled'):
-    #     hash_ = hashlib.md5(email.encode('utf-8')).hexdigest()
-    #     url = f'https://s.gravatar.com/avatar/{hash_}?s=100'
-    #     current_app.logger.debug('Redirect user image request to gravatar')
-    #     return redirect(url, 307)
+#     # email = current_user.email
+#     # if email and setting.get('gravatar_enabled'):
+#     #     hash_ = hashlib.md5(email.encode('utf-8')).hexdigest()
+#     #     url = f'https://s.gravatar.com/avatar/{hash_}?s=100'
+#     #     current_app.logger.debug('Redirect user image request to gravatar')
+#     #     return redirect(url, 307)
 
-    # Fallback to the local default image
-    return current_app.send_static_file('img/user_image.png')
+#     # Fallback to the local default image
+#     return current_app.send_static_file('img/user_image.png')

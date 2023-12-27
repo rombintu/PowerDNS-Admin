@@ -5,7 +5,7 @@ from flask import g, request, abort, current_app, Response
 from flask_login import current_user
 
 from .models import User, ApiKey, Setting, Domain, Setting
-from .lib.errors import RequestIsNotJSON, NotEnoughPrivileges, RecordTTLNotAllowed, RecordTypeNotAllowed
+from .lib.errors import RequestIsNotJSON, NotEnoughPrivileges, RecordTTLNotAllowed, RecordTypeNotAllowed, ApiIsDisable
 from .lib.errors import DomainAccessForbidden, DomainOverrideForbidden
 
 
@@ -265,6 +265,28 @@ def api_can_create_domain(f):
             msg = "User {0} does not have enough privileges to create zone"
             current_app.logger.error(msg.format(current_user.username))
             raise NotEnoughPrivileges()
+        
+        # if Setting().get('deny_domain_override'):
+        #     req = request.get_json(force=True)
+        #     domain = Domain()
+        #     if req['name'] and domain.is_overriding(req['name']):
+        #         raise DomainOverrideForbidden()
+
+        return f(*args, **kwargs)
+
+    return decorated_function
+
+def api_is_enable(f):
+    """
+    Grant access if:
+        - api is enable in configuration
+    """
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if not Setting().get("enable_api"):
+            msg = "User {0} try use API. But api is disabled"
+            current_app.logger.warning(msg.format(current_user.username))
+            abort(403)
         
         # if Setting().get('deny_domain_override'):
         #     req = request.get_json(force=True)

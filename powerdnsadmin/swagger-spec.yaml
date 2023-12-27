@@ -1132,15 +1132,15 @@ paths:
               lastname:
                 type: string
                 description: Lastname of user
-              email:
-                type: string
-                description: Email address if user (must be unique)
-              otp_secret:
-                type: string
-                description: OTP secret
-              confirmed:
-                type: string
-                description: Confirmed status
+              # email:
+              #   type: string
+              #   description: Email address if user (must be unique)
+              # otp_secret:
+              #   type: string
+              #   description: OTP secret
+              # confirmed:
+              #   type: string
+              #   description: Confirmed status
               role_name:
                 type: string
                 description: Name of role to be assigned to user (default 'User')
@@ -1236,15 +1236,15 @@ paths:
               lastname:
                 type: string
                 description: Lastname of user
-              email:
-                type: string
-                description: Email address if user (must be unique)
-              otp_secret:
-                type: string
-                description: OTP secret
-              confirmed:
-                type: string
-                description: Confirmed status
+              # email:
+              #   type: string
+              #   description: Email address if user (must be unique)
+              # otp_secret:
+              #   type: string
+              #   description: OTP secret
+              # confirmed:
+              #   type: string
+              #   description: Confirmed status
               role_name:
                 type: string
                 description: Name of role to be assigned to user (default 'User')
@@ -1955,18 +1955,18 @@ definitions:
         type: string
         description: The lastname of this user
         readOnly: false
-      email:
-        type: string
-        description: Email addres for this user
-        readOnly: false
-      otp_secret:
-        type: string
-        description: OTP secret
-        readOnly: false
-      confirmed:
-        type: boolean
-        description: The confirmed status
-        readOnly: false
+      # email:
+      #   type: string
+      #   description: Email addres for this user
+      #   readOnly: false
+      # otp_secret:
+      #   type: string
+      #   description: OTP secret
+      #   readOnly: false
+      # confirmed:
+      #   type: boolean
+      #   description: The confirmed status
+      #   readOnly: false
       role:
         $ref: '#/definitions/PDNSAdminRole'
 

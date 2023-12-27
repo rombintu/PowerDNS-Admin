@@ -21,7 +21,6 @@
 </head>
 
 <body class="hold-transition sidebar-mini">
-{% set user_image_url = url_for('user.image', username=current_user.username) %}
 <div class="wrapper">
     {% block pageheader %}
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -78,8 +77,10 @@
                     <div class="info">
                         <p>{{ current_user.firstname }} {{ current_user.lastname }}</p>
                         <span>
+                            {% if session['authentication_type'] == 'LOCAL' %}
                             <a href="{{ url_for('user.profile') }}"><i class="nav-icon fa-solid fa-user"></i> {{_('Edit Profile')}}</a>
                             &nbsp;|&nbsp;
+                            {% endif %}
                             <a href="{{ url_for('index.logout') }}"><i class="nav-icon fa-solid fa-sign-out-alt"></i> {{_('Logout')}}</a>
                         </span>
                     </div>
@@ -184,6 +185,7 @@
                             </ul>
                         </li>
                     {% endif %}
+                    <li class="nav-header">{{_('Other')}}</li>
                     <li class="{{ 'nav-item active' if active_page == 'docs_page' else 'nav-item' }}" style="margin-bottom: 0;">
                         <a href="{{ url_for('dashboard.documentation') }}" class="nav-link">
                             <i class="nav-icon fa-solid fa-info"></i>
@@ -275,7 +277,7 @@
 
                     $(this).on('hidden.bs.modal', function () {
                         clearInterval(t);
-                        $('#modal-time').text("");
+                        $('#modal-time').text("second");
                         $(this).off('hidden.bs.modal');
                     });
 
@@ -286,7 +288,7 @@
                     $.jTimeout({
                         flashTitle: true,
                         flashTitleSpeed: 500,
-                        flashingTitleText: '**',
+                        flashingTitleText: '***',
                         originalTitle: document.title,
                         timeoutAfter: {{ SETTING.get('session_timeout')|int * 60 }},
                         secondsPrior: 60,

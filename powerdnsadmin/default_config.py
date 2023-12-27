@@ -40,7 +40,7 @@ SQLALCHEMY_TRACK_MODIFICATIONS = True
 SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'pdns.db')
 
 # SAML Authnetication
-SAML_ENABLED = True
+SAML_ENABLED = False
 SAML_DEBUG = True
 SAML_PATH = os.path.join(os.path.dirname(__file__), 'saml')
 # # ##Example for ADFS Metadata-URL

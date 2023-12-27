@@ -45,9 +45,9 @@ class Setting(db.Model):
         # 'verify_user_email': bool,
         'enforce_api_ttl': bool,
         'ttl_options': str,
-        'otp_field_enabled': bool,
+        # 'otp_field_enabled': bool,
         # 'custom_css': str,
-        'otp_force': bool,
+        # 'otp_force': bool,
         'max_history_records': int,
         # 'deny_domain_override': bool,
         # 'account_name_extra_chars': bool,
@@ -135,6 +135,7 @@ class Setting(db.Model):
         # 'oidc_oauth_last_name': str,
         # 'oidc_oauth_account_name_property': str,
         # 'oidc_oauth_account_description_property': str,
+        'enable_api': bool
     }
     
     defaults = {
@@ -168,10 +169,11 @@ class Setting(db.Model):
         'verify_ssl_connections': True,
         # 'verify_user_email': False,
         'enforce_api_ttl': False,
+        'enable_api': False,
         'ttl_options': '1 minute,5 minutes,30 minutes,60 minutes,24 hours',
-        'otp_field_enabled': True,
+        # 'otp_field_enabled': True,
         # 'custom_css': '',
-        'otp_force': False,
+        # 'otp_force': False,
         'max_history_records': 1000,
         # 'deny_domain_override': False,
         # 'account_name_extra_chars': False,

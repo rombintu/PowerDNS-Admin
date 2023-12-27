@@ -311,9 +311,9 @@ def user1_data():
         "plain_text_password": "ChangeMePlease",
         "firstname": "firstname1",
         "lastname": "lastname1",
-        "email": "testuser1@example.com",
-        "otp_secret": "",
-        "confirmed": False,
+        # "email": "testuser1@example.com",
+        # "otp_secret": "",
+        # "confirmed": False,
         "role_name": "User",
     }
     return data

@@ -280,14 +280,14 @@ function timer(elToUpdate, maxTime) {
 }
 
 // copy otp secret code to clipboard
-function copy_otp_secret_to_clipboard() {
-    var copyBox = document.getElementById("otp_secret");
-    copyBox.select();
-    copyBox.setSelectionRange(0, 99999); /* For mobile devices */
-    navigator.clipboard.writeText(copyBox.value);
-    $("#copy_tooltip").css("visibility", "visible");
-    setTimeout(function(){ $("#copy_tooltip").css("visibility", "collapse"); }, 2000);
-  }
+// function copy_otp_secret_to_clipboard() {
+//     var copyBox = document.getElementById("otp_secret");
+//     copyBox.select();
+//     copyBox.setSelectionRange(0, 99999); /* For mobile devices */
+//     navigator.clipboard.writeText(copyBox.value);
+//     $("#copy_tooltip").css("visibility", "visible");
+//     setTimeout(function(){ $("#copy_tooltip").css("visibility", "collapse"); }, 2000);
+//   }
 
 // Side menu nav bar active selection
 /** add active class and stay opened when selected */

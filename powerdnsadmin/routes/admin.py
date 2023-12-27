@@ -483,32 +483,32 @@ def manage_user():
             jdata = request.json
             data = jdata['data']
 
-            if jdata['action'] == 'user_otp_disable':
-                user = User(username=data)
-                result = user.update_profile(enable_otp=False)
-                if result:
-                    history = History(
-                        msg='Two factor authentication disabled for user {0}'.
-                        format(data),
-                        created_by=current_user.username)
-                    history.add()
-                    return make_response(
-                        jsonify({
-                            'status':
-                                'ok',
-                            'msg':
-                                'Two factor authentication has been disabled for user.'
-                        }), 200)
-                else:
-                    return make_response(
-                        jsonify({
-                            'status':
-                                'error',
-                            'msg':
-                                'Cannot disable two factor authentication for user.'
-                        }), 500)
+            # if jdata['action'] == 'user_otp_disable':
+            #     user = User(username=data)
+            #     result = user.update_profile(enable_otp=False)
+            #     if result:
+            #         history = History(
+            #             msg='Two factor authentication disabled for user {0}'.
+            #             format(data),
+            #             created_by=current_user.username)
+            #         history.add()
+            #         return make_response(
+            #             jsonify({
+            #                 'status':
+            #                     'ok',
+            #                 'msg':
+            #                     'Two factor authentication has been disabled for user.'
+            #             }), 200)
+            #     else:
+            #         return make_response(
+            #             jsonify({
+            #                 'status':
+            #                     'error',
+            #                 'msg':
+            #                     'Cannot disable two factor authentication for user.'
+            #             }), 500)
 
-            elif jdata['action'] == 'delete_user':
+            if jdata['action'] == 'delete_user':
                 user = User(username=data)
                 if user.username == current_user.username:
                     return make_response(
@@ -1368,6 +1368,7 @@ def setting_basic():
         # 'dnssec_admins_only': gettext(u' '),
         # 'enable_api_rr_history': gettext(u' '),
         'enforce_api_ttl': gettext(u'Getting all the values via the API. Default: disable'),
+        'enable_api': gettext(u'Enable api endpoints. Default: disable'),
         # 'fullscreen_layout': gettext(u' '),
         # 'gravatar_enabled': gettext(u' '),
         # 'login_ldap_first': gettext(u' '),
@@ -1488,25 +1489,27 @@ def setting_records():
 
 
 def has_an_auth_method(local_db_enabled=None,
-                       ldap_enabled=None,
-                       google_oauth_enabled=None,
-                       github_oauth_enabled=None,
-                       oidc_oauth_enabled=None,
-                       azure_oauth_enabled=None):
+                    #    ldap_enabled=None,
+                    #    google_oauth_enabled=None,
+                    #    github_oauth_enabled=None,
+                    #    oidc_oauth_enabled=None,
+                    #    azure_oauth_enabled=None
+                       ):
     if local_db_enabled is None:
         local_db_enabled = Setting().get('local_db_enabled')
-    if ldap_enabled is None:
-        ldap_enabled = Setting().get('ldap_enabled')
-    if google_oauth_enabled is None:
-        google_oauth_enabled = Setting().get('google_oauth_enabled')
-    if github_oauth_enabled is None:
-        github_oauth_enabled = Setting().get('github_oauth_enabled')
-    if oidc_oauth_enabled is None:
-        oidc_oauth_enabled = Setting().get('oidc_oauth_enabled')
-    if azure_oauth_enabled is None:
-        azure_oauth_enabled = Setting().get('azure_oauth_enabled')
-    return local_db_enabled or ldap_enabled or google_oauth_enabled or github_oauth_enabled or oidc_oauth_enabled \
-        or azure_oauth_enabled
+    # if ldap_enabled is None:
+    #     ldap_enabled = Setting().get('ldap_enabled')
+    # if google_oauth_enabled is None:
+    #     google_oauth_enabled = Setting().get('google_oauth_enabled')
+    # if github_oauth_enabled is None:
+    #     github_oauth_enabled = Setting().get('github_oauth_enabled')
+    # if oidc_oauth_enabled is None:
+    #     oidc_oauth_enabled = Setting().get('oidc_oauth_enabled')
+    # if azure_oauth_enabled is None:
+    #     azure_oauth_enabled = Setting().get('azure_oauth_enabled')
+    # return local_db_enabled or ldap_enabled or google_oauth_enabled or github_oauth_enabled or oidc_oauth_enabled \
+    #     or azure_oauth_enabled
+        return local_db_enabled 
 
 
 @admin_bp.route('/setting/authentication', methods=['GET', 'POST'])
