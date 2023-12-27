@@ -43,8 +43,8 @@
                                    class="table table-bordered table-striped table-hover table-sm records">
                                 <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Description</th>
+                                    <th>{{_('Name')}}</th>
+                                    <th>{{_('Description')}}</th>
                                     <th>Contact</th>
                                     <th>Mail</th>
                                     <th>Member</th>
@@ -115,6 +115,9 @@
             }],
             "info": false,
             "autoWidth": false,
+            "language": {
+                "url": '{{ url_for('static', filename='assets/plugins/ru.json') }}',
+            },
             "lengthMenu": [
                 [10, 25, 50, 100, -1],
                 [10, 25, 50, 100, "All"]
@@ -157,7 +160,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default float-left" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-danger" id="button_delete_confirm">Delete</button>
+                    <button type="button" class="btn btn-danger" id="button_delete_confirm">{{_('Delete')}}</button>
                 </div>
             </div>
             <!-- /.modal-content -->

@@ -44,14 +44,14 @@
                                    class="table table-bordered table-striped table-hover table-sm records">
                                 <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Type</th>
-                                    <th>Status</th>
-                                    <th>TTL</th>
-                                    <th>Data</th>
-                                    <th>Comment</th>
-                                    <th>Edit</th>
-                                    <th>Delete</th>
+                                    <th>{{_('Name')}}</th>
+                                    <th>{{_('Type')}}</th>
+                                    <th>{{_('Status')}}</th>
+                                    <th>{{_('TTL')}}</th>
+                                    <th>{{_('Data')}}</th>
+                                    <th>{{_('Comment')}}</th>
+                                    <th>{{_('Edit')}}</th>
+                                    <th>{{_('Delete')}}</th>
                                     <th>ID</th>
                                 </tr>
                                 </thead>
@@ -116,6 +116,9 @@
             "searching": true,
             "ordering": true,
             "info": true,
+            "language": {
+                "url": '{{ url_for('static', filename='assets/plugins/ru.json') }}',
+            },
             "autoWidth": true,
             "retrieve": true,
             "columnDefs": [

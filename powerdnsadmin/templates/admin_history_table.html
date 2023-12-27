@@ -29,12 +29,12 @@
                 <div class="content">
                 <table class="table table-bordered table-striped">
                 <thead><tr>
-                    <th>Name</th>
-                    <th>Type</th>
-                    <th>TTL</th>
-                    <th>Data</th>
-                    <th>Status</th>
-                    <th>Comment</th>
+                    <th>{{_('Name')}}</th>
+                    <th>{{_('Type')}}</th>
+                    <th>{{_('TTL')}}</th>
+                    <th>{{_('Data')}}</th>
+                    <th>{{_('Status')}}</th>
+                    <th>{{_('Comment')}}</th>
                 </tr></thead>
                 <tbody>
 				{% for applied_change in history.change_set %}
@@ -70,6 +70,9 @@
         [0, "desc"]
       ],
       "searching": true,
+      "language": {
+                "url": '{{ url_for('static', filename='assets/plugins/ru.json') }}',
+      },
       "columnDefs": [{
         "type": "time",
         "render": function (data, type, row) {

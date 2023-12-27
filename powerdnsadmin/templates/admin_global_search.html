@@ -1,19 +1,19 @@
 {% extends "base.html" %}
 {% set active_page = "admin_global_search" %}
-{% block title %}<title>Global Search - {{ SITE_NAME }}</title>{% endblock %}
+{% block title %}<title>{{_('Global Search')}} - {{ SITE_NAME }}</title>{% endblock %}
 
 {% block dashboard_stat %}
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-6">
-                    <h1 class="m-0 text-dark">Global Search</h1>
+                    <h1 class="m-0 text-dark">{{_('Global Search')}}</h1>
                 </div>
                 <!-- /.col -->
                 <div class="col-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ url_for('dashboard.dashboard') }}">{{_('Dashboard')}}</a></li>
-                        <li class="breadcrumb-item active">Global Search</li>
+                        <li class="breadcrumb-item active">{{_('Global Search')}}</li>
                     </ol>
                 </div>
                 <!-- /.col -->
@@ -33,20 +33,19 @@
                     <form action="" method="get">
                         <div class="card card-outline card-primary shadow">
                             <div class="card-header">
-                                <h3 class="card-title">Search Form</h3>
+                                <h3 class="card-title">{{_('Search Form')}}</h3>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
                                 <div class="callout callout-info">
-                                    <p>This tool can be used to search for zones, records, and comments via the PDNS
-                                        API.</p>
+                                    <p>{{_('This tool can be used to search for zones, records, and comments via the PDNS API')}}.</p>
                                 </div>
                                 <!-- /.callout -->
                                 <div class="form-group">
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <label id="txtQuery" class="input-group-text">
-                                                Search Query
+                                                {{_('Search Query')}}
                                             </label>
                                         </div>
                                             <input type="text" id="txtQuery" name="q" class="form-control"
@@ -61,8 +60,7 @@
                                 </div>
                                 <!-- /.form-group -->
                                 <div class="callout callout-warning">
-                                    <p>The * character can be used in your keyword as a wildcard character and the ?
-                                        character can be used as a wildcard for a single character.</p>
+                                    <p>{{_('The * character can be used in your keyword as a wildcard character and the ? character can be used as a wildcard for a single character.')}}</p>
                                 </div>
                                 <!-- /.callout -->
                             </div>
@@ -79,14 +77,14 @@
                 <div class="col-12">
                     <div class="card card-outline card-secondary shadow">
                         <div class="card-header">
-                            <h3 class="card-title">Zones ({{ domains|length }})</h3>
+                            <h3 class="card-title">{{_('Zones')}} ({{ domains|length }})</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body table-responsive">
                             <table id="tbl_domain" class="table table-bordered table-striped table-hover table-sm">
                                 <thead>
                                 <tr>
-                                    <th>Zone Name</th>
+                                    <th>{{_('Zone Name')}}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -112,18 +110,18 @@
                 <div class="col-12">
                     <div class="card card-outline card-secondary shadow">
                         <div class="card-header">
-                            <h3 class="card-title">Zone Records ({{ records|length }})</h3>
+                            <h3 class="card-title">{{_('Zone Records')}} ({{ records|length }})</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body table-responsive">
                             <table id="tbl_record" class="table table-bordered table-striped table-hover table-sm">
                                 <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Type</th>
-                                    <th>Status</th>
-                                    <th>TTL</th>
-                                    <th>Data</th>
+                                    <th>{{_('Name')}}</th>
+                                    <th>{{_('Type')}}</th>
+                                    <th>{{_('Status')}}</th>
+                                    <th>{{_('TTL')}}</th>
+                                    <th>{{_('Data')}}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -133,7 +131,16 @@
                                             <a href="{{ url_for('domain.domain', domain_name=record['zone_id']) }}">{{ record['name'] }}</a>
                                         </td>
                                         <td>{{ record['type'] }}</td>
-                                        <td>{{ 'Disabled' if record['disabled'] else 'Active' }}</td>
+                                        <!-- <td>{{ 'Disabled' if record['disabled'] else 'Active' }}</td> -->
+                                        {% if record.get('disabled') %}
+                                            <td>
+                                                <i class="fa-regular fa-ban"></i>
+                                            </td>
+                                        {% else %}
+                                            <td>
+                                                <i class="fa-regular fa-circle-check"></i>
+                                            </td>
+                                        {% endif %}
                                         <td>{{ record['ttl'] }}</td>
                                         <td>{{ record['content'] }}</td>
                                     </tr>
@@ -153,16 +160,16 @@
                 <div class="col-12">
                     <div class="card card-outline card-secondary shadow">
                         <div class="card-header">
-                            <h3 class="card-title">Comments ({{ comments|length }})</h3>
+                            <h3 class="card-title">{{_('Comments')}} ({{ comments|length }})</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body table-responsive">
                             <table id="tbl_comment" class="table table-bordered table-striped table-hover table-sm">
                                 <thead>
                                 <tr>
-                                    <th>Comment</th>
-                                    <th>Record</th>
-                                    <th>Zone</th>
+                                    <th>{{_('Comment')}}</th>
+                                    <th>{{_('Record')}}</th>
+                                    <th>{{_('Zone')}}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -232,6 +239,9 @@
             "ordering": true,
             "info": false,
             "autoWidth": false,
+            "language": {
+                "url": '{{ url_for('static', filename='assets/plugins/ru.json') }}',
+            },
             "order": [
                 [0, "asc"]
             ]
@@ -245,6 +255,9 @@
             "ordering": true,
             "info": false,
             "autoWidth": false,
+            "language": {
+                "url": '{{ url_for('static', filename='assets/plugins/ru.json') }}',
+            },
             "order": [
                 [0, "asc"]
             ]
@@ -258,6 +271,9 @@
             "ordering": true,
             "info": false,
             "autoWidth": false,
+            "language": {
+                "url": '{{ url_for('static', filename='assets/plugins/ru.json') }}',
+            },
             "order": [
                 [0, "asc"]
             ]

@@ -958,7 +958,7 @@ class DetailedHistory():
         elif DetailedHistory.get_key_val(detail_dict, 'msg') and DetailedHistory.get_key_val(detail_dict, 'status'):
             self.detailed_msg = render_template_string('''
                 <table class="table table-bordered table-striped">
-                    <tr><td>Status: </td><td>{{ history_status }}</td></tr>
+                    <tr><td>{{_('Status')}}: </td><td>{{ history_status }}</td></tr>
                     <tr><td>Message:</td><td>{{ history_msg }}</td></tr>
                 </table>
                 ''',

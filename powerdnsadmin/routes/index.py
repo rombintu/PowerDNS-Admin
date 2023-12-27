@@ -9,7 +9,7 @@ import string
 from zxcvbn import zxcvbn
 # from distutils.util import strtobool
 from yaml import Loader, load
-from flask import Blueprint, render_template, make_response, url_for, current_app, g, session, request, redirect, abort, jsonify
+from flask import Blueprint, render_template, make_response, url_for, current_app, g, session, request, redirect, abort, jsonify, send_from_directory
 from flask_login import login_user, logout_user, login_required, current_user
 
 from .base import captcha, csrf, login_manager
@@ -87,6 +87,12 @@ def set_lang():
     session['lang'] = lang_code
     print(session['lang'])
     return redirect(url_for('dashboard.dashboard'))
+
+# @index_bp.route('plugin_ru', methods=['GET'])
+# def plugin_ru():
+#     return send_from_directory(
+#         os.path.join(current_app.root_path, "plugins"), 'ru.json', as_attachment=True
+#     )
 
 @index_bp.route('/', methods=['GET'])
 @login_required

@@ -35,7 +35,7 @@
                             <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="domainid">Zone</label>
+                                    <label for="domainid">{{_('Zone')}}</label>
                                     <select id=domainid class="form-control" style="width:15em;">
                                         <option value="0">- Select Zone -</option>
                                         {% for domain in domainss %}
@@ -64,7 +64,7 @@
                         </div>
                         <div class="card-body">
                             <dl class="dl-horizontal">
-                                <dt>Zone</dt>
+                                <dt>{{_('Zone')}}</dt>
                                 <dd>Select the zone you wish to remove from the system.</dd>
                             </dl>
                             <p>Find more details at <a href="https://docs.powerdns.com/md/" target="_blank">https://docs.powerdns.com/md/</a>

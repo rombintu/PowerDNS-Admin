@@ -66,8 +66,8 @@
                                    class="table table-bordered table-striped table-hover table-sm records">
                                 <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Description</th>
+                                    <th>{{_('Name')}}</th>
+                                    <th>{{_('Description')}}</th>
                                     <th>Total Records</th>
                                     <th>Actions</th>
                                 </tr>
@@ -139,6 +139,9 @@
             "searching": true,
             "ordering": true,
             "info": false,
+            "language": {
+                "url": '{{ url_for('static', filename='assets/plugins/ru.json') }}',
+            },
             "autoWidth": false
         });
 

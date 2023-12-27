@@ -6,12 +6,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">HTTP 404 {{_('Error')}}</h1>
+                    <h1 class="m-0 text-dark">{{_('Error')}}</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ url_for('dashboard.dashboard') }}">{{_('Dashboard')}}</a></li>
-                        <li class="breadcrumb-item active">HTTP 404 {{_('Error')}}</li>
+                        <li class="breadcrumb-item active">HTTP 404</li>
                     </ol>
                 </div>
             </div>
@@ -26,11 +26,12 @@
             <div class="error-content">
                 <h3>
                     <i class="fa-solid fa-exclamation-triangle text-yellow"></i>
-                    Oops! Page not found.
+                    {{_('Page not found')}}
                 </h3>
                 <p>
-                    The page you requested could not be found.
-                    You may <a href="{{ url_for('dashboard.dashboard') }}">return to the dashboard</a>.
+                    {{_('The page you requested could not be found')}}
+                    <br>
+                    <a href="{{ url_for('dashboard.dashboard') }}">{{_("return to the dashboard")}}</a>.
                 </p>
             </div>
         </div>

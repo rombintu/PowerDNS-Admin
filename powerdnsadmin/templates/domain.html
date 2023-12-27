@@ -1,17 +1,17 @@
 {% extends "base.html" %}
-{% block title %}<title>Zone Records - {{ domain.name | pretty_domain_name }} - {{ SITE_NAME }}</title>{% endblock %}
+{% block title %}<title>{{_('Zone Records')}} - {{ domain.name | pretty_domain_name }} - {{ SITE_NAME }}</title>{% endblock %}
 
 {% block dashboard_stat %}
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">Zone Records - {{ domain.name | pretty_domain_name }}</h1>
+                    <h1 class="m-0 text-dark">{{_('Zone Records')}} - {{ domain.name | pretty_domain_name }}</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ url_for('dashboard.dashboard') }}">{{_('Dashboard')}}</a></li>
-                        <li class="breadcrumb-item active">Zone Records - {{ domain.name | pretty_domain_name }}</li>
+                        <li class="breadcrumb-item active">{{_('Zone Records')}} - {{ domain.name | pretty_domain_name }}</li>
                     </ol>
                 </div>
             </div>
@@ -26,42 +26,42 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Zone Editor</h3>
+                            <h3 class="card-title">{{_('Editor')}}</h3>
                             <div class="card-tools">
                                 {% if current_user.role.name in ['Administrator', 'Operator'] %}
                                     <button type="button" title="Zone Settings"
                                             class="btn btn-primary btn-danger mt-2 mb-2"
                                             onclick="window.location.href='{{ url_for('domain.setting', domain_name=domain.name) }}'">
                                         <i class="fa-solid fa-toolbox"></i>
-                                        &nbsp;Zone Settings
+                                        &nbsp;{{_('Zone Settings')}}
                                     </button>
                                 {% endif %}
                                 {% if current_user.role.name in ['Administrator', 'Operator'] or allow_user_view_history %}
                                     <button type="button" title="Zone Changelog"
                                             class="btn btn-primary ml-2 mt-2 mb-2 button_changelog" id="{{ domain.name }}">
                                         <i class="fa-solid fa-history" aria-hidden="true"></i>
-                                        &nbsp;Changelog
+                                        &nbsp;{{_('Changelog')}}
                                     </button>
                                 {% endif %}
                                 {% if domain.type != 'Slave' %}
                                     <button type="button" title="Add Record"
                                             class="btn btn-primary ml-2 mt-2 mb-2 button_add_record" id="{{ domain.name }}">
                                         <i class="fa-solid fa-plus"></i>
-                                        &nbsp;Add Record
+                                        &nbsp;{{_('Add Record')}}
                                     </button>
                                     <button type="button" title="Save Changes"
                                             class="btn btn-primary ml-2 mt-2 mb-2 button_apply_changes"
                                             id="{{ domain.name }}"
                                             value="{{ domain.serial }}">
                                         <i class="fa-solid fa-save"></i>
-                                        &nbsp;Save Changes
+                                        &nbsp;{{_('Save')}}
                                     </button>
                                 {% else %}
                                     <button type="button" title="Update from Primary"
                                             class="btn btn-primary ml-2 mt-2 mb-2 button_update_from_primary"
                                             id="{{ domain.name }}">
                                         <i class="fa-solid fa-sync"></i>
-                                        &nbsp;Update from Primary
+                                        &nbsp;{{_('Update from Primary')}}
                                     </button>
                                 {% endif %}
                             </div>
@@ -70,20 +70,20 @@
                             <table id="tbl_records" class="table table-bordered table-striped table-hover table-sm">
                                 <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Type</th>
-                                    <th>Status</th>
-                                    <th>TTL</th>
-                                    <th>Data</th>
+                                    <th>{{_('Name')}}</th>
+                                    <th>{{_('Type')}}</th>
+                                    <th>{{_('Status')}}</th>
+                                    <th>{{_('TTL')}}</th>
+                                    <th>{{_('Data')}}</th>
                                     {% if domain.type != 'Slave' %}
-                                        <th>Comment</th>
-                                        <th>Edit</th>
-                                        <th>Delete</th>
+                                        <th>{{_('Comment')}}</th>
+                                        <th>{{_('Edit')}}</th>
+                                        <th>{{_('Delete')}}</th>
                                         {% if current_user.role.name in ['Administrator', 'Operator'] or allow_user_view_history %}
-                                            <th>Changelog</th>
+                                            <th>{{_('Changelog')}}</th>
                                         {% endif %}
                                     {% else %}
-                                        <th>Invisible Sorting Column</th>
+                                        <th>{{_('Invisible Sorting Column')}}</th>
                                     {% endif %}
                                 </tr>
                                 </thead>
@@ -92,7 +92,14 @@
                                     <tr class="odd row_record" id="{{ domain.name }}">
                                         <td>{{ (record.name,domain.name) | display_record_name | pretty_domain_name }}</td>
                                         <td>{{ record.type }}</td>
-                                        <td>{{ record.status }}</td>
+                                        <!-- <td>{{ record.status }}</td> -->
+                                        <td>
+                                            {% if record.status != 'Active' %}
+                                                <i class="fa-regular fa-ban"></i>
+                                            {% else %}
+                                                <i class="fa-regular fa-circle-check"></i>
+                                            {% endif %}
+                                        </td>
                                         <td>{{ record.ttl }}</td>
                                         <td>{{ record.data | pretty_domain_name }}</td>
                                         {% if domain.type != 'Slave' %}
@@ -159,7 +166,6 @@
         window.ttl_options = {{ ttl_options | tojson }};
         window.nEditing = null;
         window.nNew = false;
-
         // set up user data table
         $("#tbl_records").DataTable({
             "paging": true,
@@ -169,7 +175,8 @@
             "info": true,
             "autoWidth": false,
             "language": {
-                "lengthMenu": " _MENU_ records"
+                "url": '{{ url_for('static', filename='assets/plugins/ru.json') }}',
+                // "lengthMenu": " _MENU_ records"
             },
             "retrieve": true,
             "columnDefs": [

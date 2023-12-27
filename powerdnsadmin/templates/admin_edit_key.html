@@ -58,7 +58,7 @@
                                 </div>
                                 <!-- /.form-group -->
                                 <div class="form-group has-feedback">
-                                    <label class="control-label" for="description">Description</label>
+                                    <label class="control-label" for="description">{{_('Description')}}</label>
                                     <input type="text" class="form-control" placeholder="Description" name="description"
                                         {% if key is not none %} value="{{ key.description }}" {% endif %}>
                                     <span class="glyphicon glyphicon-pencil form-control-feedback"></span>
@@ -67,7 +67,7 @@
                             </div>
                             <!-- /.card-body -->
                             <div class="card-header key-opts"{% if hide_opts %} style="display: none;"{% endif %}>
-                                <h3 class="card-title">Accounts Access Control</h3>
+                                <h3 class="card-title">Accounts {{_('Access Control')}}</h3>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body key-opts"{% if hide_opts %} style="display: none;"{% endif %}>
@@ -87,7 +87,7 @@
                             </div>
                             <!-- /.card-body -->
                             <div class="card-header key-opts"{% if hide_opts %} style="display: none;"{% endif %}>
-                                <h3 class="card-title">Zone Access Control</h3>
+                                <h3 class="card-title">Zone {{_('Access Control')}}</h3>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body key-opts"{% if hide_opts %} style="display: none;"{% endif %}>
@@ -130,8 +130,8 @@
                         <div class="card-body">
                             <p>Fill in all the fields in the form to the left.</p>
                             <p><strong>Role</strong> The role of the key.</p>
-                            <p><strong>Description</strong> The key description.</p>
-                            <p><strong>Access Control</strong> The zones or accounts which the key has access to.</p>
+                            <p><strong>{{_('Description')}}</strong> The key description.</p>
+                            <p><strong>{{_('Access Control')}}</strong> The zones or accounts which the key has access to.</p>
                         </div>
                         <!-- /.card-body -->
                     </div>

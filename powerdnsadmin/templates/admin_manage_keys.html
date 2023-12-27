@@ -42,7 +42,7 @@
                         <tr>
                             <th>Id</th>
                             <th>Role</th>
-                            <th>Description</th>
+                            <th>{{_('Description')}}</th>
                             <th>Zones</th>
                             <th>Accounts</th>
                             <th>Actions</th>
@@ -101,6 +101,9 @@
             "searching": true,
             "ordering": true,
             "info": false,
+            "language": {
+                "url": '{{ url_for('static', filename='assets/plugins/ru.json') }}',
+            },
             "autoWidth": false,
             "lengthMenu": [
                 [10, 25, 50, 100, -1],
