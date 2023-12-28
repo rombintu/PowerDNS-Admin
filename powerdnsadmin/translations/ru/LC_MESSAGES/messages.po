@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2023-12-14 13:43+0300\n"
+"POT-Creation-Date: 2023-12-28 14:50+0300\n"
 "PO-Revision-Date: 2023-11-29 14:25+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -29,403 +29,667 @@ msgstr "Автоматическое создание записи PTR"
 
 #: powerdnsadmin/routes/admin.py:1361
 msgid "Automatic updating of domain information. Turn it on for more performance"
-msgstr "Автоматическое обновление информации о зонах. Включите для повышения производительности"
-
-#: powerdnsadmin/routes/admin.py:1363
-msgid "Default value of the table on the domain page"
-msgstr "Значение таблицы по умолчанию на странице зон"
-
-#: powerdnsadmin/routes/admin.py:1364
-msgid "Default value of the table on the record page"
-msgstr "Значение таблицы по умолчанию на странице записи"
+msgstr ""
+"Автоматическое обновление информации о зонах. Включите для повышения "
+"производительности"
 
 #: powerdnsadmin/routes/admin.py:1370
 msgid "Getting all the values via the API. Default: disable"
 msgstr "Получение всех значений через API. По умолчанию: отключено"
 
-#: powerdnsadmin/routes/admin.py:1374
+#: powerdnsadmin/routes/admin.py:1371
+msgid "Enable api endpoints. Default: disable"
+msgstr "Включить API. По умолчанию: отключено"
+
+#: powerdnsadmin/routes/admin.py:1375
 msgid "Switch the service to maintenance mode"
 msgstr "Переключение сервиса в режим технического обслуживания"
 
-#: powerdnsadmin/routes/admin.py:1375
+#: powerdnsadmin/routes/admin.py:1376
 msgid "Maximum value of visible record rows"
 msgstr "Максимальное значение видимых строк записей"
 
-#: powerdnsadmin/routes/admin.py:1378
+#: powerdnsadmin/routes/admin.py:1379
 msgid "API session timeout"
 msgstr "Тайм-аут сеанса API"
 
-#: powerdnsadmin/routes/admin.py:1381
+#: powerdnsadmin/routes/admin.py:1382
 msgid "Assistance in creating a zone and writing to a domain"
 msgstr "Помощь в создании зоны и записи в домен"
 
-#: powerdnsadmin/routes/admin.py:1383
+#: powerdnsadmin/routes/admin.py:1384
 msgid "User session timeout"
 msgstr "Тайм-аут сеанса пользователя"
 
-#: powerdnsadmin/routes/admin.py:1384
+#: powerdnsadmin/routes/admin.py:1385
 msgid "The name of the service. Displayed in some places"
 msgstr "Название сервиса. Отображается в некоторых местах"
 
-#: powerdnsadmin/routes/admin.py:1385
+#: powerdnsadmin/routes/admin.py:1386
 msgid "Setting TTL options, by time, separated by commas"
 msgstr "Настройка параметров TTL по времени, разделенных запятыми"
 
-#: powerdnsadmin/routes/admin.py:1386
+#: powerdnsadmin/routes/admin.py:1387
 msgid "Checking for the users SSL connection"
 msgstr "Проверка наличия SSL-соединения при обращении к Серверу PDNS"
 
-#: powerdnsadmin/routes/admin.py:1388
+#: powerdnsadmin/routes/admin.py:1389
 msgid ""
 "A warning about long inactivity. Allows the user to keep the session "
 "active"
-msgstr "Предупреждение о длительном бездействии. Позволяет пользователю сохранять сеанс активным"
+msgstr ""
+"Предупреждение о длительном бездействии. Позволяет пользователю сохранять"
+" сеанс активным"
 
-#: powerdnsadmin/templates/admin_edit_account.html:21
-#: powerdnsadmin/templates/base.html:223
-msgid "Home"
-msgstr "Главная"
-
-#: powerdnsadmin/templates/admin_edit_account.html:22
-#: powerdnsadmin/templates/base.html:142
-msgid "Accounts"
-msgstr "Аккаунты"
-
-#: powerdnsadmin/templates/admin_edit_account.html:50
-#: powerdnsadmin/templates/admin_edit_user.html:50
-#: powerdnsadmin/templates/admin_setting_authentication.html:57
-#: powerdnsadmin/templates/admin_setting_pdns.html:41
-#: powerdnsadmin/templates/base.html:367
-#: powerdnsadmin/templates/errors/400.html:9
-#: powerdnsadmin/templates/errors/400.html:14
-#: powerdnsadmin/templates/errors/400.html:25
-#: powerdnsadmin/templates/errors/403.html:10
-#: powerdnsadmin/templates/errors/403.html:15
-#: powerdnsadmin/templates/errors/404.html:9
-#: powerdnsadmin/templates/errors/404.html:14
-#: powerdnsadmin/templates/errors/404.html:25
-#: powerdnsadmin/templates/errors/500.html:9
-#: powerdnsadmin/templates/errors/500.html:14
-#: powerdnsadmin/templates/errors/500.html:25
-msgid "Error"
-msgstr "Ошибка"
-
-#: powerdnsadmin/templates/admin_edit_key.html:23
-#: powerdnsadmin/templates/admin_edit_user.html:21
-#: powerdnsadmin/templates/admin_global_search.html:15
-#: powerdnsadmin/templates/admin_history.html:14
-#: powerdnsadmin/templates/admin_manage_account.html:14
-#: powerdnsadmin/templates/admin_manage_keys.html:14
-#: powerdnsadmin/templates/admin_manage_user.html:14
-#: powerdnsadmin/templates/admin_server_configuration.html:16
-#: powerdnsadmin/templates/admin_server_statistics.html:16
-#: powerdnsadmin/templates/admin_setting_authentication.html:14
-#: powerdnsadmin/templates/admin_setting_basic.html:14
-#: powerdnsadmin/templates/admin_setting_pdns.html:14
-#: powerdnsadmin/templates/admin_setting_records.html:14
-#: powerdnsadmin/templates/base.html:94 powerdnsadmin/templates/base.html:217
-#: powerdnsadmin/templates/base.html:224
-#: powerdnsadmin/templates/dashboard.html:3
-#: powerdnsadmin/templates/dashboard.html:11
-#: powerdnsadmin/templates/docs.html:14 powerdnsadmin/templates/domain.html:13
-#: powerdnsadmin/templates/domain_add.html:16
-#: powerdnsadmin/templates/domain_changelog.html:24
-#: powerdnsadmin/templates/domain_remove.html:16
-#: powerdnsadmin/templates/domain_setting.html:32
-#: powerdnsadmin/templates/errors/400.html:13
-#: powerdnsadmin/templates/errors/403.html:14
-#: powerdnsadmin/templates/errors/404.html:13
-#: powerdnsadmin/templates/errors/500.html:13
-#: powerdnsadmin/templates/errors/SAML.html:13
-#: powerdnsadmin/templates/template.html:14
-#: powerdnsadmin/templates/user_profile.html:14
-msgid "Dashboard"
-msgstr "Панель"
-
-#: powerdnsadmin/templates/admin_history.html:10
-#: powerdnsadmin/templates/base.html:116
-msgid "Activity"
-msgstr "Аудит"
-
-#: powerdnsadmin/templates/admin_setting_authentication.html:3
-#: powerdnsadmin/templates/admin_setting_authentication.html:10
-#: powerdnsadmin/templates/admin_setting_authentication.html:16
-msgid "Authentication Settings"
-msgstr "Настройки авторизации"
-
-#: powerdnsadmin/templates/admin_setting_authentication.html:15
-#: powerdnsadmin/templates/base.html:161
-msgid "Settings"
-msgstr "Настройки"
-
-#: powerdnsadmin/templates/admin_setting_authentication.html:32
-#: powerdnsadmin/templates/admin_setting_basic.html:28
-#: powerdnsadmin/templates/admin_setting_pdns.html:32
-#: powerdnsadmin/templates/admin_setting_records.html:33
-msgid "Settings Editor"
-msgstr "Редактирование"
-
-#: powerdnsadmin/templates/admin_setting_authentication.html:188
-#: powerdnsadmin/templates/admin_setting_authentication.html:303
-#: powerdnsadmin/templates/admin_setting_pdns.html:87
-#: powerdnsadmin/templates/admin_setting_records.html:78
-#: powerdnsadmin/templates/docs.html:28
-msgid "Help"
-msgstr "Помощь"
-
-#: powerdnsadmin/templates/admin_setting_authentication.html:327
-#: powerdnsadmin/templates/admin_setting_basic.html:70
-#: powerdnsadmin/templates/admin_setting_pdns.html:74
-#: powerdnsadmin/templates/admin_setting_records.html:65
-#: powerdnsadmin/templates/dashboard.html:243
-msgid "Save"
-msgstr "Сохранить"
-
-#: powerdnsadmin/templates/admin_setting_basic.html:3
-#: powerdnsadmin/templates/admin_setting_basic.html:10
-#: powerdnsadmin/templates/admin_setting_basic.html:15
-msgid "Basic Settings"
-msgstr "Настройка Сервиса"
-
-#: powerdnsadmin/templates/admin_setting_basic.html:35
-msgid "Setting Name"
-msgstr "Ключ"
-
-#: powerdnsadmin/templates/admin_setting_basic.html:36
-msgid "Current Value"
-msgstr "Значение"
-
-#: powerdnsadmin/templates/admin_setting_basic.html:37
-msgid "Action"
-msgstr "Действие"
-
-#: powerdnsadmin/templates/admin_setting_basic.html:38
-msgid "Description"
-msgstr "Описание"
-
-#: powerdnsadmin/templates/admin_setting_basic.html:52
-msgid "On"
-msgstr "Включить"
-
-#: powerdnsadmin/templates/admin_setting_basic.html:60
-msgid "Off"
-msgstr "Выключить"
-
-#: powerdnsadmin/templates/base.html:82
-#: powerdnsadmin/templates/user_profile.html:10
-#: powerdnsadmin/templates/user_profile.html:15
-msgid "Edit Profile"
-msgstr "Кабинет"
-
-#: powerdnsadmin/templates/base.html:84
-msgid "Logout"
-msgstr "Выход"
-
-#: powerdnsadmin/templates/base.html:90
-msgid "Zone Management"
-msgstr "Управление зонами"
-
-#: powerdnsadmin/templates/base.html:101
-#: powerdnsadmin/templates/dashboard.html:17
-msgid "Create Zone"
-msgstr "Создание зоны"
-
-#: powerdnsadmin/templates/base.html:105
-msgid "Administration"
-msgstr "Администрирование"
-
-#: powerdnsadmin/templates/base.html:109
-msgid "Global Search"
-msgstr "Поиск"
-
-#: powerdnsadmin/templates/base.html:124
-msgid "Server Statistics"
-msgstr "Статистика"
-
-#: powerdnsadmin/templates/base.html:130
-msgid "Server Configuration"
-msgstr "О сервере"
-
-#: powerdnsadmin/templates/base.html:136
-msgid "Zone Templates"
-msgstr "Шаблоны"
-
-#: powerdnsadmin/templates/base.html:148
-msgid "Users"
-msgstr "Пользователи"
-
-#: powerdnsadmin/templates/base.html:154
-msgid "API Keys"
-msgstr "API Ключи"
-
-#: powerdnsadmin/templates/base.html:170
-msgid "Basic"
-msgstr "Общее"
-
-#: powerdnsadmin/templates/base.html:176
-msgid "Zone Records"
-msgstr "Записи"
-
-#: powerdnsadmin/templates/base.html:183
-msgid "Server"
-msgstr "Сервер"
-
-#: powerdnsadmin/templates/base.html:189
-msgid "Authentication"
-msgstr "Авторизация"
-
-#: powerdnsadmin/templates/base.html:199 powerdnsadmin/templates/docs.html:3
-#: powerdnsadmin/templates/docs.html:10 powerdnsadmin/templates/docs.html:15
-#: powerdnsadmin/templates/docs.html:33
-msgid "Documentation"
-msgstr "Документация"
-
-#: powerdnsadmin/templates/base.html:218
-msgid "Control panel"
-msgstr "Система контроля"
-
-#: powerdnsadmin/templates/base.html:236
-msgid "A PowerDNS webinterface with advanced features."
-msgstr "Веб интерфейс PowerDNS, с расширенными функциями и методами авторизации "
-
-#: powerdnsadmin/templates/base.html:238
-msgid "Version"
-msgstr "Версия"
-
-#: powerdnsadmin/templates/base.html:377 powerdnsadmin/templates/base.html:398
-#: powerdnsadmin/templates/dashboard.html:219
-#: powerdnsadmin/templates/dashboard.html:240
-#: powerdnsadmin/templates/dashboard.html:264
-#: powerdnsadmin/templates/dashboard.html:287
-msgid "Close"
-msgstr "Закрыть"
-
-#: powerdnsadmin/templates/base.html:388
-msgid "Success"
-msgstr "Готово"
-
-#: powerdnsadmin/templates/base.html:408
-msgid "Session timeout warning"
-msgstr "Бездействие"
-
-#: powerdnsadmin/templates/base.html:411
-msgid "Your session is about to expire. You will be automatically signed out in"
-msgstr "Срок действия вашей сессии подходит к концу. Выход из системы через"
-
-#: powerdnsadmin/templates/base.html:413
-msgid "To coninue your ssession, select "
-msgstr "Для продолжения работы нажмите "
-
-#: powerdnsadmin/templates/base.html:413 powerdnsadmin/templates/base.html:418
-msgid "Stay Signed In"
-msgstr "Остаться"
-
-#: powerdnsadmin/templates/base.html:421
-msgid "Sign Out"
-msgstr "Уйти"
-
-#: powerdnsadmin/templates/dashboard.html:34
-#: powerdnsadmin/templates/dashboard.html:50
-msgid "Zones"
-msgstr "Список зон"
-
-#: powerdnsadmin/templates/dashboard.html:69
-msgid "Name"
-msgstr "Имя"
-
-#: powerdnsadmin/templates/dashboard.html:71
-msgid "Type"
-msgstr "Тип"
-
-#: powerdnsadmin/templates/dashboard.html:72
-msgid "Serial"
-msgstr "Серийный номер"
-
-#: powerdnsadmin/templates/dashboard.html:74
-msgid "Primary"
-msgstr "Основной"
-
-#: powerdnsadmin/templates/dashboard.html:75
+#: powerdnsadmin/templates/admin_edit_account.html.jinja:17
+#: powerdnsadmin/templates/admin_edit_account.html.jinja:23
+#: powerdnsadmin/templates/dashboard.html.jinja:75
+#: powerdnsadmin/templates/domain_add.html.jinja:52
+#: powerdnsadmin/templates/domain_setting.html.jinja:53
+#: powerdnsadmin/templates/domain_setting.html.jinja:58
 msgid "Account"
 msgstr "Аккаунты"
 
-#: powerdnsadmin/templates/dashboard.html:76
+#: powerdnsadmin/templates/admin_edit_account.html.jinja:21
+#: powerdnsadmin/templates/base.html.jinja:216
+msgid "Home"
+msgstr "Главная"
+
+#: powerdnsadmin/templates/admin_edit_account.html.jinja:22
+#: powerdnsadmin/templates/base.html.jinja:134
+msgid "Accounts"
+msgstr "Аккаунты"
+
+#: powerdnsadmin/templates/admin_edit_account.html.jinja:41
+#: powerdnsadmin/templates/domain.html.jinja:29
+#: powerdnsadmin/templates/user_profile.html.jinja:30
+msgid "Editor"
+msgstr "Редактирование"
+
+#: powerdnsadmin/templates/admin_edit_account.html.jinja:50
+#: powerdnsadmin/templates/admin_edit_user.html.jinja:50
+#: powerdnsadmin/templates/admin_setting_authentication.html.jinja:57
+#: powerdnsadmin/templates/admin_setting_pdns.html.jinja:41
+#: powerdnsadmin/templates/base.html.jinja:360
+#: powerdnsadmin/templates/errors/400.html.jinja:9
+#: powerdnsadmin/templates/errors/400.html.jinja:25
+#: powerdnsadmin/templates/errors/403.html.jinja:10
+#: powerdnsadmin/templates/errors/403.html.jinja:27
+#: powerdnsadmin/templates/errors/404.html.jinja:9
+#: powerdnsadmin/templates/errors/404.html.jinja:25
+#: powerdnsadmin/templates/errors/500.html.jinja:9
+#: powerdnsadmin/templates/errors/500.html.jinja:25
+msgid "Error"
+msgstr "Ошибка"
+
+#: powerdnsadmin/templates/admin_edit_account.html.jinja:57
+#: powerdnsadmin/templates/admin_edit_account.html.jinja:180
+#: powerdnsadmin/templates/admin_global_search.html.jinja:120
+#: powerdnsadmin/templates/admin_history_table.html.jinja:32
+#: powerdnsadmin/templates/admin_manage_account.html.jinja:46
+#: powerdnsadmin/templates/dashboard.html.jinja:69
+#: powerdnsadmin/templates/domain.html.jinja:73
+#: powerdnsadmin/templates/domain_changelog.html.jinja:52
+#: powerdnsadmin/templates/template.html.jinja:69
+#: powerdnsadmin/templates/template_edit.html.jinja:47
+msgid "Name"
+msgstr "Имя"
+
+#: powerdnsadmin/templates/admin_edit_account.html.jinja:64
+msgid "Cannot be blank and must only contain alphanumeric characters."
+msgstr "Не может быть пустым и должен содержать только буквенно-цифровые символы."
+
+#: powerdnsadmin/templates/admin_edit_account.html.jinja:67
+msgid "Account name already in use."
+msgstr "Имя учетной записи, которое уже используется."
+
+#: powerdnsadmin/templates/admin_edit_account.html.jinja:71
+#: powerdnsadmin/templates/admin_edit_account.html.jinja:183
+#: powerdnsadmin/templates/admin_edit_key.html.jinja:61
+#: powerdnsadmin/templates/admin_edit_key.html.jinja:133
+#: powerdnsadmin/templates/admin_manage_account.html.jinja:47
+#: powerdnsadmin/templates/admin_manage_keys.html.jinja:45
+#: powerdnsadmin/templates/admin_setting_basic.html.jinja:38
+#: powerdnsadmin/templates/template.html.jinja:70
+#: powerdnsadmin/templates/template_add.html.jinja:71
+#: powerdnsadmin/templates/template_add.html.jinja:106
+msgid "Description"
+msgstr "Описание"
+
+#: powerdnsadmin/templates/admin_edit_account.html.jinja:78
+msgid "Contact Person"
+msgstr "Контакт"
+
+#: powerdnsadmin/templates/admin_edit_account.html.jinja:85
+msgid "Mail Address"
+msgstr "Адрес электронной почты"
+
+#: powerdnsadmin/templates/admin_edit_account.html.jinja:94
+#: powerdnsadmin/templates/admin_edit_key.html.jinja:70
+#: powerdnsadmin/templates/admin_edit_key.html.jinja:90
+#: powerdnsadmin/templates/admin_edit_key.html.jinja:134
+#: powerdnsadmin/templates/domain_setting.html.jinja:144
+msgid "Access Control"
+msgstr "Контроль доступа"
+
+#: powerdnsadmin/templates/admin_edit_account.html.jinja:98
+msgid ""
+"Users on the right have access to manage records in all zones associated "
+"with the account."
+msgstr "Пользователи справа имеют доступ к управлению записями во всех зонах, связанных с учетной записью."
+
+#: powerdnsadmin/templates/admin_edit_account.html.jinja:100
+msgid "Click on users to move between columns."
+msgstr "Нажмите на пользователей, чтобы переместить между столбцами."
+
+#: powerdnsadmin/templates/admin_edit_key.html.jinja:23
+#: powerdnsadmin/templates/admin_edit_user.html.jinja:21
+#: powerdnsadmin/templates/admin_global_search.html.jinja:15
+#: powerdnsadmin/templates/admin_history.html.jinja:14
+#: powerdnsadmin/templates/admin_manage_account.html.jinja:14
+#: powerdnsadmin/templates/admin_manage_keys.html.jinja:14
+#: powerdnsadmin/templates/admin_manage_user.html.jinja:14
+#: powerdnsadmin/templates/admin_server_configuration.html.jinja:16
+#: powerdnsadmin/templates/admin_server_statistics.html.jinja:16
+#: powerdnsadmin/templates/admin_setting_authentication.html.jinja:14
+#: powerdnsadmin/templates/admin_setting_basic.html.jinja:14
+#: powerdnsadmin/templates/admin_setting_pdns.html.jinja:14
+#: powerdnsadmin/templates/admin_setting_records.html.jinja:14
+#: powerdnsadmin/templates/base.html.jinja:94
+#: powerdnsadmin/templates/base.html.jinja:210
+#: powerdnsadmin/templates/base.html.jinja:217
+#: powerdnsadmin/templates/dashboard.html.jinja:3
+#: powerdnsadmin/templates/dashboard.html.jinja:11
+#: powerdnsadmin/templates/docs.html.jinja:14
+#: powerdnsadmin/templates/domain.html.jinja:13
+#: powerdnsadmin/templates/domain_add.html.jinja:16
+#: powerdnsadmin/templates/domain_changelog.html.jinja:24
+#: powerdnsadmin/templates/domain_remove.html.jinja:16
+#: powerdnsadmin/templates/domain_setting.html.jinja:32
+#: powerdnsadmin/templates/errors/400.html.jinja:13
+#: powerdnsadmin/templates/errors/403.html.jinja:14
+#: powerdnsadmin/templates/errors/404.html.jinja:13
+#: powerdnsadmin/templates/errors/500.html.jinja:13
+#: powerdnsadmin/templates/errors/SAML.html.jinja:13
+#: powerdnsadmin/templates/template.html.jinja:14
+#: powerdnsadmin/templates/user_profile.html.jinja:14
+msgid "Dashboard"
+msgstr "Панель"
+
+#: powerdnsadmin/templates/admin_edit_key.html.jinja:329
+#: powerdnsadmin/templates/admin_edit_user.html.jinja:196
+#: powerdnsadmin/templates/admin_history.html.jinja:528
+#: powerdnsadmin/templates/admin_manage_account.html.jinja:166
+#: powerdnsadmin/templates/admin_manage_keys.html.jinja:154
+#: powerdnsadmin/templates/admin_manage_user.html.jinja:217
+#: powerdnsadmin/templates/admin_manage_user.html.jinja:241
+#: powerdnsadmin/templates/base.html.jinja:370
+#: powerdnsadmin/templates/base.html.jinja:391
+#: powerdnsadmin/templates/dashboard.html.jinja:215
+#: powerdnsadmin/templates/dashboard.html.jinja:236
+#: powerdnsadmin/templates/dashboard.html.jinja:260
+#: powerdnsadmin/templates/dashboard.html.jinja:283
+#: powerdnsadmin/templates/domain.html.jinja:627
+#: powerdnsadmin/templates/domain.html.jinja:651
+#: powerdnsadmin/templates/domain.html.jinja:675
+#: powerdnsadmin/templates/domain_setting.html.jinja:449
+#: powerdnsadmin/templates/template_edit.html.jinja:441
+#: powerdnsadmin/templates/template_edit.html.jinja:465
+msgid "Close"
+msgstr "Закрыть"
+
+#: powerdnsadmin/templates/admin_global_search.html.jinja:3
+#: powerdnsadmin/templates/admin_global_search.html.jinja:10
+#: powerdnsadmin/templates/admin_global_search.html.jinja:16
+#: powerdnsadmin/templates/base.html.jinja:101
+msgid "Global Search"
+msgstr "Поиск"
+
+#: powerdnsadmin/templates/admin_global_search.html.jinja:36
+msgid "Search Form"
+msgstr ""
+
+#: powerdnsadmin/templates/admin_global_search.html.jinja:41
+msgid ""
+"This tool can be used to search for zones, records, and comments via the "
+"PDNS API"
+msgstr "Этот инструмент можно использовать для поиска зон, записей и комментариев с помощью PDNS API"
+
+#: powerdnsadmin/templates/admin_global_search.html.jinja:48
+msgid "Search Query"
+msgstr "Поисковый запрос"
+
+#: powerdnsadmin/templates/admin_global_search.html.jinja:63
+msgid ""
+"The * character can be used in your keyword as a wildcard character and "
+"the ? character can be used as a wildcard for a single character."
+msgstr "Символ * может использоваться в вашем ключевом слове в качестве подстановочного знака и символ ? может использоваться в качестве подстановочного знака для одного символа".
+
+#: powerdnsadmin/templates/admin_global_search.html.jinja:80
+#: powerdnsadmin/templates/dashboard.html.jinja:34
+#: powerdnsadmin/templates/dashboard.html.jinja:50
+msgid "Zones"
+msgstr "Список зон"
+
+#: powerdnsadmin/templates/admin_global_search.html.jinja:87
+msgid "Zone Name"
+msgstr "Имя зоны"
+
+#: powerdnsadmin/templates/admin_global_search.html.jinja:113
+#: powerdnsadmin/templates/base.html.jinja:168
+#: powerdnsadmin/templates/domain.html.jinja:2
+#: powerdnsadmin/templates/domain.html.jinja:9
+#: powerdnsadmin/templates/domain.html.jinja:14
+msgid "Zone Records"
+msgstr "Записи"
+
+#: powerdnsadmin/templates/admin_global_search.html.jinja:121
+#: powerdnsadmin/templates/admin_history_table.html.jinja:33
+#: powerdnsadmin/templates/dashboard.html.jinja:71
+#: powerdnsadmin/templates/domain.html.jinja:74
+#: powerdnsadmin/templates/domain_changelog.html.jinja:53
+#: powerdnsadmin/templates/template_edit.html.jinja:48
+msgid "Type"
+msgstr "Тип"
+
+#: powerdnsadmin/templates/admin_global_search.html.jinja:122
+#: powerdnsadmin/templates/admin_history_table.html.jinja:36
+#: powerdnsadmin/templates/domain.html.jinja:75
+#: powerdnsadmin/templates/domain_changelog.html.jinja:56
+#: powerdnsadmin/templates/template_edit.html.jinja:49
+msgid "Status"
+msgstr "Статус"
+
+#: powerdnsadmin/templates/admin_global_search.html.jinja:123
+#: powerdnsadmin/templates/admin_history_table.html.jinja:34
+#: powerdnsadmin/templates/domain.html.jinja:76
+#: powerdnsadmin/templates/domain_changelog.html.jinja:54
+#: powerdnsadmin/templates/template_edit.html.jinja:50
+msgid "TTL"
+msgstr "ТТЛ"
+
+#: powerdnsadmin/templates/admin_global_search.html.jinja:124
+#: powerdnsadmin/templates/admin_history_table.html.jinja:35
+#: powerdnsadmin/templates/domain.html.jinja:77
+#: powerdnsadmin/templates/domain_changelog.html.jinja:55
+#: powerdnsadmin/templates/template_edit.html.jinja:51
+msgid "Data"
+msgstr "Данные"
+
+#: powerdnsadmin/templates/admin_global_search.html.jinja:163
+msgid "Comments"
+msgstr "Комментарии"
+
+#: powerdnsadmin/templates/admin_global_search.html.jinja:170
+#: powerdnsadmin/templates/admin_history_table.html.jinja:37
+#: powerdnsadmin/templates/domain.html.jinja:79
+#: powerdnsadmin/templates/domain_changelog.html.jinja:57
+#: powerdnsadmin/templates/template_edit.html.jinja:52
+msgid "Comment"
+msgstr "Комментарий"
+
+#: powerdnsadmin/templates/admin_global_search.html.jinja:171
+#: powerdnsadmin/templates/admin_history.html.jinja:85
+#: powerdnsadmin/templates/admin_setting_records.html.jinja:40
+msgid "Record"
+msgstr "Запись"
+
+#: powerdnsadmin/templates/admin_global_search.html.jinja:172
+#: powerdnsadmin/templates/domain_remove.html.jinja:38
+#: powerdnsadmin/templates/domain_remove.html.jinja:67
+msgid "Zone"
+msgstr "Зона"
+
+#: powerdnsadmin/templates/admin_history.html.jinja:10
+#: powerdnsadmin/templates/base.html.jinja:108
+msgid "Activity"
+msgstr "Аудит"
+
+#: powerdnsadmin/templates/admin_manage_keys.html.jinja:157
+#: powerdnsadmin/templates/admin_manage_user.html.jinja:244
+#: powerdnsadmin/templates/domain.html.jinja:81
+#: powerdnsadmin/templates/domain.html.jinja:630
+#: powerdnsadmin/templates/template_edit.html.jinja:54
+#: powerdnsadmin/templates/template_edit.html.jinja:444
+msgid "Delete"
+msgstr "Удалить"
+
+#: powerdnsadmin/templates/admin_setting_authentication.html.jinja:3
+#: powerdnsadmin/templates/admin_setting_authentication.html.jinja:10
+#: powerdnsadmin/templates/admin_setting_authentication.html.jinja:16
+msgid "Authentication Settings"
+msgstr "Настройки авторизации"
+
+#: powerdnsadmin/templates/admin_setting_authentication.html.jinja:15
+#: powerdnsadmin/templates/base.html.jinja:153
+msgid "Settings"
+msgstr "Настройки"
+
+#: powerdnsadmin/templates/admin_setting_authentication.html.jinja:32
+#: powerdnsadmin/templates/admin_setting_basic.html.jinja:28
+#: powerdnsadmin/templates/admin_setting_pdns.html.jinja:32
+#: powerdnsadmin/templates/admin_setting_records.html.jinja:33
+msgid "Settings Editor"
+msgstr "Редактирование"
+
+#: powerdnsadmin/templates/admin_setting_authentication.html.jinja:188
+#: powerdnsadmin/templates/admin_setting_authentication.html.jinja:303
+#: powerdnsadmin/templates/admin_setting_pdns.html.jinja:87
+#: powerdnsadmin/templates/admin_setting_records.html.jinja:78
+#: powerdnsadmin/templates/docs.html.jinja:28
+msgid "Help"
+msgstr "Помощь"
+
+#: powerdnsadmin/templates/admin_setting_authentication.html.jinja:327
+#: powerdnsadmin/templates/admin_setting_basic.html.jinja:70
+#: powerdnsadmin/templates/admin_setting_pdns.html.jinja:74
+#: powerdnsadmin/templates/admin_setting_records.html.jinja:65
+#: powerdnsadmin/templates/dashboard.html.jinja:239
+#: powerdnsadmin/templates/domain.html.jinja:57
+#: powerdnsadmin/templates/domain.html.jinja:678
+#: powerdnsadmin/templates/domain_setting.html.jinja:180
+#: powerdnsadmin/templates/user_profile.html.jinja:86
+msgid "Save"
+msgstr "Сохранить"
+
+#: powerdnsadmin/templates/admin_setting_basic.html.jinja:3
+#: powerdnsadmin/templates/admin_setting_basic.html.jinja:10
+#: powerdnsadmin/templates/admin_setting_basic.html.jinja:15
+msgid "Basic Settings"
+msgstr "Настройка Сервиса"
+
+#: powerdnsadmin/templates/admin_setting_basic.html.jinja:35
+msgid "Setting Name"
+msgstr "Ключ"
+
+#: powerdnsadmin/templates/admin_setting_basic.html.jinja:36
+msgid "Current Value"
+msgstr "Значение"
+
+#: powerdnsadmin/templates/admin_setting_basic.html.jinja:37
+msgid "Action"
+msgstr "Действие"
+
+#: powerdnsadmin/templates/admin_setting_basic.html.jinja:52
+msgid "On"
+msgstr "Включить"
+
+#: powerdnsadmin/templates/admin_setting_basic.html.jinja:60
+msgid "Off"
+msgstr "Выключить"
+
+#: powerdnsadmin/templates/base.html.jinja:81
+#: powerdnsadmin/templates/user_profile.html.jinja:3
+#: powerdnsadmin/templates/user_profile.html.jinja:10
+#: powerdnsadmin/templates/user_profile.html.jinja:15
+msgid "Edit Profile"
+msgstr "Кабинет"
+
+#: powerdnsadmin/templates/base.html.jinja:84
+msgid "Logout"
+msgstr "Выход"
+
+#: powerdnsadmin/templates/base.html.jinja:90
+msgid "Zone Management"
+msgstr "Управление зонами"
+
+#: powerdnsadmin/templates/base.html.jinja:97
+msgid "Administration"
+msgstr "Администрирование"
+
+#: powerdnsadmin/templates/base.html.jinja:116
+msgid "Server Statistics"
+msgstr "Статистика"
+
+#: powerdnsadmin/templates/base.html.jinja:122
+msgid "Server Configuration"
+msgstr "О сервере"
+
+#: powerdnsadmin/templates/base.html.jinja:128
+msgid "Zone Templates"
+msgstr "Шаблоны"
+
+#: powerdnsadmin/templates/base.html.jinja:140
+msgid "Users"
+msgstr "Пользователи"
+
+#: powerdnsadmin/templates/base.html.jinja:146
+msgid "API Keys"
+msgstr "API Ключи"
+
+#: powerdnsadmin/templates/base.html.jinja:162
+msgid "Basic"
+msgstr "Общее"
+
+#: powerdnsadmin/templates/base.html.jinja:175
+msgid "Server"
+msgstr "Сервер"
+
+#: powerdnsadmin/templates/base.html.jinja:181
+msgid "Authentication"
+msgstr "Авторизация"
+
+#: powerdnsadmin/templates/base.html.jinja:188
+msgid "Other"
+msgstr "Прочее"
+
+#: powerdnsadmin/templates/base.html.jinja:192
+#: powerdnsadmin/templates/docs.html.jinja:3
+#: powerdnsadmin/templates/docs.html.jinja:10
+#: powerdnsadmin/templates/docs.html.jinja:15
+#: powerdnsadmin/templates/docs.html.jinja:33
+msgid "Documentation"
+msgstr "Документация"
+
+#: powerdnsadmin/templates/base.html.jinja:211
+msgid "Control panel"
+msgstr "Система контроля"
+
+#: powerdnsadmin/templates/base.html.jinja:229
+msgid "A PowerDNS webinterface with advanced features."
+msgstr "Веб интерфейс PowerDNS, с расширенными функциями и методами авторизации "
+
+#: powerdnsadmin/templates/base.html.jinja:231
+msgid "Version"
+msgstr "Версия"
+
+#: powerdnsadmin/templates/base.html.jinja:381
+msgid "Success"
+msgstr "Готово"
+
+#: powerdnsadmin/templates/base.html.jinja:401
+msgid "Session timeout warning"
+msgstr "Бездействие"
+
+#: powerdnsadmin/templates/base.html.jinja:404
+msgid "Your session is about to expire. You will be automatically signed out in"
+msgstr "Срок действия вашей сессии подходит к концу. Выход из системы через"
+
+#: powerdnsadmin/templates/base.html.jinja:406
+msgid "To coninue your ssession, select "
+msgstr "Для продолжения работы нажмите "
+
+#: powerdnsadmin/templates/base.html.jinja:406
+#: powerdnsadmin/templates/base.html.jinja:411
+msgid "Stay Signed In"
+msgstr "Остаться"
+
+#: powerdnsadmin/templates/base.html.jinja:414
+msgid "Sign Out"
+msgstr "Уйти"
+
+#: powerdnsadmin/templates/dashboard.html.jinja:17
+msgid "Create Zone"
+msgstr "Создание зоны"
+
+#: powerdnsadmin/templates/dashboard.html.jinja:72
+msgid "Serial"
+msgstr "Серийный номер"
+
+#: powerdnsadmin/templates/dashboard.html.jinja:73
+msgid "SNI"
+msgstr "SNI"
+
+#: powerdnsadmin/templates/dashboard.html.jinja:74
+msgid "Primary"
+msgstr "Основной"
+
+#: powerdnsadmin/templates/dashboard.html.jinja:76
 msgid "Actions"
 msgstr "Действия"
 
-#: powerdnsadmin/templates/dashboard.html:208
+#: powerdnsadmin/templates/dashboard.html.jinja:204
 msgid "History Details"
 msgstr "Подробнее"
 
-#: powerdnsadmin/templates/dashboard.html:230
+#: powerdnsadmin/templates/dashboard.html.jinja:226
 msgid "Clone to template"
 msgstr "Клонировать шаблон"
 
-#: powerdnsadmin/templates/dashboard.html:275
+#: powerdnsadmin/templates/dashboard.html.jinja:271
 msgid "Sync Zones from backend"
 msgstr "Синхронизировать зоны"
 
-#: powerdnsadmin/templates/dashboard.html:282
+#: powerdnsadmin/templates/dashboard.html.jinja:278
 msgid "Update in progress"
 msgstr "Обновление"
 
-#: powerdnsadmin/templates/dashboard_domain.html:53
+#: powerdnsadmin/templates/dashboard_domain.html.jinja:53
 msgid "Edit Records"
 msgstr "Редактирование"
 
-#: powerdnsadmin/templates/dashboard_domain.html:59
+#: powerdnsadmin/templates/dashboard_domain.html.jinja:59
+#: powerdnsadmin/templates/domain.html.jinja:36
 msgid "Zone Settings"
 msgstr "Настройки"
 
-#: powerdnsadmin/templates/dashboard_domain.html:62
+#: powerdnsadmin/templates/dashboard_domain.html.jinja:62
 msgid "Create Template"
 msgstr "Клонировать шаблон"
 
-#: powerdnsadmin/templates/dashboard_domain.html:69
+#: powerdnsadmin/templates/dashboard_domain.html.jinja:69
 msgid "Zone Changelog"
 msgstr "Журнал"
 
-#: powerdnsadmin/templates/dashboard_domain.html:77
+#: powerdnsadmin/templates/dashboard_domain.html.jinja:77
 msgid "Remove Zone"
 msgstr "Удалить"
 
-#: powerdnsadmin/templates/login.html:89
-msgid "Remember Me"
-msgstr "Сохранить"
+#: powerdnsadmin/templates/domain.html.jinja:43
+#: powerdnsadmin/templates/domain.html.jinja:83
+msgid "Changelog"
+msgstr "Журнал"
 
-#: powerdnsadmin/templates/login.html:94
+#: powerdnsadmin/templates/domain.html.jinja:50
+msgid "Add Record"
+msgstr "Добавить запись"
+
+#: powerdnsadmin/templates/domain.html.jinja:64
+msgid "Update from Primary"
+msgstr "Обновить"
+
+#: powerdnsadmin/templates/domain.html.jinja:80
+#: powerdnsadmin/templates/template_edit.html.jinja:53
+msgid "Edit"
+msgstr "Изменить"
+
+#: powerdnsadmin/templates/domain.html.jinja:86
+msgid "Invisible Sorting Column"
+msgstr "Невидимый столбец"
+
+#: powerdnsadmin/templates/domain_setting.html.jinja:74
+msgid "Update"
+msgstr "Обновить"
+
+#: powerdnsadmin/templates/login.html.jinja:57
+msgid "Via"
+msgstr "Через"
+
+#: powerdnsadmin/templates/login.html.jinja:57
+msgid "Sudis"
+msgstr "Судис"
+
+#: powerdnsadmin/templates/login.html.jinja:63
 msgid "Sign In"
 msgstr "Войти"
 
-#: powerdnsadmin/templates/login.html:108
+#: powerdnsadmin/templates/login.html.jinja:66
+msgid "SUDIS"
+msgstr "СУДИС"
+
+#: powerdnsadmin/templates/login.html.jinja:78
 msgid "Create an account"
 msgstr "Создать аккаунт"
 
-#: powerdnsadmin/templates/errors/SAML.html:2
-#: powerdnsadmin/templates/errors/SAML.html:9
-#: powerdnsadmin/templates/errors/SAML.html:14
-#: powerdnsadmin/templates/errors/SAML.html:26
+#: powerdnsadmin/templates/errors/400.html.jinja:29
+msgid "Bad Request"
+msgstr "Неверный запрос"
+
+#: powerdnsadmin/templates/errors/400.html.jinja:35
+msgid "The server refused to process your request and return a 400 error"
+msgstr "Сервер отказался обработать ваш запрос и вернул сообщение об ошибке 400"
+
+#: powerdnsadmin/templates/errors/400.html.jinja:37
+#: powerdnsadmin/templates/errors/403.html.jinja:37
+#: powerdnsadmin/templates/errors/404.html.jinja:34
+#: powerdnsadmin/templates/errors/500.html.jinja:34
+#: powerdnsadmin/templates/errors/SAML.html.jinja:47
+msgid "return to the dashboard"
+msgstr "вернуться к панели"
+
+#: powerdnsadmin/templates/errors/403.html.jinja:32
+msgid "Access Denied"
+msgstr "Доступ запрещен"
+
+#: powerdnsadmin/templates/errors/403.html.jinja:35
+msgid "You don't have permission to access this page"
+msgstr "У вас нет разрешения на доступ к этой странице"
+
+#: powerdnsadmin/templates/errors/404.html.jinja:29
+msgid "Page not found"
+msgstr "Страница не найдена"
+
+#: powerdnsadmin/templates/errors/404.html.jinja:32
+msgid "The page you requested could not be found"
+msgstr "Запрошенная вами страница не была найдена"
+
+#: powerdnsadmin/templates/errors/500.html.jinja:29
+msgid "Something went wrong"
+msgstr "Что-то пошло не так"
+
+#: powerdnsadmin/templates/errors/500.html.jinja:32
+msgid "Try again later"
+msgstr "Попробуйте еще раз позже"
+
+#: powerdnsadmin/templates/errors/SAML.html.jinja:2
+#: powerdnsadmin/templates/errors/SAML.html.jinja:9
+#: powerdnsadmin/templates/errors/SAML.html.jinja:14
+#: powerdnsadmin/templates/errors/SAML.html.jinja:26
 msgid "SAML Authentication Error"
 msgstr "SAML: Ошибка входа"
 
-#~ msgid "Please input your username"
-#~ msgstr "Требуется ввести логин"
+#: powerdnsadmin/templates/errors/SAML.html.jinja:33
+msgid "Something went wrong with your authentication"
+msgstr "Что-то пошло не так с аутентификацией"
 
-#~ msgid "Please input your password"
-#~ msgstr "Требуется ввести пароль"
+#: powerdnsadmin/templates/errors/SAML.html.jinja:37
+msgid "Login failed."
+msgstr "Ошибка входа."
 
-#~ msgid "Username"
-#~ msgstr "Логин"
+#: powerdnsadmin/templates/errors/SAML.html.jinja:39
+msgid "Error(s) when processing SAML Response:"
+msgstr "Ошибка при обработке ответа SAML:"
 
-#~ msgid "Password"
-#~ msgstr "Пароль"
+msgid "Please input your username"
+msgstr "Требуется ввести логин"
 
-#~ msgid "OTP Token"
-#~ msgstr "OTP Токен"
+msgid "Please input your password"
+msgstr "Требуется ввести пароль"
 
-#~ msgid " "
-#~ msgstr ""
+msgid "Username"
+msgstr "Логин"
 
-#~ msgid "Save Settings"
-#~ msgstr "Применить"
+msgid "Password"
+msgstr "Пароль"
+
 

@@ -197,7 +197,7 @@ function SelectElement(elementID, valueToSelect)
 //             }
 //             else {
 //                 if (parseFloat(PDNS_VERSION) >= 4.1) {
-//                   dnssec_footer = '<button type="button" class="btn btn-danger button_dnssec_disable pull-left" id="'+domain+'">Disable DNSSEC</button><button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>';
+//                   dnssec_footer = '<button type="button" class="btn btn-danger button_dnssec_disable pull-left" id="'+domain+'">Disable DNSSEC</button><button type="button" class="btn btn-default pull-right" data-dismiss="modal">{{_('Close')}}>/button>';
 //                   modal.find('.modal-footer ').html(dnssec_footer);
 //                 }
 //                 for (var i = 0; i < dnssec.length; i++) {

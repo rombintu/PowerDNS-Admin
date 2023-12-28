@@ -29,7 +29,7 @@ def before_request():
     if maintenance and current_user.is_authenticated and current_user.role.name not in [
             'Administrator', 'Operator'
     ]:
-        return render_template('maintenance.html')
+        return render_template('maintenance.html.jinja')
 
     # Manage session timeout
     session.permanent = True
@@ -42,7 +42,7 @@ def before_request():
 @login_required
 def profile():
     if request.method == 'GET':
-        return render_template('user_profile.html')
+        return render_template('user_profile.html.jinja')
     if request.method == 'POST':
         if session['authentication_type'] == 'LOCAL':
             firstname = request.form.get('firstname', '').strip()
@@ -90,7 +90,7 @@ def profile():
                         'status': 'error',
                         'msg': password_policy['password'],
                     }), 400)
-            return render_template('user_profile.html', error_messages=password_policy)
+            return render_template('user_profile.html.jinja', error_messages=password_policy)
 
         user = User(username=current_user.username,
                     plain_text_password=new_password,
@@ -101,7 +101,7 @@ def profile():
 
         user.update_profile()
 
-        return render_template('user_profile.html')
+        return render_template('user_profile.html.jinja')
 
 
 # @user_bp.route('/qrcode')

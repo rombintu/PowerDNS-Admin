@@ -58,7 +58,7 @@ def before_request():
     if maintenance and current_user.is_authenticated and current_user.role.name not in [
         'Administrator', 'Operator'
     ]:
-        return render_template('maintenance.html')
+        return render_template('maintenance.html.jinja')
 
     # Manage session timeout
     session.permanent = True
@@ -89,7 +89,7 @@ def domains_custom(tab_id):
                 AccountUser.user_id == current_user.id
             ))
 
-    template = current_app.jinja_env.get_template("dashboard_domain.html")
+    template = current_app.jinja_env.get_template("dashboard_domain.html.jinja")
     render = template.make_module(
         vars={"current_user": current_user, "allow_user_view_history": Setting().get('allow_user_view_history')})
 
@@ -197,7 +197,7 @@ def dashboard():
         show_bg_domain_button = False
 
     # Add custom boxes to render_template
-    return render_template('dashboard.html',
+    return render_template('dashboard.html.jinja',
                            zone_tabs=ZoneTabs,
                            show_bg_domain_button=show_bg_domain_button,
                            pdns_version=Setting().get('pdns_version'))
@@ -218,5 +218,5 @@ def domains_updater():
 @dashboard_bp.route('/documentation', methods=['GET', 'POST'])
 @login_required
 def documentation():
-    return render_template('docs.html',
+    return render_template('docs.html.jinja',
                            pdns_version=Setting().get('pdns_version'))

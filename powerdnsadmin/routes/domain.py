@@ -43,7 +43,7 @@ def before_request():
     if maintenance and current_user.is_authenticated and current_user.role.name not in [
             'Administrator', 'Operator'
     ]:
-        return render_template('maintenance.html')
+        return render_template('maintenance.html.jinja')
 
     # Manage session timeout
     session.permanent = True
@@ -127,7 +127,7 @@ def domain(domain_name):
     else:
         editable_records = reverse_records_allow_to_edit
 
-    return render_template('domain.html',
+    return render_template('domain.html.jinja',
                            domain=domain,
                            records=records,
                            editable_records=editable_records,
@@ -187,7 +187,7 @@ def remove():
 
     else:
         # On GET return the domains we got earlier
-        return render_template('domain_remove.html',
+        return render_template('domain_remove.html.jinja',
                                domainss=domains)
 
 @domain_bp.route('/<path:domain_name>/changelog', methods=['GET'])
@@ -226,7 +226,7 @@ def changelog(domain_name):
 
     changes_set = extract_changelogs_from_history(histories)
 
-    return render_template('domain_changelog.html', domain=domain, allHistoryChanges=changes_set)
+    return render_template('domain_changelog.html.jinja', domain=domain, allHistoryChanges=changes_set)
 
 """
 Returns a changelog for a specific pair of (record_name, record_type)
@@ -277,7 +277,7 @@ def record_changelog(domain_name, record_name, record_type):
 
     changes_set = extract_changelogs_from_history(histories, record_name, record_type)
 
-    return render_template('domain_changelog.html', domain=domain, allHistoryChanges=changes_set,
+    return render_template('domain_changelog.html.jinja', domain=domain, allHistoryChanges=changes_set,
                             record_name = record_name, record_type = record_type)
 
 @domain_bp.route('/add', methods=['GET', 'POST'])
@@ -295,7 +295,7 @@ def add():
 
             if ' ' in domain_name or not domain_name or not domain_type:
                 return render_template(
-                    'errors/400.html',
+                    'errors/400.html.jinja',
                     msg="Please enter a valid zone name"), 400
 
             if domain_name.endswith('.'):
@@ -309,7 +309,7 @@ def add():
                 # User may not create domains without Account
                 if int(account_id) == 0 or int(account_id) not in user_accounts_ids:
                     return render_template(
-                        'errors/400.html',
+                        'errors/400.html.jinja',
                         msg="Please use a valid Account"), 400
 
 
@@ -322,7 +322,7 @@ def add():
                 current_app.logger.error("Cannot encode the zone name {}".format(domain_name))
                 current_app.logger.debug(traceback.format_exc())
                 return render_template(
-                    'errors/400.html',
+                    'errors/400.html.jinja',
                     msg="Please enter a valid zone name"), 400
 
             if domain_type == 'slave':
@@ -365,7 +365,7 @@ def add():
                     
             #         msg = 'Zone already exists as a record under zone: {}'.format(upper_domain)
                     
-            #         return render_template('domain_add.html', 
+            #         return render_template('domain_add.html.jinja', 
             #                                 domain_override_message=msg,
             #                                 accounts=accounts,
             #                                 domain_override_toggle=domain_override_toggle)
@@ -438,7 +438,7 @@ def add():
                         history.add()
                 return redirect(url_for('dashboard.dashboard'))
             else:
-                return render_template('errors/400.html',
+                return render_template('errors/400.html.jinja',
                                        msg=result['msg']), 400
         except Exception as e:
             current_app.logger.error('Cannot add zone. Error: {0}'.format(e))
@@ -454,7 +454,7 @@ def add():
             domain_override_toggle = True
         else:
             accounts = current_user.get_accounts()
-        return render_template('domain_add.html',
+        return render_template('domain_add.html.jinja',
                                templates=templates,
                                accounts=accounts,
                                domain_override_toggle=domain_override_toggle)
@@ -496,7 +496,7 @@ def setting(domain_name):
         account = d.get_account()
         domain_info = d.get_domain_info(domain_name)
 
-        return render_template('domain_setting.html',
+        return render_template('domain_setting.html.jinja',
                                domain=domain,
                                users=users,
                                domain_user_ids=domain_user_ids,

@@ -1,0 +1,358 @@
+{% extends "base.html.jinja" %}
+{% set active_page = "admin_settings" %}
+{% block title %}<title>{{_('Authentication Settings')}} - {{ SITE_NAME }}</title>{% endblock %}
+
+{% block dashboard_stat %}
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">{{_('Authentication Settings')}}</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="{{ url_for('dashboard.dashboard') }}">{{_('Dashboard')}}</a></li>
+                        <li class="breadcrumb-item">{{_('Settings')}}</li>
+                        <li class="breadcrumb-item active">{{_('Authentication Settings')}}</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <form id="settings-editor">
+                        <div class="card card-outline card-primary shadow">
+                            <div class="card-header">
+                                <h3 class="card-title">{{_('Settings Editor')}}</h3>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <div class="overlay-wrapper" data-bind="visible: loading() || saving()">
+                                    <div class="overlay">
+                                        <i class="fas fa-3x fa-sync-alt fa-spin"></i>
+                                        <div class="text-bold pt-2 pl-2"
+                                             data-bind="text: (loading() ? 'Loading' : 'Saving') + ' settings...'"></div>
+                                    </div>
+                                </div>
+                                <!-- /.overlay-wrapper -->
+                                <div class="alert alert-dismissible alert-success" style="display: none;"
+                                     data-bind="visible: saved">
+                                    <button type="button" class="close" aria-hidden="true"
+                                            data-bind="click: saved(false)">×
+                                    </button>
+                                    <h5><i class="icon fas fa-check"></i> Saved!</h5>
+                                    These settings have been saved to the database.
+                                </div>
+                                <div class="alert alert-dismissible alert-danger" style="display: none;"
+                                     data-bind="visible: save_failed">
+                                    <button type="button" class="close" aria-hidden="true"
+                                            data-bind="click: save_failed(false)">×
+                                    </button>
+                                    <h5><i class="icon fas fa-ban"></i> {{_('Error')}}</h5>
+                                    These settings could <strong>not</strong> be saved to the database!
+                                </div>
+                                <div class="alert alert-dismissible" style="display: none;"
+                                     data-bind="visible: messages().length, class: 'alert alert-dismissible alert-' + messages_class()">
+                                    <button type="button" class="close" aria-hidden="true"
+                                            data-bind="click: messages([])">×
+                                    </button>
+                                    <h5><i class="icon fas fa-info"></i> Additional Information</h5>
+                                    <ul data-bind="foreach: messages">
+                                        <li data-bind="text: $data"></li>
+                                    </ul>
+                                </div>
+                                <div class="nav-tabs-custom">
+                                    <ul class="nav nav-tabs" role="tablist">
+                                        <li class="nav-item">
+                                            <a data-tab="local"
+                                               data-bind="click: onTabClick, class: 'nav-link' + (tab_active() == 'local' ? ' active' : '')"
+                                               href="#" data-toggle="pill" role="tab">Local</a>
+                                        </li>
+                                    
+                                        <li class="nav-item">
+                                            <a data-tab="sudis"
+                                               data-bind="click: onTabClick, class: 'nav-link' + (tab_active() == 'sudis' ? ' active' : '')"
+                                               href="#" data-toggle="pill" role="tab">SUDIS</a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content">
+
+                                        <div data-tab="local"
+                                             data-bind="class: 'tab-pane' + (tab_active() == 'local' ? ' active' : '')">
+                                            <div class="row">
+                                                <div class="col-12 col-sm-6 col-lg-4">
+                                                    <div class="card">
+                                                        <!-- <div class="card-header">
+                                                            <h3 class="card-title">Local Authentication Settings</h3>
+                                                        </div> -->
+                                                        <!-- /.card-header -->
+                                                        <div class="card-body">
+                                                            <div class="form-group">
+                                                                <input type="checkbox" id="local_db_enabled"
+                                                                       name="local_db_enabled"
+                                                                       class="checkbox"
+                                                                       data-bind="checked: local_db_enabled">
+                                                                <label for="local_db_enabled">Local DB
+                                                                    Authentication</label>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <input type="checkbox" id="signup_enabled"
+                                                                       name="signup_enabled"
+                                                                       class="checkbox"
+                                                                       data-bind="enable: local_db_enabled, checked: signup_enabled">
+                                                                <label for="signup_enabled">Allow users to sign
+                                                                    up</label>
+                                                            </div>
+                                                            <fieldset>
+                                                                <legend>Password Requirements</legend>
+                                                                <div class="form-group">
+                                                                    <input type="checkbox" id="pwd_enforce_characters"
+                                                                           name="pwd_enforce_characters"
+                                                                           class="checkbox"
+                                                                           data-bind="enable: local_db_enabled, checked: pwd_enforce_characters">
+                                                                    <label for="pwd_enforce_characters">
+                                                                        Enforce Character Requirements
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="pwd_min_len">Minimum Password
+                                                                        Length</label>
+                                                                    <input type="text" class="form-control"
+                                                                           name="pwd_min_len" id="pwd_min_len"
+                                                                           data-bind="enable: local_db_enabled() && pwd_enforce_characters(), value: pwd_min_len, valueUpdate: 'afterkeydown'">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="pwd_min_lowercase">Minimum Lowercase
+                                                                        Characters</label>
+                                                                    <input type="text" class="form-control"
+                                                                           name="pwd_min_lowercase"
+                                                                           id="pwd_min_lowercase"
+                                                                           data-bind="enable: local_db_enabled() && pwd_enforce_characters(), value: pwd_min_lowercase, valueUpdate: 'afterkeydown'">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="pwd_min_uppercase">Minimum Uppercase
+                                                                        Characters</label>
+                                                                    <input type="text" class="form-control"
+                                                                           name="pwd_min_uppercase"
+                                                                           id="pwd_min_uppercase"
+                                                                           data-bind="enable: local_db_enabled() && pwd_enforce_characters(), value: pwd_min_uppercase, valueUpdate: 'afterkeydown'">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="pwd_min_digits">Minimum Digit
+                                                                        Characters</label>
+                                                                    <input type="text" class="form-control"
+                                                                           name="pwd_min_digits" id="pwd_min_digits"
+                                                                           data-bind="enable: local_db_enabled() && pwd_enforce_characters(), value: pwd_min_digits, valueUpdate: 'afterkeydown'">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="pwd_min_special">Minimum Special
+                                                                        Characters</label>
+                                                                    <input type="text" class="form-control"
+                                                                           name="pwd_min_special" id="pwd_min_special"
+                                                                           data-bind="enable: local_db_enabled() && pwd_enforce_characters(), value: pwd_min_special, valueUpdate: 'afterkeydown'">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <input type="checkbox" id="pwd_enforce_complexity"
+                                                                           name="pwd_enforce_complexity"
+                                                                           class="checkbox"
+                                                                           data-bind="enable: local_db_enabled, checked: pwd_enforce_complexity">
+                                                                    <label for="pwd_enforce_complexity">
+                                                                        Enforce Complexity Requirement
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="pwd_min_complexity">Minimum Complexity
+                                                                        (zxcvbn)</label>
+                                                                    <input type="text" class="form-control"
+                                                                           name="pwd_min_complexity"
+                                                                           id="pwd_min_complexity"
+                                                                           data-bind="enable: local_db_enabled() && pwd_enforce_complexity(), value: pwd_min_complexity, valueUpdate: 'afterkeydown'">
+                                                                </div>
+                                                            </fieldset>
+                                                        </div>
+                                                        <!-- /.card-body -->
+                                                    </div>
+                                                    <!-- /.card -->
+                                                </div>
+                                                <!-- /.col -->
+
+                                                <div class="col-12 col-sm-6 col-lg-8">
+                                                    <div class="card">
+                                                        <div class="card-header">
+                                                            <h3 class="card-title">{{_('Help')}}</h3>
+                                                        </div>
+                                                        <!-- /.card-header -->
+                                                        <div class="card-body">
+                                                            <dl class="dl-horizontal">
+                                                                <dt>Local DB Authentication</dt>
+                                                                <dd>Enable/disable local database authentication.</dd>
+                                                                <dt>Allow Users to Signup</dt>
+                                                                <dd>Allow users to signup. This requires local database
+                                                                    authentication
+                                                                    to be enabled.
+                                                                </dd>
+                                                                <h4>Password Requirements</h4>
+                                                                <dd>This section allows you to customize your local DB
+                                                                    password
+                                                                    requirements
+                                                                    and ensure that when users change their password or
+                                                                    signup
+                                                                    they are
+                                                                    picking strong passwords.
+                                                                </dd>
+                                                                <dd>Setting any entry field to a blank value will revert
+                                                                    it
+                                                                    back
+                                                                    to default.
+                                                                </dd>
+                                                                <dt>Enforce Character Requirements</dt>
+                                                                <dd>This option will enforce the character type
+                                                                    requirements
+                                                                    for
+                                                                    passwords.
+                                                                    <ul>
+                                                                        <li>Minimum Lowercase Characters - Minimum
+                                                                            number of
+                                                                            lowercase
+                                                                            characters required to appear in the
+                                                                            password.
+                                                                        </li>
+                                                                        <li>Minimum Uppercase Characters - Minimum
+                                                                            number of
+                                                                            uppercase
+                                                                            characters required to appear in the
+                                                                            password.
+                                                                        </li>
+                                                                        <li>Minimum Digit Characters - Minimum number of
+                                                                            digits
+                                                                            required to appear in the password. Digits
+                                                                            include
+                                                                            1234567890.
+                                                                        </li>
+                                                                        <li>Minimum Special Characters - Minimum number
+                                                                            of
+                                                                            special
+                                                                            characters required to appear in the
+                                                                            password.
+                                                                            Special
+                                                                            characters include
+                                                                            `!@#$%^&amp;*()_-=+[]\{}|;:",.&gt;&lt;/?.
+                                                                        </li>
+                                                                    </ul>
+                                                                </dd>
+                                                                <dt>Enforce Complexity Requirement</dt>
+                                                                <dd>Enable the enforcement of complex passwords. We
+                                                                    currently use
+                                                                    <a href="https://github.com/dropbox/zxcvbn">zxcvbn</a>
+                                                                    for
+                                                                    determining this.
+                                                                    <ul>
+                                                                        <li>Minimum Complexity - The default value of
+                                                                            the
+                                                                            log factor
+                                                                            is 11 as it is considered secure. More
+                                                                            information about
+                                                                            this can be found at
+                                                                            <a href="https://www.usenix.org/system/files/conference/usenixsecurity16/sec16_paper_wheeler.pdf">here</a>
+                                                                        </li>
+                                                                    </ul>
+                                                                </dd>
+                                                            </dl>
+                                                        </div>
+                                                        <!-- /.card-body -->
+                                                    </div>
+                                                    <!-- /.card -->
+                                                </div>
+                                                <!-- /.col -->
+                                            </div>
+                                            <!-- /.row -->
+                                        </div>
+                                        <!-- /.tab-pane -->
+                                    </div>
+                                    <!-- /.tab-content -->
+                                    <div class="tab-content">
+
+                                        <div data-tab="sudis"
+                                             data-bind="class: 'tab-pane' + (tab_active() == 'sudis' ? ' active' : '')">
+                                            <div class="row">
+                                                <div class="col-12 col-sm-6 col-lg-4">
+                                                    <div class="card">
+                                                        <!-- <div class="card-header">
+                                                            <h3 class="card-title">Sudis Authentication Settings</h3>
+                                                        </div> -->
+                                                        <!-- /.card-header -->
+                                                        <div class="card-body">
+                                                            
+                                                        
+                                                        </div>
+                                                        <!-- /.card-body -->
+                                                    </div>
+                                                    <!-- /.card -->
+                                                </div>
+                                                <!-- /.col -->
+
+                                                <div class="col-12 col-sm-6 col-lg-8">
+                                                    <div class="card">
+                                                        <div class="card-header">
+                                                            <h3 class="card-title">{{_('Help')}}</h3>
+                                                        </div>
+                                                        <!-- /.card-header -->
+                                                        <div class="card-body">
+                                                            
+                                                        </div>
+                                                        <!-- /.card-body -->
+                                                    </div>
+                                                    <!-- /.card -->
+                                                </div>
+                                                <!-- /.col -->
+                                            </div>
+                                            <!-- /.row -->
+                                        </div>
+                                        <!-- /.tab-pane -->
+                                    </div>
+                                </div>
+                                <!-- /.nav-tabs-custom -->
+                            </div>
+                            <!-- /.card-body -->
+                            <div class="card-footer">
+                                <div class="error"></div>
+                                <button type="button" class="btn btn-primary"
+                                        title="Save Settings" data-bind="click: onSaveClick">
+                                    <i class="fa-solid fa-save"></i>&nbsp;{{_('Save')}}
+                                </button>
+                            </div>
+                            <!-- /.card-footer -->
+                        </div>
+                        <!-- /.card -->
+                    </form>
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+    </section>
+{% endblock %}
+
+{% block head_styles %}
+    <style>
+        .error { color: red !important; }
+    </style>
+{% endblock %}
+
+{% block extrascripts %}
+    <script>
+        $(function () {
+            let API_URL = '{{ url_for('admin.setting_authentication_api') }}';
+            let CSRF_TOKEN = '{{ csrf_token() }}';
+            let model = new AuthenticationSettingsModel({}, API_URL, CSRF_TOKEN, '#settings-editor');
+            model.init(true);
+        })
+    </script>
+{% endblock %}

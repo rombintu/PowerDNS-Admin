@@ -71,7 +71,7 @@ def before_request():
     if maintenance and current_user.is_authenticated and current_user.role.name not in [
         'Administrator', 'Operator'
     ]:
-        return render_template('maintenance.html')
+        return render_template('maintenance.html.jinja')
 
     # Manage session timeout
     session.permanent = True
@@ -85,7 +85,6 @@ def before_request():
 def set_lang():
     lang_code = request.args.get('lang')
     session['lang'] = lang_code
-    print(session['lang'])
     return redirect(url_for('dashboard.dashboard'))
 
 # @index_bp.route('plugin_ru', methods=['GET'])
@@ -276,7 +275,7 @@ def login():
     #             current_app.logger.warning('Unable to create ' + azure_username)
     #             session.pop('azure_token', None)
     #             # note: a redirect to login results in an endless loop, so render the login page instead
-    #             return render_template('login.html',
+    #             return render_template('login.html.jinja',
     #                                    saml_enabled=SAML_ENABLED,
     #                                    error=('User ' + azure_username +
     #                                           ' cannot be created.'))
@@ -308,7 +307,7 @@ def login():
     #                                                azure_username +
     #                                                ' has no relevant group memberships')
     #                     session.pop('azure_token', None)
-    #                     return render_template('login.html',
+    #                     return render_template('login.html.jinja',
     #                                            saml_enabled=SAML_ENABLED,
     #                                            error=('User ' + azure_username +
     #                                                   ' is not in any authorised groups.'))
@@ -473,7 +472,7 @@ def login():
     #     return authenticate_user(user, 'OIDC OAuth')
 
     if request.method == 'GET':
-        return render_template('login.html', saml_enabled=SAML_ENABLED, version=VERSION)
+        return render_template('login.html.jinja', saml_enabled=SAML_ENABLED, version=VERSION)
     elif request.method == 'POST':
         # process Local-DB authentication
         username = request.form['username']
@@ -490,7 +489,7 @@ def login():
             return redirect(url_for("index.saml_login"))
         if auth_method == 'LOCAL' and not Setting().get('local_db_enabled'):
             return render_template(
-                'login.html',
+                'login.html.jinja',
                 saml_enabled=SAML_ENABLED,
                 version=VERSION,
                 error='Local authentication is disabled')
@@ -502,7 +501,7 @@ def login():
         try:
             # if Setting().get('verify_user_email') and user.email and not user.confirmed:
             #     return render_template(
-            #         'login.html',
+            #         'login.html.jinja',
             #         saml_enabled=SAML_ENABLED,
             #         version=VERSION,
             #         error='Please confirm your email address first')
@@ -511,7 +510,7 @@ def login():
                                     src_ip=request.remote_addr)
             if auth == False:
                 signin_history(user.username, auth_method, False)
-                return render_template('login.html',
+                return render_template('login.html.jinja',
                                        saml_enabled=SAML_ENABLED,
                                        version=VERSION,
                                        error='Invalid credentials')
@@ -519,7 +518,7 @@ def login():
             current_app.logger.error(
                 "Cannot authenticate user. Error: {}".format(e))
             current_app.logger.debug(traceback.format_exc())
-            return render_template('login.html',
+            return render_template('login.html.jinja',
                                    saml_enabled=SAML_ENABLED,
                                    version=VERSION,
                                    error=e)
@@ -530,11 +529,11 @@ def login():
         #         good_token = user.verify_totp(otp_token)
         #         if not good_token:
         #             signin_history(user.username, auth_method, False)
-        #             return render_template('login.html',
+        #             return render_template('login.html.jinja',
         #                                    saml_enabled=SAML_ENABLED,
         #                                    error='Invalid credentials')
         #     else:
-        #         return render_template('login.html',
+        #         return render_template('login.html.jinja',
         #                                saml_enabled=SAML_ENABLED,
         #                                error='Token required')
 
@@ -798,7 +797,7 @@ def register():
         if current_user.is_authenticated:
             return redirect(url_for('index.index'))
         if request.method == 'GET':
-            return render_template('register.html', captcha_enable=CAPTCHA_ENABLE)
+            return render_template('register.html.jinja', captcha_enable=CAPTCHA_ENABLE)
         elif request.method == 'POST':
             username = request.form.get('username', '').strip()
             password = request.form.get('password', '')
@@ -830,11 +829,11 @@ def register():
 
             if not captcha.validate():
                 return render_template(
-                    'register.html', error='Invalid CAPTCHA answer', error_messages=error_messages,
+                    'register.html.jinja', error='Invalid CAPTCHA answer', error_messages=error_messages,
                     captcha_enable=CAPTCHA_ENABLE)
 
             if error_messages:
-                return render_template('register.html', error_messages=error_messages, captcha_enable=CAPTCHA_ENABLE)
+                return render_template('register.html.jinja', error_messages=error_messages, captcha_enable=CAPTCHA_ENABLE)
 
             user = User(username=username,
                         plain_text_password=password,
@@ -845,7 +844,7 @@ def register():
 
             (password_policy_pass, password_policy) = password_policy_check(user, password)
             if not password_policy_pass:
-                return render_template('register.html', error_messages=password_policy, captcha_enable=CAPTCHA_ENABLE)
+                return render_template('register.html.jinja', error_messages=password_policy, captcha_enable=CAPTCHA_ENABLE)
 
             try:
                 result = user.create_local_user()
@@ -859,15 +858,15 @@ def register():
                 #     else:
                 #         return redirect(url_for('index.login'))
                 # else:
-                #     return render_template('register.html',
+                #     return render_template('register.html.jinja',
                 #                            error=result['msg'], captcha_enable=CAPTCHA_ENABLE)
                     return redirect(url_for('index.index'))
             except Exception as e:
-                return render_template('register.html', error=e, captcha_enable=CAPTCHA_ENABLE)
+                return render_template('register.html.jinja', error=e, captcha_enable=CAPTCHA_ENABLE)
         else:
-            return render_template('errors/404.html'), 404
+            return render_template('errors/404.html.jinja'), 404
     else:
-        return render_template('errors/403.html'), 403
+        return render_template('errors/403.html.jinja'), 403
 
 # Show welcome page on first login if otp_force is enabled
 # @index_bp.route('/welcome', methods=['GET', 'POST'])
@@ -879,16 +878,16 @@ def register():
 #     encoded_img_data = base64.b64encode(user.get_qrcode_value())
 
 #     if request.method == 'GET':
-#         return render_template('register_otp.html', qrcode_image=encoded_img_data.decode(), user=user)
+#         return render_template('register_otp.html.jinja', qrcode_image=encoded_img_data.decode(), user=user)
 #     elif request.method == 'POST':
 #         otp_token = request.form.get('otptoken', '')
 #         if otp_token and otp_token.isdigit():
 #             good_token = user.verify_totp(otp_token)
 #             if not good_token:
-#                 return render_template('register_otp.html', qrcode_image=encoded_img_data.decode(), user=user,
+#                 return render_template('register_otp.html.jinja', qrcode_image=encoded_img_data.decode(), user=user,
 #                                        error="Invalid token")
 #         else:
-#             return render_template('register_otp.html', qrcode_image=encoded_img_data.decode(), user=user,
+#             return render_template('register_otp.html.jinja', qrcode_image=encoded_img_data.decode(), user=user,
 #                                    error="Token required")
 #         session.pop('welcome_user_id')
 #         return redirect(url_for('index.index'))
@@ -899,20 +898,20 @@ def register():
 #     email = confirm_token(token)
 #     if not email:
 #         # Cannot confirm email
-#         return render_template('email_confirmation.html', status=0)
+#         return render_template('email_confirmation.html.jinja', status=0)
 
 #     user = User.query.filter_by(email=email).first_or_404()
 #     if user.confirmed:
 #         # Already confirmed
 #         current_app.logger.info(
 #             "User email {} already confirmed".format(email))
-#         return render_template('email_confirmation.html', status=2)
+#         return render_template('email_confirmation.html.jinja', status=2)
 #     else:
 #         # Confirm email is valid
 #         user.update_confirmed(confirmed=1)
 #         current_app.logger.info(
 #             "User email {} confirmed successfully".format(email))
-#         return render_template('email_confirmation.html', status=1)
+#         return render_template('email_confirmation.html.jinja', status=1)
 
 
 # @index_bp.route('/resend-confirmation-email', methods=['GET', 'POST'])
@@ -920,7 +919,7 @@ def register():
 #     if current_user.is_authenticated:
 #         return redirect(url_for('index.index'))
 #     if request.method == 'GET':
-#         return render_template('resend_confirmation_email.html')
+#         return render_template('resend_confirmation_email.html.jinja')
 #     elif request.method == 'POST':
 #         email = request.form.get('email')
 #         user = User.query.filter(User.email == email).first()
@@ -935,14 +934,14 @@ def register():
 #             send_account_verification(user.email)
 #             status = 2
 
-#         return render_template('resend_confirmation_email.html', status=status)
+#         return render_template('resend_confirmation_email.html.jinja', status=status)
 
 
-# @index_bp.route('/nic/checkip.html', methods=['GET', 'POST'])
+# @index_bp.route('/nic/checkip.html.jinja', methods=['GET', 'POST'])
 # @csrf.exempt
 # def dyndns_checkip():
 #     # This route covers the default ddclient 'web' setting for the checkip service
-#     return render_template('dyndns.html',
+#     return render_template('dyndns.html.jinja',
 #                            response=request.environ.get(
 #                                'HTTP_X_REAL_IP', request.remote_addr))
 
@@ -966,7 +965,7 @@ def register():
 #         history = History(msg="DynDNS update: missing hostname parameter",
 #                           created_by=current_user.username)
 #         history.add()
-#         return render_template('dyndns.html', response='nohost'), 200
+#         return render_template('dyndns.html.jinja', response='nohost'), 200
 
 #     try:
 #         if current_user.role.name in ['Administrator', 'Operator']:
@@ -987,7 +986,7 @@ def register():
 #     except Exception as e:
 #         current_app.logger.error('DynDNS Error: {0}'.format(e))
 #         current_app.logger.debug(traceback.format_exc())
-#         return render_template('dyndns.html', response='911'), 200
+#         return render_template('dyndns.html.jinja', response='911'), 200
 
 #     domain = None
 #     domain_segments = hostname.split('.')
@@ -1007,7 +1006,7 @@ def register():
 #             .format(hostname),
 #             created_by=current_user.username)
 #         history.add()
-#         return render_template('dyndns.html', response='nohost'), 200
+#         return render_template('dyndns.html.jinja', response='nohost'), 200
 
 #     myip_addr = []
 #     if myip:
@@ -1102,7 +1101,7 @@ def register():
 #                 created_by=current_user.username)
 #             history.add()
 
-#     return render_template('dyndns.html', response=response), 200
+#     return render_template('dyndns.html.jinja', response=response), 200
 
 
 ### START SAML AUTHENTICATION ###
@@ -1258,7 +1257,7 @@ def saml_authorized():
         session['authentication_type'] = 'SAML'
         return authenticate_user(user, 'SAML')
     else:
-        return render_template('errors/SAML.html', errors=errors)
+        return render_template('errors/SAML.html.jinja', errors=errors)
 
 
 def create_group_to_account_mapping():
@@ -1323,7 +1322,7 @@ def saml_logout():
         else:
             return redirect(url_for('login'))
     else:
-        return render_template('errors/SAML.html', errors=errors)
+        return render_template('errors/SAML.html.jinja', errors=errors)
 
 
 ### END SAML AUTHENTICATION ###
