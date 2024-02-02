@@ -120,7 +120,7 @@
         $(document.body).on('click', '.button_delete', function () {
             var modal = $("#modal_delete");
             var key_id = $(this).prop('id');
-            var info = "{{_('Confirm the action for ')}}" + key_id;
+            var info = "{{_('Confirm the action for')}} " + key_id;
             modal.find('.modal-body p').text(info);
             modal.find('#button_delete_confirm').click(function () {
                 var postdata = {

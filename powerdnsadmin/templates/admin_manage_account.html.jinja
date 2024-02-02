@@ -133,7 +133,7 @@
         $(document.body).on('click', '.button_delete', function () {
             var modal = $("#modal_delete");
             var accountname = $(this).prop('id');
-            var info = "{{_('Confirm the action for ')}}" + accountname;
+            var info = "Confirm the action for " + accountname;
             modal.find('.modal-body p').text(info);
             modal.find('#button_delete_confirm').click(function () {
                 var postdata = {
@@ -163,7 +163,7 @@
                     <p></p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default float-left" data-dismiss="modal">{{_('Close')}}>/button>
+                    <button type="button" class="btn btn-default float-left" data-dismiss="modal">{{_('Close')}}</button>
                     <button type="button" class="btn btn-danger" id="button_delete_confirm">{{_('Delete')}}</button>
                 </div>
             </div>

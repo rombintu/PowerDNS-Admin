@@ -1,5 +1,37 @@
 // var dnssecKeyList = []
 
+// class Row {
+//     constructor(name, type, status, ttl, data, comment) {
+//         this.name = name;
+//         this.type = type;
+//         this.status = status;
+//         this.ttl = ttl;
+//         this.data = data;
+//         this.comment = comment;
+//     }
+// }
+
+// class ChangeObserver {
+//     constructor() {
+//         this.origianlRows = {};
+//         this.changedRows = {};
+//     }
+//     addOriginalRow(rowName, rowData) {
+//         this.origianlRows[rowName] = rowData;
+//     }
+//     addChangedRow(rowName, rowData) {
+//         this.changedRows[rowName] = rowData;
+//     }
+//     listOriginalRows() {
+//         return this.origianlRows;
+//     }
+//     listChangedRows() {
+//         return this.changedRows;
+//     }
+// }
+
+// var cobs = new ChangeObserver();
+
 function applyChanges(data, url, showResult, refreshPage) {
     $.ajax({
         type : "POST",
@@ -30,14 +62,14 @@ function applyChanges(data, url, showResult, refreshPage) {
 function applyRecordChanges(data, domain) {
     $.ajax({
         type : "POST",
-        url : $SCRIPT_ROOT + '/domain/' + domain + '/apply',
+        url : $SCRIPT_ROOT + '/domain/' + encodeURIComponent(domain) + '/apply',
         data : JSON.stringify(data),// now data come in this function
         contentType : "application/json; charset=utf-8",
         crossDomain : true,
         dataType : "json",
         success : function(data, status, jqXHR) {
             // update Apply button value
-            $.getJSON($SCRIPT_ROOT + '/domain/' + domain + '/info', function(data) {
+            $.getJSON($SCRIPT_ROOT + '/domain/' + encodeURIComponent(domain) + '/info', function(data) {
                 $(".button_apply_changes").val(data['serial']);
             });
 
@@ -92,14 +124,25 @@ function saveRow(oTable, nRow) {
     oTable.cell(nRow,4).data(jqInputs[1].value);
     oTable.cell(nRow,5).data(jqInputs[2].value);
 
-    var record = jqInputs[0].value;
-    var button_edit = "<button type=\"button\" class=\"btn btn-warning button_edit\" id=\"" + record +  "\">Edit&nbsp;<i class=\"fa fa-edit\"></i></button>"
-    var button_delete = "<button type=\"button\" class=\"btn btn-danger button_delete\" id=\"" + record +  "\">Delete&nbsp;<i class=\"fa fa-trash\"></i></button>"
+    var record_name = jqInputs[0].value;
+    var button_edit = "<button type=\"button\" class=\"btn btn-warning button_edit\" id=\"" + record_name +  "\"><i class=\"fa fa-edit\"></i></button>"
+    var button_delete = "<button type=\"button\" class=\"btn btn-danger button_delete\" id=\"" + record_name +  "\"><i class=\"fa fa-trash\"></i></button>"
 
     oTable.cell(nRow,6).data(button_edit);
     oTable.cell(nRow,7).data(button_delete);
 
     oTable.draw();
+    
+    // cobs.addChangedRow(record_name, [
+    //     jqSelect[0].value,
+    //     status,
+    //     jqSelect[2].value,
+    //     jqInputs[1].value,
+    //     jqInputs[2].value,
+    // ]);
+
+    // console.log(cobs.listOriginalRows);
+    // console.log(cobs.listChangedRows);
 }
 
 function restoreRow(oTable, nRow) {
@@ -142,8 +185,8 @@ function editRow(oTable, nRow) {
     jqTds[3].innerHTML = '<select class="form-control" id="record_ttl" name="record_ttl" value="' + aData[3]  + '">' + ttl_opts + '</select>';
     jqTds[4].innerHTML = '<input type="text" style="display:table-cell; width:100% !important" id="current_edit_record_data" name="current_edit_record_data" class="form-control input-small advance-data" value="' + aData[4].replace(/\"/g,"&quot;") + '">';
     jqTds[5].innerHTML = '<input type="text" style="display:table-cell; width:100% !important" id="record_comment" name="record_comment" class="form-control input-small advance-data" value="' + aData[5].replace(/\"/g, "&quot;") + '">';
-    jqTds[6].innerHTML = '<button type="button" class="btn btn-primary button_save">Save</button>';
-    jqTds[7].innerHTML = '<button type="button" class="btn btn-primary button_cancel">Cancel</button>';
+    jqTds[6].innerHTML = '<button type="button" class="btn btn-primary button_save"><i class=\"fa fa-floppy-disk\"></i></button>';
+    jqTds[7].innerHTML = '<button type="button" class="btn btn-primary button_cancel"><i class=\"fa-solid fa-xmark\"></i></button>';
 
     // set current value of dropdown column
     if (aData[2] == 'Active'){
@@ -153,6 +196,9 @@ function editRow(oTable, nRow) {
     SelectElement('record_type', aData[1]);
     SelectElement('record_status', isDisabled);
     SelectElement('record_ttl', aData[3]);
+
+    // recName = aData[0]
+    // cobs.addOriginalRow(recName, [aData[1], isDisabled, aData[3], aData[4].replace(/\"/g,"&quot;"), aData[5].replace(/\"/g, "&quot;")]);
 }
 
 function SelectElement(elementID, valueToSelect)
@@ -197,7 +243,7 @@ function SelectElement(elementID, valueToSelect)
 //             }
 //             else {
 //                 if (parseFloat(PDNS_VERSION) >= 4.1) {
-//                   dnssec_footer = '<button type="button" class="btn btn-danger button_dnssec_disable pull-left" id="'+domain+'">Disable DNSSEC</button><button type="button" class="btn btn-default pull-right" data-dismiss="modal">{{_('Close')}}>/button>';
+//                   dnssec_footer = '<button type="button" class="btn btn-danger button_dnssec_disable pull-left" id="'+domain+'">Disable DNSSEC</button><button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>';
 //                   modal.find('.modal-footer ').html(dnssec_footer);
 //                 }
 //                 for (var i = 0; i < dnssec.length; i++) {
@@ -279,7 +325,7 @@ function timer(elToUpdate, maxTime) {
     return interval;
 }
 
-// copy otp secret code to clipboard
+// // copy otp secret code to clipboard
 // function copy_otp_secret_to_clipboard() {
 //     var copyBox = document.getElementById("otp_secret");
 //     copyBox.select();

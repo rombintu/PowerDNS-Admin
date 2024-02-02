@@ -1111,31 +1111,31 @@ def from_utc_to_local(local_offset, timeframe):
 @history_access_required
 def history_table():  # ajax call data
 
-    if request.method == 'POST':
-        if current_user.role.name != 'Administrator':
-            return make_response(
-                jsonify({
-                    'status': 'error',
-                    'msg': 'You do not have permission to remove history.'
-                }), 401)
+    # if request.method == 'POST':
+    #     if current_user.role.name != 'Administrator':
+    #         return make_response(
+    #             jsonify({
+    #                 'status': 'error',
+    #                 'msg': 'You do not have permission to remove history.'
+    #             }), 401)
 
-        h = History()
-        result = h.remove_all()
-        if result:
-            history = History(msg='Remove all histories',
-                              created_by=current_user.username)
-            history.add()
-            return make_response(
-                jsonify({
-                    'status': 'ok',
-                    'msg': 'Changed user role successfully.'
-                }), 200)
-        else:
-            return make_response(
-                jsonify({
-                    'status': 'error',
-                    'msg': 'Can not remove histories.'
-                }), 500)
+    #     h = History()
+    #     result = h.remove_all()
+    #     if result:
+    #         history = History(msg='Remove all histories',
+    #                           created_by=current_user.username)
+    #         history.add()
+    #         return make_response(
+    #             jsonify({
+    #                 'status': 'ok',
+    #                 'msg': 'Changed user role successfully.'
+    #             }), 200)
+    #     else:
+    #         return make_response(
+    #             jsonify({
+    #                 'status': 'error',
+    #                 'msg': 'Can not remove histories.'
+    #             }), 500)
 
     detailedHistories = []
     lim = int(Setting().get('max_history_records'))  # max num of records

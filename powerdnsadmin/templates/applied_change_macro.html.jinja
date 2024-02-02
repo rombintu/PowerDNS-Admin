@@ -75,6 +75,28 @@
 {% endfor %}
 </td>
 
+{# <td>
+{% for changes in hist_rec_entry.changeSet %}
+    {% if changes[2] == "unchanged" or
+        (changes[2] == "edit" and changes[0]['disabled'] == changes[1]['disabled']) %}
+        <div class="diff diff-unchanged">{{
+            "Disabled" if changes[1]['disabled'] else "Activated"
+        }}</div>
+    {% else %}
+        {% if changes[2] in ["deletion", "edit"] %}
+            <div class="diff diff-deletion">{{
+                "Disabled" if changes[0]['disabled'] else "Activated"
+            }}</div>
+        {% endif %}
+        {% if changes[2] in ["addition", "edit"] %}
+            <div class="diff diff-addition">{{
+                "Disabled" if changes[1]['disabled'] else "Activated"
+            }}</div>
+        {% endif %}
+    {% endif %}
+{% endfor %}
+</td> #}
+
 <td>
 {% for changes in hist_rec_entry.changeSet %}
     {% if changes[2] == "unchanged" or

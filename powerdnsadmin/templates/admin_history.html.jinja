@@ -188,7 +188,7 @@
                                 <tr>
                                     <td>
                                         <button type="submit" id="search-submit" name="search-submit"
-                                                class="btn btn-primary button-filter"><i class="fa fa-search"></i>&nbsp;Search
+                                                class="btn btn-primary button-filter"><i class="fa fa-search"></i>&nbsp;{{_('Search')}}
                                         </button>
                                     </td>
                                     <td>
@@ -525,7 +525,7 @@
                     <p>Are you sure you want to remove all history?</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">{{_('Close')}}>/button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">{{_('Close')}}</button>
                     <button type="button" class="btn btn-danger float-right"
                             onclick="applyChanges({'_csrf_token': '{{ csrf_token() }}'}, $SCRIPT_ROOT + '/admin/history', false, true);">
                         Clear History
@@ -536,7 +536,7 @@
     </div> -->
     <!-- History Details Box -->
     <div class="modal fade" id="modal_history_info">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">History Details</h4>
@@ -548,7 +548,7 @@
                     <div id="modal-info-content"></div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default float-right" data-dismiss="modal">{{_('Close')}}>/button>
+                    <button type="button" class="btn btn-default float-right" data-dismiss="modal">{{_('Close')}}</button>
                 </div>
             </div>
         </div>

@@ -210,7 +210,7 @@ msgstr "Нажмите на пользователей, чтобы переме�
 #: powerdnsadmin/templates/errors/403.html.jinja:14
 #: powerdnsadmin/templates/errors/404.html.jinja:13
 #: powerdnsadmin/templates/errors/500.html.jinja:13
-#: powerdnsadmin/templates/errors/SAML.html.jinja:13
+#: powerdnsadmin/templates/errors/sudis.html.jinja:13
 #: powerdnsadmin/templates/template.html.jinja:14
 #: powerdnsadmin/templates/user_profile.html.jinja:14
 msgid "Dashboard"
@@ -619,7 +619,7 @@ msgstr "СУДИС"
 
 #: powerdnsadmin/templates/login.html.jinja:78
 msgid "Create an account"
-msgstr "Создать аккаунт"
+msgstr "Регистрация"
 
 #: powerdnsadmin/templates/errors/400.html.jinja:29
 msgid "Bad Request"
@@ -633,7 +633,7 @@ msgstr "Сервер отказался обработать ваш запрос
 #: powerdnsadmin/templates/errors/403.html.jinja:37
 #: powerdnsadmin/templates/errors/404.html.jinja:34
 #: powerdnsadmin/templates/errors/500.html.jinja:34
-#: powerdnsadmin/templates/errors/SAML.html.jinja:47
+#: powerdnsadmin/templates/errors/sudis.html.jinja:47
 msgid "return to the dashboard"
 msgstr "вернуться к панели"
 
@@ -661,22 +661,22 @@ msgstr "Что-то пошло не так"
 msgid "Try again later"
 msgstr "Попробуйте еще раз позже"
 
-#: powerdnsadmin/templates/errors/SAML.html.jinja:2
-#: powerdnsadmin/templates/errors/SAML.html.jinja:9
-#: powerdnsadmin/templates/errors/SAML.html.jinja:14
-#: powerdnsadmin/templates/errors/SAML.html.jinja:26
+#: powerdnsadmin/templates/errors/sudis.html.jinja:2
+#: powerdnsadmin/templates/errors/sudis.html.jinja:9
+#: powerdnsadmin/templates/errors/sudis.html.jinja:14
+#: powerdnsadmin/templates/errors/sudis.html.jinja:26
 msgid "SAML Authentication Error"
 msgstr "SAML: Ошибка входа"
 
-#: powerdnsadmin/templates/errors/SAML.html.jinja:33
+#: powerdnsadmin/templates/errors/sudis.html.jinja:33
 msgid "Something went wrong with your authentication"
 msgstr "Что-то пошло не так с аутентификацией"
 
-#: powerdnsadmin/templates/errors/SAML.html.jinja:37
+#: powerdnsadmin/templates/errors/sudis.html.jinja:37
 msgid "Login failed."
 msgstr "Ошибка входа."
 
-#: powerdnsadmin/templates/errors/SAML.html.jinja:39
+#: powerdnsadmin/templates/errors/sudis.html.jinja:39
 msgid "Error(s) when processing SAML Response:"
 msgstr "Ошибка при обработке ответа SAML:"
 

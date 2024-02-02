@@ -39,24 +39,24 @@ SQLALCHEMY_TRACK_MODIFICATIONS = True
 ### DATABASE - SQLite
 SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'pdns.db')
 
-# SAML Authnetication
-SAML_ENABLED = False
-SAML_DEBUG = True
-SAML_PATH = os.path.join(os.path.dirname(__file__), 'saml')
-# # ##Example for ADFS Metadata-URL
-SAML_METADATA_URL = 'http://openam.testing.ru:8080/openam/saml2/jsp/exportmetadata.jsp'
-# # #Cache Lifetime in Seconds
+# # SAML Authnetication
+# SAML_ENABLED = False
+# SAML_DEBUG = True
+# SAML_PATH = os.path.join(os.path.dirname(__file__), 'saml')
+# # # ##Example for ADFS Metadata-URL
+# SAML_METADATA_URL = 'http://openam.testing.ru:8080/openam/saml2/jsp/exportmetadata.jsp'
+# # # #Cache Lifetime in Seconds
 SAML_METADATA_CACHE_LIFETIME = 1
 
 # SAML SSO binding format to use
 # Default: library default (urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect)
-# SAML_IDP_SSO_BINDING = 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST'
+SAML_IDP_SSO_BINDING = 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST-RFC4490'
 
 # EntityID of the IdP to use. Only needed if more than one IdP is
 #   in the SAML_METADATA_URL
 ## Default: First (only) IdP in the SAML_METADATA_URL
 ## Example: https://idp.example.edu/idp
-# SAML_IDP_ENTITY_ID = 'https://idp.example.edu/idp'
+SAML_IDP_ENTITY_ID = 'http://idp01.int.sudis.at-consulting.ru/idp/'
 # NameID format to request
 ## Default: The SAML NameID Format in the metadata if present,
 ##   otherwise urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified
@@ -157,19 +157,19 @@ SAML_METADATA_CACHE_LIFETIME = 1
 # SAML_KEY = '/etc/pki/powerdns-admin/key.pem'
 
 # Configures if SAML tokens should be encrypted.
-SAML_SIGN_REQUEST = False
-#Use SAML standard logout mechanism retreived from idp metadata
-#If configured false don't care about SAML session on logout.
-#Logout from PowerDNS-Admin only and keep SAML session authenticated.
-SAML_LOGOUT = False
-#Configure to redirect to a different url then PowerDNS-Admin login after SAML logout
-#for example redirect to google.com after successful saml logout
-#SAML_LOGOUT_URL = 'https://google.com'
+# SAML_SIGN_REQUEST = False # TODO CMS
+# #Use SAML standard logout mechanism retreived from idp metadata
+# #If configured false don't care about SAML session on logout.
+# #Logout from PowerDNS-Admin only and keep SAML session authenticated.
+SAML_LOGOUT = True
+# #Configure to redirect to a different url then PowerDNS-Admin login after SAML logout
+# #for example redirect to google.com after successful saml logout
+SAML_LOGOUT_URL = 'http://idp01.int.sudis.at-consulting.ru/idp/Logout?logoutRedirectUrl=http%3A%2F%2Fpda.ru'
 
-SAML_ASSERTION_ENCRYPTED = True
+# SAML_ASSERTION_ENCRYPTED = True
 
-# Some IdPs, like Okta, do not return Attribute Statements by default
-# Set the following to False if you are using Okta and not manually configuring Attribute Statements
-# #SAML_WANT_ATTRIBUTE_STATEMENT = True
+# # Some IdPs, like Okta, do not return Attribute Statements by default
+# # Set the following to False if you are using Okta and not manually configuring Attribute Statements
+# # #SAML_WANT_ATTRIBUTE_STATEMENT = True
 
 VERSION = "0.4.2-cloudate"

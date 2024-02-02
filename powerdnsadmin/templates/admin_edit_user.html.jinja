@@ -163,7 +163,7 @@
         $(document.body).on('click', '.button_otp_disable', function () {
             var modal = $("#modal_otp_disable");
             var username = $(this).prop('id');
-            var info = "{{_('Confirm the action for ')}}" + username;
+            var info = "{{_('Confirm the action for')}} " + username;
             modal.find('.modal-body p').text(info);
             modal.find('#button_otp_disable_confirm').click(function () {
                 var postdata = {

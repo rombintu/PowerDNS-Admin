@@ -288,8 +288,92 @@
                                                         </div> -->
                                                         <!-- /.card-header -->
                                                         <div class="card-body">
-                                                            
-                                                        
+                                                            <div class="form-group">
+                                                                <input type="checkbox" id="sudis_enabled"
+                                                                       name="sudis_enabled"
+                                                                       class="checkbox"
+                                                                       data-bind="checked: sudis_enabled">
+                                                                <label for="sudis_enabled">Sudis Authentication</label>
+                                                            </div>
+                                                            {# <div class="form-group">
+                                                                <input type="checkbox" id="sudis_debug"
+                                                                       name="sudis_debug"
+                                                                       class="checkbox"
+                                                                       data-bind="checked: sudis_debug">
+                                                                <label for="sudis_debug">Debug</label>
+                                                            </div> #}
+                                                            <fieldset>
+                                                                <legend>Service Provider Configuration</legend>
+                                                                <div class="form-group">
+                                                                    <label for="sp_consume_url">Service Provider Url Address</label>
+                                                                    <input type="text" class="form-control"
+                                                                           name="sp_consume_url" id="sp_consume_url"
+                                                                           data-bind="enable: sudis_enabled(), value: sp_consume_url, valueUpdate: 'afterkeydown'">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="sp_name">{{_('Service Provider Name')}}</label>
+                                                                    <input type="text" class="form-control"
+                                                                           name="sp_name" id="sp_name"
+                                                                           data-bind="enable: sudis_enabled(), value: sp_name, valueUpdate: 'afterkeydown'">
+                                                                </div>
+                                                                <legend>CMS Configuration</legend>
+                                                                <div class="form-group">
+                                                                    <label for="cms_url">CMS Url Address</label>
+                                                                    <input type="text" class="form-control"
+                                                                           name="cms_url" id="cms_url"
+                                                                           data-bind="enable: sudis_enabled(), value: cms_url, valueUpdate: 'afterkeydown'">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="sender_key_name">{{_('Sender Key Name')}}</label>
+                                                                    <input type="text" class="form-control"
+                                                                           name="sender_key_name" id="sender_key_name"
+                                                                           data-bind="enable: sudis_enabled(), value: sender_key_name, valueUpdate: 'afterkeydown'">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="recipient_key_name">{{_('Recipient Key Name')}}</label>
+                                                                    <input type="text" class="form-control"
+                                                                           name="recipient_key_name" id="recipient_key_name"
+                                                                           data-bind="enable: sudis_enabled(), value: recipient_key_name, valueUpdate: 'afterkeydown'">
+                                                                </div>
+                                                                <legend>Sudis Configuration</legend>
+                                                                {# <div class="form-group">
+                                                                    <label for="sudis_metadata_url">Metadata URL</label>
+                                                                    <input type="text" class="form-control"
+                                                                           name="sudis_metadata_url" id="sudis_metadata_url"
+                                                                           data-bind="enable: sudis_enabled(), value: sudis_metadata_url, valueUpdate: 'afterkeydown'">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="sudis_metadata_cache_lifetime">Metadata cache lifetime</label>
+                                                                    <input type="text" class="form-control"
+                                                                           name="sudis_metadata_cache_lifetime" id="sudis_metadata_cache_lifetime"
+                                                                           data-bind="enable: sudis_enabled(), value: sudis_metadata_cache_lifetime, valueUpdate: 'afterkeydown'">
+                                                                </div> #}
+                                                                <div class="form-group">
+                                                                    <label for="sudis_sso_url">{{_('SSO Url')}}</label>
+                                                                    <input type="text" class="form-control"
+                                                                           name="sudis_sso_url" id="sudis_sso_url"
+                                                                           data-bind="enable: sudis_enabled(), value: sudis_sso_url, valueUpdate: 'afterkeydown'">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="sudis_sso_binding">{{_('SSO Binding')}}</label>
+                                                                    <input type="text" class="form-control"
+                                                                           name="sudis_sso_binding" id="sudis_sso_binding"
+                                                                           data-bind="enable: sudis_enabled(), value: sudis_sso_binding, valueUpdate: 'afterkeydown'">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="sudis_sls_url">{{_('SLS Url')}}</label>
+                                                                    <input type="text" class="form-control"
+                                                                           name="sudis_sls_url" id="sudis_sls_url"
+                                                                           data-bind="enable: sudis_enabled(), value: sudis_sls_url, valueUpdate: 'afterkeydown'">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="sudis_sls_binding">{{_('SLS Binding')}}</label>
+                                                                    <input type="text" class="form-control"
+                                                                           name="sudis_sls_binding" id="sudis_sls_binding"
+                                                                           data-bind="enable: sudis_enabled(), value: sudis_sls_binding, valueUpdate: 'afterkeydown'">
+                                                                </div>
+                                                                
+                                                            </fieldset>
                                                         </div>
                                                         <!-- /.card-body -->
                                                     </div>
@@ -304,7 +388,9 @@
                                                         </div>
                                                         <!-- /.card-header -->
                                                         <div class="card-body">
-                                                            
+                                                            <dl class="dl-horizontal">
+                                                                <dt>Бог поможет</dt>
+                                                            </dl>
                                                         </div>
                                                         <!-- /.card-body -->
                                                     </div>

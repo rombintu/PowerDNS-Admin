@@ -25,7 +25,21 @@ let AuthenticationSettingsModel = function (user_data, api_url, csrf_token, sele
         pwd_min_special: 1,
         pwd_enforce_complexity: 0,
         pwd_min_complexity: 11,
-
+        
+        // SUDIS Authentication Setting
+        sudis_enabled: false,
+        cms_url: "http://",
+        sender_key_name: 'PowerDNS-Admin',
+        recipient_key_name: 'idp',
+        sp_name: 'pda',
+        sp_consume_url: 'http://localhost:9191/sudis/authorized',
+        sudis_sso_url: 'http://idp.int.sudis.at-consulting.ru/idp/profile/SAML2/POSTGOST/SSO',
+        sudis_sls_url: 'http://idp.int.sudis.at-consulting.ru/idp/Logout?logoutRedirectUrl=http%3A%2F%2Fr4t.ru',
+        sudis_sso_binding: 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST-RFC4490',
+        sudis_sls_binding: 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect',
+        // sudis_debug: true,
+        // sudis_metadata_url: "http://sudis.test.ru",
+        // sudis_metadata_cache_lifetime: 1,
         // // LDAP Authentication Settings
         // ldap_enabled: false,
         // ldap_type: 'ldap',
@@ -217,6 +231,9 @@ let AuthenticationSettingsModel = function (user_data, api_url, csrf_token, sele
             if (self.local_db_enabled()) {
                 enabled++;
             }
+            if (self.sudis_enabled()) {
+                enabled++;
+            }
             // if (self.ldap_enabled()) {
             //     enabled++;
             // }
@@ -252,6 +269,10 @@ let AuthenticationSettingsModel = function (user_data, api_url, csrf_token, sele
 
         let local_enabled = function (element) {
             return self.local_db_enabled();
+        };
+
+        let sudis_enabled = function (element) {
+            return self.sudis_enabled();
         };
 
         // let ldap_enabled = function (element) {
@@ -374,6 +395,7 @@ let AuthenticationSettingsModel = function (user_data, api_url, csrf_token, sele
             },
             rules: {
                 local_db_enabled: 'auth_enabled',
+                sudis_enabled: 'auth_enabled',
                 // ldap_enabled: 'auth_enabled',
                 // google_oauth_enabled: 'auth_enabled',
                 // github_oauth_enabled: 'auth_enabled',
@@ -415,6 +437,24 @@ let AuthenticationSettingsModel = function (user_data, api_url, csrf_token, sele
                     min: 1,
                     max: 1000,
                 },
+                cms_url: sudis_enabled,
+                sp_name: sudis_enabled,
+                sp_consume_url: sudis_enabled,
+                sudis_sso_url: sudis_enabled,
+                sudis_sls_url: sudis_enabled,
+                sudis_sso_binding: sudis_enabled,
+                sudis_sls_binding: sudis_enabled,
+                // sudis_debug: sudis_enabled,
+                // sudis_metadata_url: {
+                //     required: sudis_enabled,
+                //     minlength: 11,
+                //     maxlength: 255,
+                // },
+                // sudis_metadata_cache_lifetime: {
+                //     required: sudis_enabled,
+                //     minlength: 1,
+                //     maxlength: 100,
+                // },
             //     ldap_type: ldap_enabled,
             //     ldap_uri: {
             //         required: ldap_enabled,

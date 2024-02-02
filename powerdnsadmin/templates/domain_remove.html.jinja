@@ -89,7 +89,7 @@
 
             var modal = $("#modal_delete");
             var domain = $("#domainid option:selected").text();
-            var info = "{{_('Confirm the action for ')}}" + domain;
+            var info = "{{_('Confirm the action for')}} " + domain;
             modal.find('.modal-body p').text(info);
             modal.find('#button_delete_confirm').click(function () {
                 $.post($SCRIPT_ROOT + '/domain/remove', {

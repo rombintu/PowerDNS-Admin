@@ -92,14 +92,8 @@
                                     <tr class="odd row_record" id="{{ domain.name }}">
                                         <td>{{ (record.name,domain.name) | display_record_name | pretty_domain_name }}</td>
                                         <td>{{ record.type }}</td>
-                                        {# <td>{{ record.status }}</td> #}
-                                        <td>
-                                            {% if record.status != 'Active' %}
-                                                <i class="fa-regular fa-ban"></i>
-                                            {% else %}
-                                                <i class="fa-regular fa-circle-check"></i>
-                                            {% endif %}
-                                        </td>
+                                        <td>{{ record.status }}</td>
+                                        
                                         <td>{{ record.ttl }}</td>
                                         <td>{{ record.data | pretty_domain_name }}</td>
                                         {% if domain.type != 'Slave' %}
@@ -248,7 +242,7 @@
             var table = $("#tbl_records").DataTable();
             var record = $(this).prop('id');
             var nRow = $(this).parents('tr')[0];
-            var info = "{{_('Confirm the action for')}}" + record;
+            var info = "{{_('Confirm the action for')}} " + record;
             modal.find('.modal-body p').text(info);
             modal.modal('show');
 
@@ -305,7 +299,7 @@
             var table = $("#tbl_records").DataTable();
             var domain = $(this).prop('id');
             var serial = $(".button_apply_changes").val();
-            var info = "{{_('Confirm the action for ')}}";
+            var info = "{{_('Confirm the action for')}} ";
             modal.find('.modal-body p').text(info);
 
             // following unbind("click") is to avoid multiple times execution
@@ -601,9 +595,9 @@
             });
         {% endif %}
 
-        window.onload = function () {
+        {# window.onload = function () {
             document.getElementById("loading-spinner").style.display = "none";
-        }
+        } #}
 
     </script>
 {% endblock %}

@@ -31,7 +31,7 @@ class User(db.Model):
     password = db.Column(db.String(64))
     firstname = db.Column(db.String(64))
     lastname = db.Column(db.String(64))
-    # email = db.Column(db.String(128))
+    email = db.Column(db.String(128))
     # otp_secret = db.Column(db.String(16))
     # confirmed = db.Column(db.SmallInteger, nullable=False, default=0) # TODO
     role_id = db.Column(db.Integer, db.ForeignKey('role.id'))
@@ -46,7 +46,7 @@ class User(db.Model):
                  firstname=None,
                  lastname=None,
                  role_id=None,
-                #  email=None,
+                 email=None,
                 #  otp_secret=None,
                 #  confirmed=False,
                  reload_info=True):
@@ -57,7 +57,7 @@ class User(db.Model):
         self.firstname = firstname
         self.lastname = lastname
         self.role_id = role_id
-        # self.email = email
+        self.email = email
         # self.otp_secret = otp_secret
         # self.confirmed = confirmed
 
@@ -70,7 +70,7 @@ class User(db.Model):
                 self.username = user_info.username
                 self.firstname = user_info.firstname
                 self.lastname = user_info.lastname
-                # self.email = user_info.email
+                self.email = user_info.email
                 self.role_id = user_info.role_id
                 # self.otp_secret = user_info.otp_secret
                 # self.confirmed = user_info.confirmed
@@ -452,17 +452,17 @@ class User(db.Model):
             return {'status': False, 'msg': 'User does not exist'}
 
         # check if new email exists (only if changed)
-        # if user.email != self.email:
-        #     checkuser = User.query.filter(User.email == self.email).first()
-        #     if checkuser:
-        #         return {
-        #             'status': False,
-        #             'msg': 'New email address is already in use'
-        #         }
+        if user.email != self.email:
+            checkuser = User.query.filter(User.email == self.email).first()
+            if checkuser:
+                return {
+                    'status': False,
+                    'msg': 'New email address is already in use'
+                }
 
         user.firstname = self.firstname
         user.lastname = self.lastname
-        # user.email = self.email
+        user.email = self.email
 
         # store new password hash (only if changed)
         if hasattr(self, "plain_text_password"):
@@ -489,20 +489,20 @@ class User(db.Model):
                 user.password = self.get_hashed_password(
                  self.plain_text_password).decode("utf-8")
 
-        # if self.email:
-        #     # Can not update to a new email that
-        #     # already been used.
-        #     existing_email = User.query.filter(
-        #         User.email == self.email,
-        #         User.username != self.username).first()
-        #     if existing_email:
-        #         return False
-        #     # If need to verify new email,
-        #     # update the "confirmed" status.
-        #     if user.email != self.email:
-        #         user.email = self.email
-        #         # if Setting().get('verify_user_email'):
-        #         #     user.confirmed = 0
+        if self.email:
+            # Can not update to a new email that
+            # already been used.
+            existing_email = User.query.filter(
+                User.email == self.email,
+                User.username != self.username).first()
+            if existing_email:
+                return False
+            # If need to verify new email,
+            # update the "confirmed" status.
+            if user.email != self.email:
+                user.email = self.email
+                # if Setting().get('verify_user_email'):
+                #     user.confirmed = 0
 
         # if enable_otp is not None:
         #     user.otp_secret = ""

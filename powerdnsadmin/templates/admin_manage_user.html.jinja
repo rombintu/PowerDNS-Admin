@@ -149,7 +149,7 @@
         $(document.body).on('click', '.button_revoke', function () {
             var modal = $("#modal_revoke");
             var username = $(this).prop('id');
-            var info = "{{_('Confirm the action for ')}}" + username +
+            var info = "{{_('Confirm the action for')}} " + username +
                 "? They will not able to access any zone.";
             modal.find('.modal-body p').text(info);
             modal.find('#button_revoke_confirm').click(function () {
@@ -168,7 +168,7 @@
         $(document.body).on('click', '.button_delete', function () {
             var modal = $("#modal_delete");
             var username = $(this).prop('id');
-            var info = "{{_('Confirm the action for ')}}" + username;
+            var info = "{{_('Confirm the action for')}} " + username;
             modal.find('.modal-body p').text(info);
             modal.find('#button_delete_confirm').click(function () {
                 var postdata = {

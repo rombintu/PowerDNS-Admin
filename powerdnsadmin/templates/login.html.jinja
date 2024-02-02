@@ -14,7 +14,16 @@
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
-    <div class="card card-outline card-primary shadow">
+
+
+    <div class="ribbon-wrapper">
+        <div class="ribbon bg-primary">
+        BETA
+        </div>
+    </div>
+
+
+    <div class="card card-primary shadow">
         <div class="card-header text-center">
             <a href="{{ url_for('index.index') }}" class="h3">
                 {% if SETTING.get('site_name') %}
@@ -47,50 +56,57 @@
                                {% if password %}value="{{ password }}" {% endif %}>
                         <span class="help-block with-errors"></span>
                     </div>
-                    
                     <div class="row">
-                        {% if saml_enabled %}
-                            <div class="col-8" style="display: flex; align-items: center;">
-                                <div class="icheck">
-                                    <input type="checkbox" id="via_sudis" name="via_sudis">
-                                    <label for="sudis">
-                                        {{_('Via')}} <i class="fa-solid fa-shield"></i> {{_('Sudis')}}
-                                    </label>
-                                </div>
-                            </div>
-                        {% endif %}
+                    
                         <div class="col">
-                            <button type="submit" class="btn btn-primary btn-block">{{_('Sign In')}}</button>
-                            
-                                <!-- <a href="{{ url_for('index.saml_login') }}" class="btn btn-warning btn-block">
-                                    <i class="fa-solid fa-shield"></i> {{_('SUDIS')}}
-                                </a> -->
-                            
+                                <button type="submit" class="btn btn-primary btn-block">{{_('Sign In Local')}}</button>
+                                
+                                    {# <!-- <a href="{{ url_for('index.saml_login') }}" class="btn btn-warning btn-block">
+                                        <i class="fa-solid fa-shield"></i> {{_('SUDIS')}}
+                                    </a> -->
+                                #}
                         </div>
                     </div>
+                    <hr>
+            {% endif %}           
+                    {% if SETTING.get('signup_enabled') %}
+                        <br>
+                        <a href="{{ url_for('index.register') }}" class="text-center">
+                            {{_('Create an account')}}
+                        </a>
+                    {% endif %}
+                    {% if SETTING.get('sudis_enabled') %}
+                    <div class="row">
+                        <div class="col">
+                                    <a href="{{ url_for('index.sudis_login') }}" class="btn btn-warning btn-block">
+                                        {{_('Via')}} <i class="fa-solid fa-shield"></i> {{_('SUDIS')}}
+                                    </a>
+                                
+                                    {# <div class="icheck">
+                                        <input type="checkbox" id="via_sudis" name="via_sudis">
+                                        <label for="sudis">
+                                            {{_('Via')}} <i class="fa-solid fa-shield"></i> {{_('Sudis')}}
+                                        </label>
+                                    </div> #}
+                        </div>
+                    </div>
+                    {% endif %}
+                    
                 </form>
-            {% endif %}
-            
-            
-            {% if SETTING.get('signup_enabled') %}
-                <br>
-                <a href="{{ url_for('index.register') }}" class="text-center">
-                    {{_('Create an account')}}
-                </a>
-            {% endif %}
         </div>
         <!-- /.card-body -->
+        <div class="card-footer text-center">
+            {% if version %}
+                <p><a href="https://github.com/rombintu/PowerDNS-Admin" target="_blank">{{version}}</a></p>
+            {% else %}
+                <p><a href="https://github.com/rombintu/PowerDNS-Admin" target="_blank">Cloudate</a></p>
+            {% endif %}
+        </div>
     </div>
     <!-- /.card -->
 </div>
 <!-- /.login-box -->
-<div class="text-center pt-3">
-    {% if version %}
-        <p><a href="https://github.com/rombintu/PowerDNS-Admin" target="_blank">{{version}}</a></p>
-    {% else %}
-        <p><a href="https://github.com/rombintu/PowerDNS-Admin" target="_blank">Cloudate</a></p>
-    {% endif %}
-</div>
+
 {% assets "js_login" -%}
     <script type="text/javascript" src="{{ ASSET_URL }}"></script>
 {%- endassets %}

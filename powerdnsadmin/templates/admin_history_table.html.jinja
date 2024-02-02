@@ -10,10 +10,10 @@
   <table id="tbl_history" class="table table-bordered table-striped">
     <thead>
       <tr>
-        <th>Time</th>
-        <th>Content</th>
-        <th>Changed by</th>
-        <th>Detail</th>
+        <th>{{_('Time')}}</th>
+        <th>{{_('Content')}}</th>
+        <th>{{_('Changed by')}}</th>
+        <th>{{_('Detail')}}</th>
       </tr>
     </thead>
     <tbody>
@@ -52,8 +52,8 @@
               {% if history.detailed_msg == "" and history.change_set is none %}
                 style="visibility: hidden;"
               {% endif %} value="{{ loop.index0 }}">
-              <i class="fa-solid fa-info"></i>
-              &nbsp;Info
+              <i class="fa-solid fa-info"> </i>
+              Info
             </button>
           </td>
         </tr>
@@ -61,7 +61,9 @@
     </tbody>
   </table>
 </div>
-
+{% if session.get('lang') in ['ru', None] %}
+  <script src="{{ url_for('static', filename='assets/plugins/moment.min.locales.js')}}"></script>
+{% endif %}
 <script>
   var table;
   $(document).ready(function () {
@@ -72,15 +74,17 @@
       "searching": true,
       "language": {
         {% if session.get('lang') not in ['ru', None] %}
-                        "url": null,
-                    {% else %}
-                        "url": "{{ url_for('static', filename='assets/plugins/ru.json')}}",
-                    {% endif %}
+          "url": null,
+        {% else %}
+          "url": "{{ url_for('static', filename='assets/plugins/ru.json')}}",
+        {% endif %}
       },
       "columnDefs": [{
         "type": "time",
         "render": function (data, type, row) {
-          return moment.utc(data).local().format('YYYY-MM-DD HH:mm:ss');
+          moment.locale('ru')
+          {# return moment.utc(data).local().format('YYYY-MM-DD HH:mm:ss'); #}
+          return moment.utc(data).local().fromNow();
         },
         "targets": 0
       }],

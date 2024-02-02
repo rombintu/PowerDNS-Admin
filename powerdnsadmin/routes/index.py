@@ -1,6 +1,8 @@
 import os
 import re
 import json
+import io
+import base64
 import traceback
 import datetime
 # import ipaddress
@@ -9,7 +11,7 @@ import string
 from zxcvbn import zxcvbn
 # from distutils.util import strtobool
 from yaml import Loader, load
-from flask import Blueprint, render_template, make_response, url_for, current_app, g, session, request, redirect, abort, jsonify, send_from_directory
+from flask import Blueprint, render_template, make_response, url_for, current_app, g, session, request, redirect, abort, jsonify
 from flask_login import login_user, logout_user, login_required, current_user
 
 from .base import captcha, csrf, login_manager
@@ -30,7 +32,7 @@ from ..models.history import History
 # from ..services.github import github_oauth
 # from ..services.azure import azure_oauth
 # from ..services.oidc import oidc_oauth
-from ..services.saml import SAML
+from ..services.sudis import SUDIS
 # from ..services.token import confirm_token
 # from ..services.email import send_account_verification
 
@@ -38,7 +40,7 @@ from ..services.saml import SAML
 # github = None
 # azure = None
 # oidc = None
-saml = None
+sudis = None
 
 index_bp = Blueprint('index',
                      __name__,
@@ -52,12 +54,12 @@ def register_modules():
     # global github
     # global azure
     # global oidc
-    global saml
+    global sudis
     # google = google_oauth()
     # github = github_oauth()
     # azure = azure_oauth()
     # oidc = oidc_oauth()
-    saml = SAML()
+    sudis = SUDIS()
 
 
 @index_bp.before_request
@@ -86,12 +88,6 @@ def set_lang():
     lang_code = request.args.get('lang')
     session['lang'] = lang_code
     return redirect(url_for('dashboard.dashboard'))
-
-# @index_bp.route('plugin_ru', methods=['GET'])
-# def plugin_ru():
-#     return send_from_directory(
-#         os.path.join(current_app.root_path, "plugins"), 'ru.json', as_attachment=True
-#     )
 
 @index_bp.route('/', methods=['GET'])
 @login_required
@@ -170,309 +166,14 @@ def ping():
 
 @index_bp.route('/login', methods=['GET', 'POST'])
 def login():
-    SAML_ENABLED = current_app.config.get('SAML_ENABLED', False)
+    # SAML_ENABLED = current_app.config.get('SAML_ENABLED', False)
     VERSION = current_app.config.get("VERSION", None)
 
     if g.user is not None and current_user.is_authenticated:
         return redirect(url_for('dashboard.dashboard'))
 
-    # if 'google_token' in session:
-    #     user_data = json.loads(google.get('userinfo').text)
-    #     google_first_name = user_data['given_name']
-    #     google_last_name = user_data['family_name']
-    #     google_email = user_data['email']
-    #     user = User.query.filter_by(username=google_email).first()
-    #     if user is None:
-    #         user = User.query.filter_by(email=google_email).first()
-    #     if not user:
-    #         user = User(username=google_email,
-    #                     firstname=google_first_name,
-    #                     lastname=google_last_name,
-    #                     plain_text_password=None,
-    #                     email=google_email)
-
-    #         result = user.create_local_user()
-    #         if not result['status']:
-    #             session.pop('google_token', None)
-    #             return redirect(url_for('index.login'))
-
-    #     session['user_id'] = user.id
-    #     session['authentication_type'] = 'OAuth'
-    #     return authenticate_user(user, 'Google OAuth')
-
-    # if 'github_token' in session:
-    #     user_data = json.loads(github.get('user').text)
-    #     github_username = user_data['login']
-    #     github_first_name = user_data['name']
-    #     github_last_name = ''
-    #     github_email = user_data['email']
-
-    #     # If the user's full name from GitHub contains at least two words, use the first word as the first name and
-    #     # the rest as the last name.
-    #     github_name_parts = github_first_name.split(' ')
-    #     if len(github_name_parts) > 1:
-    #         github_first_name = github_name_parts[0]
-    #         github_last_name = ' '.join(github_name_parts[1:])
-
-    #     user = User.query.filter_by(username=github_username).first()
-    #     if user is None:
-    #         user = User.query.filter_by(email=github_email).first()
-    #     if not user:
-    #         user = User(username=github_username,
-    #                     plain_text_password=None,
-    #                     firstname=github_first_name,
-    #                     lastname=github_last_name,
-    #                     email=github_email)
-
-    #         result = user.create_local_user()
-    #         if not result['status']:
-    #             session.pop('github_token', None)
-    #             return redirect(url_for('index.login'))
-
-    #     session['user_id'] = user.id
-    #     session['authentication_type'] = 'OAuth'
-    #     return authenticate_user(user, 'Github OAuth')
-
-    # if 'azure_token' in session:
-    #     azure_info = azure.get('me?$select=displayName,givenName,id,mail,surname,userPrincipalName').text
-    #     current_app.logger.info('Azure login returned: ' + azure_info)
-    #     user_data = json.loads(azure_info)
-
-    #     azure_info = azure.post('me/getMemberGroups',
-    #                             json={'securityEnabledOnly': False}).text
-    #     current_app.logger.info('Azure groups returned: ' + azure_info)
-    #     grouplookup = json.loads(azure_info)
-    #     # Groups are in mygroups['value'] which is an array
-    #     if "value" in grouplookup:
-    #         mygroups = grouplookup["value"]
-    #     else:
-    #         mygroups = []
-
-    #     azure_username = user_data["userPrincipalName"]
-    #     azure_first_name = user_data["givenName"]
-    #     azure_last_name = user_data["surname"]
-    #     if "mail" in user_data:
-    #         azure_email = user_data["mail"]
-    #     else:
-    #         azure_email = ""
-    #     if not azure_email:
-    #         azure_email = user_data["userPrincipalName"]
-
-    #     # Handle foreign principals such as guest users
-    #     azure_email = re.sub(r"#.*$", "", azure_email)
-    #     azure_username = re.sub(r"#.*$", "", azure_username)
-
-    #     user = User.query.filter_by(username=azure_username).first()
-    #     if not user:
-    #         user = User(username=azure_username,
-    #                     plain_text_password=None,
-    #                     firstname=azure_first_name,
-    #                     lastname=azure_last_name,
-    #                     email=azure_email)
-
-    #         result = user.create_local_user()
-    #         if not result['status']:
-    #             current_app.logger.warning('Unable to create ' + azure_username)
-    #             session.pop('azure_token', None)
-    #             # note: a redirect to login results in an endless loop, so render the login page instead
-    #             return render_template('login.html.jinja',
-    #                                    saml_enabled=SAML_ENABLED,
-    #                                    error=('User ' + azure_username +
-    #                                           ' cannot be created.'))
-
-    #     session['user_id'] = user.id
-    #     session['authentication_type'] = 'OAuth'
-
-    #     # Handle group memberships, if defined
-    #     if Setting().get('azure_sg_enabled'):
-    #         if Setting().get('azure_admin_group') in mygroups:
-    #             current_app.logger.info('Setting role for user ' +
-    #                                     azure_username +
-    #                                     ' to Administrator due to group membership')
-    #             user.set_role("Administrator")
-    #         else:
-    #             if Setting().get('azure_operator_group') in mygroups:
-    #                 current_app.logger.info('Setting role for user ' +
-    #                                         azure_username +
-    #                                         ' to Operator due to group membership')
-    #                 user.set_role("Operator")
-    #             else:
-    #                 if Setting().get('azure_user_group') in mygroups:
-    #                     current_app.logger.info('Setting role for user ' +
-    #                                             azure_username +
-    #                                             ' to User due to group membership')
-    #                     user.set_role("User")
-    #                 else:
-    #                     current_app.logger.warning('User ' +
-    #                                                azure_username +
-    #                                                ' has no relevant group memberships')
-    #                     session.pop('azure_token', None)
-    #                     return render_template('login.html.jinja',
-    #                                            saml_enabled=SAML_ENABLED,
-    #                                            error=('User ' + azure_username +
-    #                                                   ' is not in any authorised groups.'))
-
-    #     # Handle account/group creation, if enabled
-    #     if Setting().get('azure_group_accounts_enabled') and mygroups:
-    #         current_app.logger.info('Azure group account sync enabled')
-    #         name_value = Setting().get('azure_group_accounts_name')
-    #         description_value = Setting().get('azure_group_accounts_description')
-    #         select_values = name_value
-    #         if description_value != '':
-    #             select_values += ',' + description_value
-
-    #         mygroups = get_azure_groups(
-    #             'me/memberOf/microsoft.graph.group?$count=false&$securityEnabled=true&$select={}'.format(select_values))
-
-    #         description_pattern = Setting().get('azure_group_accounts_description_re')
-    #         pattern = Setting().get('azure_group_accounts_name_re')
-
-    #         # Loop through users security groups
-    #         for azure_group in mygroups:
-    #             if name_value in azure_group:
-    #                 group_name = azure_group[name_value]
-    #                 group_description = ''
-    #                 if description_value in azure_group:
-    #                     group_description = azure_group[description_value]
-
-    #                     # Do regex search if enabled for group description
-    #                     if description_pattern != '':
-    #                         current_app.logger.info('Matching group description {} against regex {}'.format(
-    #                             group_description, description_pattern))
-    #                         matches = re.match(
-    #                             description_pattern, group_description)
-    #                         if matches:
-    #                             current_app.logger.info(
-    #                                 'Group {} matched regexp'.format(group_description))
-    #                             group_description = matches.group(1)
-    #                         else:
-    #                             # Regexp didn't match, continue to next iteration
-    #                             continue
-
-    #                 # Do regex search if enabled for group name
-    #                 if pattern != '':
-    #                     current_app.logger.info(
-    #                         'Matching group name {} against regex {}'.format(group_name, pattern))
-    #                     matches = re.match(pattern, group_name)
-    #                     if matches:
-    #                         current_app.logger.info(
-    #                             'Group {} matched regexp'.format(group_name))
-    #                         group_name = matches.group(1)
-    #                     else:
-    #                         # Regexp didn't match, continue to next iteration
-    #                         continue
-
-    #                 account = Account()
-    #                 sanitized_group_name = Account.sanitize_name(group_name)
-    #                 account_id = account.get_id_by_name(account_name=sanitized_group_name)
-
-    #                 if account_id:
-    #                     account = Account.query.get(account_id)
-    #                     # check if user has permissions
-    #                     account_users = account.get_user()
-    #                     current_app.logger.info('Group: {} Users: {}'.format(
-    #                         group_name,
-    #                         account_users))
-    #                     if user.id in account_users:
-    #                         current_app.logger.info('User id {} is already in account {}'.format(
-    #                             user.id, group_name))
-    #                     else:
-    #                         account.add_user(user)
-    #                         history = History(msg='Update account {0}'.format(
-    #                             account.name),
-    #                             created_by='System')
-    #                         history.add()
-    #                         current_app.logger.info('User {} added to Account {}'.format(
-    #                             user.username, account.name))
-    #                 else:
-    #                     account = Account(
-    #                         name=sanitized_group_name,
-    #                         description=group_description,
-    #                         contact='',
-    #                         mail=''
-    #                     )
-    #                     account.create_account()
-    #                     history = History(msg='Create account {0}'.format(
-    #                         account.name),
-    #                         created_by='System')
-    #                     history.add()
-
-    #                     account.add_user(user)
-    #                     history = History(msg='Update account {0}'.format(account.name),
-    #                                       created_by='System')
-    #                     history.add()
-    #                 current_app.logger.warning('group info: {} '.format(account_id))
-
-    #     return authenticate_user(user, 'Azure OAuth')
-
-    # if 'oidc_token' in session:
-    #     user_data = json.loads(oidc.get('userinfo').text)
-    #     oidc_username = user_data[Setting().get('oidc_oauth_username')]
-    #     oidc_first_name = user_data[Setting().get('oidc_oauth_firstname')]
-    #     oidc_last_name = user_data[Setting().get('oidc_oauth_last_name')]
-    #     oidc_email = user_data[Setting().get('oidc_oauth_email')]
-
-    #     user = User.query.filter_by(username=oidc_username).first()
-    #     if not user:
-    #         user = User(username=oidc_username,
-    #                     plain_text_password=None,
-    #                     firstname=oidc_first_name,
-    #                     lastname=oidc_last_name,
-    #                     email=oidc_email)
-    #         result = user.create_local_user()
-    #     else:
-    #         user.firstname = oidc_first_name
-    #         user.lastname = oidc_last_name
-    #         user.email = oidc_email
-    #         user.plain_text_password = None
-    #         result = user.update_local_user()
-
-    #     if not result['status']:
-    #         session.pop('oidc_token', None)
-    #         return redirect(url_for('index.login'))
-
-    #     # This checks if the account_name_property and account_description property were included in settings.
-    #     if Setting().get('oidc_oauth_account_name_property') and Setting().get(
-    #             'oidc_oauth_account_description_property'):
-
-    #         # Gets the name_property and description_property.
-    #         name_prop = Setting().get('oidc_oauth_account_name_property')
-    #         desc_prop = Setting().get('oidc_oauth_account_description_property')
-
-    #         account_to_add = []
-    #         # If the name_property and desc_property exist in me (A variable that contains all the userinfo from the
-    #         # IdP).
-    #         if name_prop in user_data and desc_prop in user_data:
-    #             accounts_name_prop = [user_data[name_prop]] if type(user_data[name_prop]) is not list else user_data[name_prop]
-    #             accounts_desc_prop = [user_data[desc_prop]] if type(user_data[desc_prop]) is not list else user_data[desc_prop]
-
-    #             # Run on all groups the user is in by the index num.
-    #             for i in range(len(accounts_name_prop)):
-    #                 description = ''
-    #                 if i < len(accounts_desc_prop):
-    #                     description = accounts_desc_prop[i]
-    #                 account = handle_account(accounts_name_prop[i], description)
-
-    #                 account_to_add.append(account)
-    #             user_accounts = user.get_accounts()
-
-    #             # Add accounts
-    #             for account in account_to_add:
-    #                 if account not in user_accounts:
-    #                     account.add_user(user)
-
-    #             # Remove accounts if the setting is enabled
-    #             if Setting().get('delete_sso_accounts'):
-    #                 for account in user_accounts:
-    #                     if account not in account_to_add:
-    #                         account.remove_user(user)
-
-    #     session['user_id'] = user.id
-    #     session['authentication_type'] = 'OAuth'
-    #     return authenticate_user(user, 'OIDC OAuth')
-
     if request.method == 'GET':
-        return render_template('login.html.jinja', saml_enabled=SAML_ENABLED, version=VERSION)
+        return render_template('login.html.jinja', version=VERSION)
     elif request.method == 'POST':
         # process Local-DB authentication
         username = request.form['username']
@@ -486,11 +187,11 @@ def login():
         via_sudis = request.form.get("via_sudis")
         
         if via_sudis == "on":
-            return redirect(url_for("index.saml_login"))
+            return redirect(url_for("index.sudis_login"))
         if auth_method == 'LOCAL' and not Setting().get('local_db_enabled'):
             return render_template(
                 'login.html.jinja',
-                saml_enabled=SAML_ENABLED,
+                # saml_enabled=SAML_ENABLED,
                 version=VERSION,
                 error='Local authentication is disabled')
 
@@ -511,7 +212,7 @@ def login():
             if auth == False:
                 signin_history(user.username, auth_method, False)
                 return render_template('login.html.jinja',
-                                       saml_enabled=SAML_ENABLED,
+                                    #    saml_enabled=SAML_ENABLED,
                                        version=VERSION,
                                        error='Invalid credentials')
         except Exception as e:
@@ -519,7 +220,7 @@ def login():
                 "Cannot authenticate user. Error: {}".format(e))
             current_app.logger.debug(traceback.format_exc())
             return render_template('login.html.jinja',
-                                   saml_enabled=SAML_ENABLED,
+                                #    saml_enabled=SAML_ENABLED,
                                    version=VERSION,
                                    error=e)
 
@@ -578,7 +279,7 @@ def clear_session():
     # session.pop('azure_token', None)
     # session.pop('oidc_token', None)
     # session.pop('authentication_type', None)
-    session.pop('remote_user', None)
+    # session.pop('remote_user', None)
     logout_user()
 
 
@@ -652,8 +353,8 @@ def logout():
     if current_app.config.get(
             'SAML_ENABLED'
     ) and 'samlSessionIndex' in session and current_app.config.get('SAML_LOGOUT'):
-        req = saml.prepare_flask_request(request)
-        auth = saml.init_saml_auth(req)
+        req = sudis.prepare_flask_request(request)
+        auth = sudis.init_saml_auth(req)
         if current_app.config.get('SAML_LOGOUT_URL'):
             return redirect(
                 auth.logout(
@@ -681,23 +382,23 @@ def logout():
 
     # If remote user authentication is enabled and a logout URL is configured for it,
     # redirect users to that instead
-    remote_user_logout_url = current_app.config.get('REMOTE_USER_LOGOUT_URL')
-    if current_app.config.get('REMOTE_USER_ENABLED') and remote_user_logout_url:
-        current_app.logger.debug(
-            'Redirecting remote user "{0}" to logout URL {1}'
-            .format(current_user.username, remote_user_logout_url))
-        # Warning: if REMOTE_USER environment variable is still set and not cleared by
-        # some external module, not defining a custom logout URL will trigger a loop
-        # that will just log the user back in right after logging out
-        res = make_response(redirect(remote_user_logout_url.strip()))
+    # remote_user_logout_url = current_app.config.get('REMOTE_USER_LOGOUT_URL')
+    # if current_app.config.get('REMOTE_USER_ENABLED') and remote_user_logout_url:
+    #     current_app.logger.debug(
+    #         'Redirecting remote user "{0}" to logout URL {1}'
+    #         .format(current_user.username, remote_user_logout_url))
+    #     # Warning: if REMOTE_USER environment variable is still set and not cleared by
+    #     # some external module, not defining a custom logout URL will trigger a loop
+    #     # that will just log the user back in right after logging out
+    #     res = make_response(redirect(remote_user_logout_url.strip()))
 
-        # Remove any custom cookies the remote authentication mechanism may use
-        # (e.g.: MOD_AUTH_CAS and MOD_AUTH_CAS_S)
-        remote_cookies = current_app.config.get('REMOTE_USER_COOKIES')
-        for r_cookie_name in utils.ensure_list(remote_cookies):
-            res.delete_cookie(r_cookie_name)
+    #     # Remove any custom cookies the remote authentication mechanism may use
+    #     # (e.g.: MOD_AUTH_CAS and MOD_AUTH_CAS_S)
+    #     remote_cookies = current_app.config.get('REMOTE_USER_COOKIES')
+    #     for r_cookie_name in utils.ensure_list(remote_cookies):
+    #         res.delete_cookie(r_cookie_name)
 
-        return res
+    #     return res
 
     return redirect(redirect_uri)
 
@@ -1104,160 +805,173 @@ def register():
 #     return render_template('dyndns.html.jinja', response=response), 200
 
 
-### START SAML AUTHENTICATION ###
-@index_bp.route('/saml/login')
-def saml_login():
-    if not current_app.config.get('SAML_ENABLED', False):
+### START SUDIS AUTHENTICATION ###
+@index_bp.route('/sudis/login')
+def sudis_login():
+    if not Setting().get('sudis_enabled'):
+        current_app.logger.error("SUDIS authentication is disabled.")
         abort(400)
-    from onelogin.saml2.utils import OneLogin_Saml2_Utils
-    req = saml.prepare_flask_request(request)
-    auth = saml.init_saml_auth(req)
-    redirect_url = OneLogin_Saml2_Utils.get_self_url(req) + url_for(
-        'index.saml_authorized')
-    return redirect(auth.login(return_to=redirect_url))
+    if g.user is not None and current_user.is_authenticated:
+        return redirect(url_for('dashboard.dashboard'))
+    
+    # from onelogin.saml2.utils import OneLogin_Saml2_Utils
+    # req = sudis.prepare_flask_request(request)
+    # if not req:
+    #     abort(500)
+    # auth = sudis.init_saml_auth(req)
+    # redirect_url = OneLogin_Saml2_Utils.get_self_url(req) + url_for(
+    #     'index.saml_authorized')
+    # return redirect(auth.login(return_to=redirect_url))
+    # return redirect(req)
+    response = sudis.post_saml_request()
+    if not response:
+        abort(500)
+    current_app.logger.debug(response.content)
+    return response.content
+    
 
 
-@index_bp.route('/saml/metadata')
-def saml_metadata():
-    if not current_app.config.get('SAML_ENABLED', False):
-        current_app.logger.error("SAML authentication is disabled.")
-        abort(400)
-    from onelogin.saml2.utils import OneLogin_Saml2_Utils
-    req = saml.prepare_flask_request(request)
-    auth = saml.init_saml_auth(req)
-    settings = auth.get_settings()
-    metadata = settings.get_sp_metadata()
-    errors = settings.validate_metadata(metadata)
+# @index_bp.route('/sudis/metadata')
+# def saml_metadata():
+#     if not Setting().get('sudis_enabled', False):
+#         current_app.logger.error("SAML authentication is disabled.")
+#         abort(400)
+#     from onelogin.saml2.utils import OneLogin_Saml2_Utils
+#     req = sudis.prepare_flask_request(request)
+#     auth = sudis.init_saml_auth(req)
+#     settings = auth.get_settings()
+#     metadata = settings.get_sp_metadata()
+#     errors = settings.validate_metadata(metadata)
 
-    if len(errors) == 0:
-        resp = make_response(metadata, 200)
-        resp.headers['Content-Type'] = 'text/xml'
-    else:
-        resp = make_response(errors.join(', '), 500)
-    return resp
+#     if len(errors) == 0:
+#         resp = make_response(metadata, 200)
+#         resp.headers['Content-Type'] = 'text/xml'
+#     else:
+#         resp = make_response(errors.join(', '), 500)
+#     return resp
 
 
-@index_bp.route('/saml/authorized', methods=['GET', 'POST'])
+@index_bp.route('/sudis/authorized', methods=['GET', 'POST'])
 @csrf.exempt
 def saml_authorized():
     errors = []
-    if not current_app.config.get('SAML_ENABLED', False):
-        current_app.logger.error("SAML authentication is disabled.")
+    if not Setting().get('sudis_enabled'):
+        current_app.logger.error("SUDIS authentication is disabled.")
         abort(400)
-    from onelogin.saml2.utils import OneLogin_Saml2_Utils
-    req = saml.prepare_flask_request(request)
-    auth = saml.init_saml_auth(req)
-    auth.process_response()
-    current_app.logger.debug(auth.get_attributes())
-    errors = auth.get_errors()
-    if len(errors) == 0:
-        session['samlUserdata'] = auth.get_attributes()
-        session['samlNameId'] = auth.get_nameid()
-        session['samlSessionIndex'] = auth.get_session_index()
-        self_url = OneLogin_Saml2_Utils.get_self_url(req)
-        self_url = self_url + req['script_name']
-        if 'RelayState' in request.form and self_url != request.form[
-            'RelayState']:
-            return redirect(auth.redirect_to(request.form['RelayState']))
-        if current_app.config.get('SAML_ATTRIBUTE_USERNAME', False):
-            username = session['samlUserdata'][
-                current_app.config['SAML_ATTRIBUTE_USERNAME']][0].lower()
-        else:
-            username = session['samlNameId'].lower()
-        user = User.query.filter_by(username=username).first()
-        if not user:
-            # create user
-            user = User(username=username,
-                        plain_text_password=None,
-                        email=session['samlNameId'])
-            user.create_local_user()
-        session['user_id'] = user.id
-        email_attribute_name = current_app.config.get('SAML_ATTRIBUTE_EMAIL',
-                                                      'email')
-        givenname_attribute_name = current_app.config.get(
-            'SAML_ATTRIBUTE_GIVENNAME', 'givenname')
-        surname_attribute_name = current_app.config.get(
-            'SAML_ATTRIBUTE_SURNAME', 'surname')
-        name_attribute_name = current_app.config.get('SAML_ATTRIBUTE_NAME',
-                                                     None)
-        account_attribute_name = current_app.config.get(
-            'SAML_ATTRIBUTE_ACCOUNT', None)
-        admin_attribute_name = current_app.config.get('SAML_ATTRIBUTE_ADMIN',
-                                                      None)
-        group_attribute_name = current_app.config.get('SAML_ATTRIBUTE_GROUP',
-                                                      None)
-        admin_group_name = current_app.config.get('SAML_GROUP_ADMIN_NAME',
-                                                  None)
-        operator_group_name = current_app.config.get('SAML_GROUP_OPERATOR_NAME',
-                                                     None)
-        group_to_account_mapping = create_group_to_account_mapping()
+    return jsonify({"request": request.content_encoding})
+    # req = sudis.prepare_flask_request(request)
+    # auth = sudis.init_saml_auth(req)
+    # auth.process_response()
+    # current_app.logger.debug(auth.get_attributes())
+    # errors = auth.get_errors()
+    # if len(errors) == 0:
+    #     session['samlUserdata'] = auth.get_attributes()
+    #     session['samlNameId'] = auth.get_nameid()
+    #     session['samlSessionIndex'] = auth.get_session_index()
+    #     self_url = OneLogin_Saml2_Utils.get_self_url(req)
+    #     self_url = self_url + req['script_name']
+    #     if 'RelayState' in request.form and self_url != request.form[
+    #         'RelayState']:
+    #         return redirect(auth.redirect_to(request.form['RelayState']))
+    #     if current_app.config.get('SAML_ATTRIBUTE_USERNAME', False):
+    #         username = session['samlUserdata'][
+    #             current_app.config['SAML_ATTRIBUTE_USERNAME']][0].lower()
+    #     else:
+    #         username = session['samlNameId'].lower()
+    #     user = User.query.filter_by(username=username).first()
+    #     if not user:
+    #         # create user
+    #         user = User(username=username,
+    #                     plain_text_password=None,
+    #                     email=session['samlNameId'])
+    #         user.create_local_user()
+    #     session['user_id'] = user.id
+    #     # email_attribute_name = current_app.config.get('SAML_ATTRIBUTE_EMAIL',
+    #     #                                               'email')
+    #     givenname_attribute_name = current_app.config.get(
+    #         'SAML_ATTRIBUTE_GIVENNAME', 'givenname')
+    #     surname_attribute_name = current_app.config.get(
+    #         'SAML_ATTRIBUTE_SURNAME', 'surname')
+    #     name_attribute_name = current_app.config.get('SAML_ATTRIBUTE_NAME',
+    #                                                  None)
+    #     account_attribute_name = current_app.config.get(
+    #         'SAML_ATTRIBUTE_ACCOUNT', None)
+    #     admin_attribute_name = current_app.config.get('SAML_ATTRIBUTE_ADMIN',
+    #                                                   None)
+    #     group_attribute_name = current_app.config.get('SAML_ATTRIBUTE_GROUP',
+    #                                                   None)
+    #     admin_group_name = current_app.config.get('SAML_GROUP_ADMIN_NAME',
+    #                                               None)
+    #     operator_group_name = current_app.config.get('SAML_GROUP_OPERATOR_NAME',
+    #                                                  None)
+    #     group_to_account_mapping = create_group_to_account_mapping()
 
-        if email_attribute_name in session['samlUserdata']:
-            user.email = session['samlUserdata'][email_attribute_name][
-                0].lower()
-        if givenname_attribute_name in session['samlUserdata']:
-            user.firstname = session['samlUserdata'][givenname_attribute_name][
-                0]
-        if surname_attribute_name in session['samlUserdata']:
-            user.lastname = session['samlUserdata'][surname_attribute_name][0]
-        if name_attribute_name in session['samlUserdata']:
-            name = session['samlUserdata'][name_attribute_name][0].split(' ')
-            user.firstname = name[0]
-            user.lastname = ' '.join(name[1:])
+    #     # if email_attribute_name in session['samlUserdata']:
+    #     #     user.email = session['samlUserdata'][email_attribute_name][
+    #     #         0].lower()
+    #     if givenname_attribute_name in session['samlUserdata']:
+    #         user.firstname = session['samlUserdata'][givenname_attribute_name][
+    #             0]
+    #     if surname_attribute_name in session['samlUserdata']:
+    #         user.lastname = session['samlUserdata'][surname_attribute_name][0]
+    #     if name_attribute_name in session['samlUserdata']:
+    #         name = session['samlUserdata'][name_attribute_name][0].split(' ')
+    #         user.firstname = name[0]
+    #         user.lastname = ' '.join(name[1:])
 
-        if group_attribute_name:
-            user_groups = session['samlUserdata'].get(group_attribute_name, [])
-        else:
-            user_groups = []
-        if admin_attribute_name or group_attribute_name:
-            user_accounts = set(user.get_accounts())
-            saml_accounts = []
-            for group_mapping in group_to_account_mapping:
-                mapping = group_mapping.split('=')
-                group = mapping[0]
-                account_name = mapping[1]
+    #     if group_attribute_name:
+    #         user_groups = session['samlUserdata'].get(group_attribute_name, [])
+    #     else:
+    #         user_groups = []
+    #     if admin_attribute_name or group_attribute_name:
+    #         user_accounts = set(user.get_accounts())
+    #         saml_accounts = []
+    #         for group_mapping in group_to_account_mapping:
+    #             mapping = group_mapping.split('=')
+    #             group = mapping[0]
+    #             account_name = mapping[1]
 
-                if group in user_groups:
-                    account = handle_account(account_name)
-                    saml_accounts.append(account)
+    #             if group in user_groups:
+    #                 account = handle_account(account_name)
+    #                 saml_accounts.append(account)
 
-            for account_name in session['samlUserdata'].get(
-                    account_attribute_name, []):
-                account = handle_account(account_name)
-                saml_accounts.append(account)
-            saml_accounts = set(saml_accounts)
-            for account in saml_accounts - user_accounts:
-                account.add_user(user)
-                history = History(msg='Adding {0} to account {1}'.format(
-                    user.username, account.name),
-                    created_by='SAML Assertion')
-                history.add()
-            for account in user_accounts - saml_accounts:
-                account.remove_user(user)
-                history = History(msg='Removing {0} from account {1}'.format(
-                    user.username, account.name),
-                    created_by='SAML Assertion')
-                history.add()
-        if admin_attribute_name and 'true' in session['samlUserdata'].get(
-                admin_attribute_name, []):
-            uplift_to_admin(user)
-        elif admin_group_name in user_groups:
-            uplift_to_admin(user)
-        elif operator_group_name in user_groups:
-            uplift_to_operator(user)
-        elif admin_attribute_name or group_attribute_name:
-            if user.role.name != 'User':
-                user.role_id = Role.query.filter_by(name='User').first().id
-                history = History(msg='Demoting {0} to user'.format(
-                    user.username),
-                    created_by='SAML Assertion')
-                history.add()
-        user.plain_text_password = None
-        user.update_profile()
-        session['authentication_type'] = 'SAML'
-        return authenticate_user(user, 'SAML')
-    else:
-        return render_template('errors/SAML.html.jinja', errors=errors)
+    #         for account_name in session['samlUserdata'].get(
+    #                 account_attribute_name, []):
+    #             account = handle_account(account_name)
+    #             saml_accounts.append(account)
+    #         saml_accounts = set(saml_accounts)
+    #         for account in saml_accounts - user_accounts:
+    #             account.add_user(user)
+    #             history = History(msg='Adding {0} to account {1}'.format(
+    #                 user.username, account.name),
+    #                 created_by='SAML Assertion')
+    #             history.add()
+    #         for account in user_accounts - saml_accounts:
+    #             account.remove_user(user)
+    #             history = History(msg='Removing {0} from account {1}'.format(
+    #                 user.username, account.name),
+    #                 created_by='SAML Assertion')
+    #             history.add()
+    #     if admin_attribute_name and 'true' in session['samlUserdata'].get(
+    #             admin_attribute_name, []):
+    #         uplift_to_admin(user)
+    #     elif admin_group_name in user_groups:
+    #         uplift_to_admin(user)
+    #     elif operator_group_name in user_groups:
+    #         uplift_to_operator(user)
+    #     elif admin_attribute_name or group_attribute_name:
+    #         if user.role.name != 'User':
+    #             user.role_id = Role.query.filter_by(name='User').first().id
+    #             history = History(msg='Demoting {0} to user'.format(
+    #                 user.username),
+    #                 created_by='SAML Assertion')
+    #             history.add()
+    #     user.plain_text_password = None
+    #     user.update_profile()
+    #     session['authentication_type'] = 'SAML'
+    #     return authenticate_user(user, 'SAML')
+    # else:
+    #     return render_template('errors/sudis.html.jinja', errors=errors)
 
 
 def create_group_to_account_mapping():
@@ -1307,10 +1021,10 @@ def uplift_to_operator(user):
         history.add()
 
 
-@index_bp.route('/saml/sls')
-def saml_logout():
-    req = saml.prepare_flask_request(request)
-    auth = saml.init_saml_auth(req)
+@index_bp.route('/sudis/sls')
+def sudis_logout():
+    req = sudis.prepare_flask_request(request)
+    auth = sudis.init_saml_auth(req)
     url = auth.process_slo()
     errors = auth.get_errors()
     if len(errors) == 0:
@@ -1322,7 +1036,7 @@ def saml_logout():
         else:
             return redirect(url_for('login'))
     else:
-        return render_template('errors/SAML.html.jinja', errors=errors)
+        return render_template('errors/sudis.html.jinja', errors=errors)
 
 
 ### END SAML AUTHENTICATION ###
@@ -1330,6 +1044,8 @@ def saml_logout():
 
 @index_bp.route('/swagger', methods=['GET'])
 def swagger_spec():
+    if not Setting().get('enable_api'):
+        return jsonify({"enable_api": False})
     try:
         spec_path = os.path.join(current_app.root_path, "swagger-spec.yaml")
         spec = open(spec_path, 'r')

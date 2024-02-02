@@ -406,7 +406,7 @@
         $(document.body).on('click', '.delete_domain', function () {
             var modal = $("#modal_delete_domain");
             var domain = $(this).prop('id');
-            var info = "{{_('Confirm the action for')}}" + domain;
+            var info = "{{_('Confirm the action for')}} " + domain;
             modal.find('.modal-body p').text(info);
             modal.find('#button_delete_confirm').click(function () {
                 $.post($SCRIPT_ROOT + '/domain/setting/' + domain + '/delete', {
@@ -446,7 +446,7 @@
                     <p></p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary float-left" data-dismiss="modal">{{_('Close')}}>/button>
+                    <button type="button" class="btn btn-secondary float-left" data-dismiss="modal">{{_('Close')}}</button>
                     <button type="button" class="btn btn-danger" id="button_delete_confirm">
                         {{_('Delete')}}
                     </button>
