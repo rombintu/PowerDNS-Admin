@@ -44,7 +44,5 @@ $ make babel-update # Обновление файла powerdnsadmin/translations
 $ make babel-compile # Создать словарь
 ```
 
-Затем вы можете получить доступ к PowerDNSAdmin, указав в своем браузере на http://localhost:9191
-
 ### Скриншот Панели
 ![alt](./docs/screenshots/dashboard.png)

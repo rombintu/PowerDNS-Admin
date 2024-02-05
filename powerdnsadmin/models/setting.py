@@ -105,7 +105,7 @@ class Setting(db.Model):
         'pdns_api_url': '',
         'pdns_api_key': '',
         'pdns_api_timeout': 30,
-        'pdns_version': '4.1.1',
+        'pdns_version': '4.6.2',
         'verify_ssl_connections': True,
         # 'verify_user_email': False,
         'enforce_api_ttl': False,
@@ -138,7 +138,7 @@ class Setting(db.Model):
         'sp_name': 'pda',
         'sp_consume_url': 'http://localhost:9191/sudis/authorized',
         'sudis_sso_url': 'http://idp.int.sudis.at-consulting.ru/idp/profile/SAML2/POSTGOST/SSO',
-        'sudis_sls_url': 'http://idp.int.sudis.at-consulting.ru/idp/Logout?logoutRedirectUrl=http%3A%2F%2Fr4t.ru',
+        'sudis_sls_url': 'http://idp.int.sudis.at-consulting.ru/idp/Logout?logoutRedirectUrl=http%3A%2F%2Flocalhost.ru',
         'sudis_sso_binding': 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST-RFC4490',
         'sudis_sls_binding': 'urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect',
         

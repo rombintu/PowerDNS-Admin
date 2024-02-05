@@ -823,11 +823,15 @@ def sudis_login():
     #     'index.saml_authorized')
     # return redirect(auth.login(return_to=redirect_url))
     # return redirect(req)
-    response = sudis.post_saml_request()
-    if not response:
-        abort(500)
-    current_app.logger.debug(response.content)
-    return response.content
+    data = sudis.get_form_data()
+    current_app.logger.debug(data)
+    post_form = sudis.build_post_form(
+        "http://idp01.int.sudis.at-consulting.ru",
+        data.get("SAMLRequest"),
+        data.get("RelayState")
+        )
+    current_app.logger.debug(post_form)
+    return post_form
     
 
 
