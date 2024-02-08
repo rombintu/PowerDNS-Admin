@@ -47,7 +47,7 @@
                             <div class="card-footer">
                                 <button type="button" title="Cancel" class="btn btn-secondary"
                                         onclick="window.location.href='{{ url_for('dashboard.dashboard') }}'">
-                                    <i class="fa-solid fa-window-close"></i>&nbsp;Cancel
+                                    <i class="fa-solid fa-window-close"></i>&nbsp;{{_('Cancel')}}
                                 </button>
                                 <button type="button" title="Remove Zone"
                                         class="btn btn-danger button_delete float-right">
@@ -60,7 +60,7 @@
                 <div class="col-12 col-sm-6 col-lg-8">
                     <div class="card card-outline card-secondary shadow">
                         <div class="card-header">
-                            <h3 class="card-title">Zone Selector Help</h3>
+                            <h3 class="card-title">{{_('Help')}}</h3>
                         </div>
                         <div class="card-body">
                             <dl class="dl-horizontal">
@@ -124,7 +124,7 @@
                 <div class="modal-footer">
                     <button type="button" title="Cancel" class="btn btn-secondary" id="button_delete_cancel"
                             data-dismiss="modal">
-                        <i class="fa-solid fa-window-close"></i>&nbsp;Cancel
+                        <i class="fa-solid fa-window-close"></i>&nbsp;{{_('Cancel')}}
                     </button>
                     <button type="button" title="Remove Zone" class="btn btn-danger float-right"
                             id="button_delete_confirm">

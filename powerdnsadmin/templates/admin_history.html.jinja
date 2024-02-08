@@ -1,6 +1,6 @@
 {% extends "base.html.jinja" %}
 {% set active_page = "admin_history" %}
-{% block title %}<title>Activity - {{ SITE_NAME }}</title>{% endblock %}
+{% block title %}<title>{{_('Activity')}} - {{ SITE_NAME }}</title>{% endblock %}
 
 {% block dashboard_stat %}
     <div class="content-header">
@@ -12,7 +12,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ url_for('dashboard.dashboard') }}">{{_('Dashboard')}}</a></li>
-                        <li class="breadcrumb-item active">Activity</li>
+                        <li class="breadcrumb-item active">{{_('Activity')}}</li>
                     </ol>
                 </div>
             </div>
@@ -28,7 +28,7 @@
                 <div class="col-12">
                     <div class="card card-outline card-secondary">
                         <div class="card-header with-border">
-                            <h3 class="card-title">Activity Search</h3>
+                            <h3 class="card-title">{{_('Activity')}} {{_('Search')}}</h3>
                             <!-- {% if current_user.role.name == 'Administrator' %}
                                 <div class="card-tools">
                                     <button type="button" class="btn btn-danger" data-toggle="modal"
@@ -44,24 +44,24 @@
                                 <ul class="nav nav-tabs" id="custom-content-below-tab" role="tablist">
                                     <li class="nav-item">
                                         <a class="nav-link active" href="#tabs-act" data-toggle="pill" role="tab">
-                                            Search for All Activity
+                                            {{_('Search for All Activity')}}
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="#tabs-domain" data-toggle="pill" role="tab">
-                                            Search By Zone
+                                            {{_('Search By Zone')}}
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link with-border" href="#tabs-account" data-toggle="pill"
                                            role="tab">
-                                            Search By Account
+                                            {{_('Search By Account')}}
                                         </a>
                                     </li>
                                     {% if current_user.role.name != 'User' %}
                                         <li class="nav-item">
                                             <a class="nav-link" href="#tabs-auth" data-toggle="pill" role="tab">
-                                                Search for User Authentication
+                                                {{_('Search for User Authentication')}}
                                             </a>
                                         </li>
                                     {% endif %}
@@ -71,18 +71,18 @@
                                     </div>
                                     <div class="tab-pane" id="tabs-domain">
                                         <td>
-                                            <label>Zone Name</label>
+                                            <label>{{_('Zone Name')}}</label>
                                         </td>
                                         <td>
                                             <div class="autocomplete" style="width:250px;">
                                                 <input type="text" class="form-control" id="domain_name_filter"
                                                        name="domain_name_filter"
-                                                       placeholder="Enter * to search for any zone" value="">
+                                                       placeholder="{{_('Enter * to search for any')}} {{_('zone')}}" value="">
                                             </div>
                                         </td>
                                         <td>
                                             <div style="position: relative; top:10px;">
-                                        <td>{{_('Record')}} Changelog only &nbsp</td>
+                                        <td>{{_('Record Changelog only')}} &nbsp</td>
                                         <td>
                                             <input type="checkbox" id="domain_changelog_only_checkbox"
                                                    name="domain_changelog_only_checkbox"
@@ -93,49 +93,49 @@
                                     </td>
                                 </div>
                                 <div class="tab-pane" id="tabs-account">
-                                    <td><label>Account Name</label></td>
+                                    <td><label>{{_('Account Name')}}</label></td>
                                     <td>
                                         <div class="autocomplete" style="width:250px;">
                                             <input type="text" class="form-control" id="account_name_filter"
                                                    name="account_name_filter"
-                                                   placeholder="Enter * to search for any account" value="">
+                                                   placeholder="{{_('Enter * to search for any')}} {{_('account')}}" value="">
                                         </div>
                                     </td>
                                 </div>
                                 <div class="tab-pane" id="tabs-auth">
-                                    <td><label>Username</label></td>
+                                    <td><label>{{_('Username')}}</label></td>
                                     <td>
                                         <div class="autocomplete" style="width:250px;">
                                             <input type="text" class="form-control" id="auth_name_filter"
                                                    name="auth_name_filter"
-                                                   placeholder="Enter * to search for any username" value="">
+                                                   placeholder="{{_('Enter * to search for any')}} {{_('username')}}" value="">
                                         </div>
                                     </td>
 
                                     <td>
                                         <div style="position: relative; top:10px;">
-                                    <td>Authenticator Types: &nbsp</td>
-                                    <td>&nbsp All</td>
+                                    <td>{{_('Authenticator Types')}}: &nbsp</td>
+                                    <td>&nbsp {{_('All')}}</td>
                                     <td>
                                         <input type="checkbox" checked id="auth_all_checkbox" name="auth_all_checkbox"
                                                class="checkbox"
                                                style="border:2px dotted #00f;display:block;background:#ff0000;">
                                     </td>
-                                    <td>&nbsp LOCAL</td>
+                                    <td>&nbsp {{_('LOCAL')}}</td>
                                     <td>
                                         <input type="checkbox" checked id="auth_local_only_checkbox"
                                                name="auth_local_only_checkbox"
                                                class="checkbox"
                                                style="border:2px dotted #00f;display:block;background:#ff0000;">
                                     </td>
-                                    <td>&nbsp OAuth</td>
+                                    <td>&nbsp {{_('OAuth')}} TODO (DELETE)</td>
                                     <td>
                                         <input type="checkbox" checked id="auth_oauth_only_checkbox"
                                                name="auth_oauth_only_checkbox"
                                                class="checkbox"
                                                style="border:2px dotted #00f;display:block;background:#ff0000;">
                                     </td>
-                                    <td>&nbsp SAML</td>
+                                    <td>&nbsp {{_('SUDIS')}}</td>
                                     <td>
                                         <input type="checkbox" checked id="auth_saml_only_checkbox"
                                                name="auth_saml_only_checkbox"
@@ -149,11 +149,11 @@
                         <div class="card-body">
                             <table id="Filters-Table">
                                 <thead>
-                                <th>Filters</th>
+                                <th>{{_('Filters')}}</th>
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    <td><label>Changed by: &nbsp</label></td>
+                                    <td><label>{{_('Changed by')}}: &nbsp</label></td>
                                     <td>
                                         <div class="autocomplete" style="width:250px;">
                                             <input type="text" style=" border:1px solid #d2d6de; width:250px; height: 34px;"
@@ -163,7 +163,7 @@
                                 </tr>
                                 <tr>
                                     <td style="position: relative; top:10px;">
-                                        <label>Minimum date: &nbsp</label>
+                                        <label>{{_('Minimum date')}}: &nbsp</label>
                                     </td>
                                     <td style="position: relative; top:10px;">
                                         <input type="text" id="min" name="min" class="datepicker" autocomplete="off"
@@ -172,7 +172,7 @@
                                 </tr>
                                 <tr>
                                     <td style="position: relative; top:20px;">
-                                        <label>Maximum date: &nbsp</label>
+                                        <label>{{_('Maximum date')}}: &nbsp</label>
                                     </td>
                                     <td style="position: relative; top:20px;">
                                         <input type="text" id="max" name="max" class="datepicker" autocomplete="off"
@@ -193,8 +193,7 @@
                                     </td>
                                     <td>
                                         <button id="clear-filters" name="clear-filters"
-                                                class="btn btn-warning button-clearf"><i class="fa fa-trash"></i>&nbsp;Clear
-                                            Filters
+                                                class="btn btn-warning button-clearf"><i class="fa fa-trash"></i>&nbsp;{{_('Clear')}} {{_('Filters')}}
                                         </button>
                                     </td>
                                 </tr>
@@ -539,7 +538,7 @@
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">History Details</h4>
+                    <h4 class="modal-title">{{_('History Details')}}</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

@@ -1,7 +1,7 @@
 import datetime
 # import hashlib
-import imghdr
-import mimetypes
+# import imghdr
+# import mimetypes
 
 from flask import Blueprint, request, render_template, make_response, jsonify, redirect, url_for, g, session, \
     current_app, after_this_request, abort

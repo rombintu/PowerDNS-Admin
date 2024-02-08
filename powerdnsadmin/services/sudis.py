@@ -200,30 +200,30 @@ class SUDIS(object):
     </form>
 <script>window.onload = function () {'{'}document.forms[0].submit();{'}'}</script>"""
     
-    def get_saml_request(self):
-        saml_request = self.xml_request_build()
-        current_app.logger.debug(saml_request)
-        saml_request_encoded = None
-        try:
-            saml_request_encoded = self.cms.message(saml_request, action="encode")
-        except Exception as err:
-            current_app.logger.error(err)
-            return None
-        if not saml_request_encoded:
-            return None
-        form_data = {
-            "SAMLRequest": base64.b64encode(saml_request_encoded).decode(),
-            "RelayState": Setting().get('sp_consume_url'),
-        }
-        # params = {'AuthType': "PASSWORD"}
-        current_app.logger.debug(form_data)
-        # response = None
-        # try:
-        #     response = requests.post(self.settings.get_idp_sso_url(), data=form_data)
-        # except ConnectionError as err:
-        #     current_app.logger.error(err)
-        # # current_app.logger.debug(response.text)
-        return form_data
+    # def get_saml_request(self):
+    #     saml_request = self.xml_request_build()
+    #     current_app.logger.debug(saml_request)
+    #     saml_request_encoded = None
+    #     try:
+    #         saml_request_encoded = self.cms.message(saml_request, action="encode")
+    #     except Exception as err:
+    #         current_app.logger.error(err)
+    #         return None
+    #     if not saml_request_encoded:
+    #         return None
+    #     form_data = {
+    #         "SAMLRequest": base64.b64encode(saml_request_encoded).decode(),
+    #         "RelayState": Setting().get('sp_consume_url'),
+    #     }
+    #     # params = {'AuthType': "PASSWORD"}
+    #     current_app.logger.debug(form_data)
+    #     # response = None
+    #     # try:
+    #     #     response = requests.post(self.settings.get_idp_sso_url(), data=form_data)
+    #     # except ConnectionError as err:
+    #     #     current_app.logger.error(err)
+    #     # # current_app.logger.debug(response.text)
+    #     return form_data
 
     def get_form_data(self):
         # saml_request = self.saml_request.get_xml()

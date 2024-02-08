@@ -7,20 +7,20 @@
     {% set action_label = 'Edit' %}
     {% set form_action = url_for('admin.edit_user', user_username=user.username) %}
 {% endif %}
-{% block title %}<title>{{ action_label }} User - {{ SITE_NAME }}</title>{% endblock %}
+{% block title %}<title>{{ action_label }}: {{_('User')}} - {{ SITE_NAME }}</title>{% endblock %}
 
 {% block dashboard_stat %}
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">{{ action_label }} User</h1>
+                    <h1 class="m-0 text-dark">{{ action_label }}: {{_('User')}}</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ url_for('dashboard.dashboard') }}">{{_('Dashboard')}}</a></li>
-                        <li class="breadcrumb-item"><a href="{{ url_for('admin.manage_user') }}">Users</a></li>
-                        <li class="breadcrumb-item active">{{ action_label }} User</li>
+                        <li class="breadcrumb-item"><a href="{{ url_for('admin.manage_user') }}">{{_('Users')}}</a></li>
+                        <li class="breadcrumb-item active">{{ action_label }}: {{_('User')}}</li>
                     </ol>
                 </div>
             </div>
@@ -38,7 +38,7 @@
                         <input type="hidden" name="create" value="{{ create }}">
                         <div class="card card-outline card-primary shadow">
                             <div class="card-header with-border">
-                                <h3 class="card-title">User Editor</h3>
+                                <h3 class="card-title">{{_('User Editor')}}</h3>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -53,15 +53,15 @@
                                     <span class="help-block">{{ error }}</span>
                                 {% endif %}
                                 <div class="form-group has-feedback">
-                                    <label class="control-label" for="firstname">First Name</label>
-                                    <input type="text" class="form-control" placeholder="First Name" name="firstname"
+                                    <label class="control-label" for="firstname">{{_('First Name')}}</label>
+                                    <input type="text" class="form-control" placeholder="{{_('First Name')}}" name="firstname"
                                            id="firstname"
                                            {% if user %}value="{{ user.firstname }}" {% endif %}>
                                     <span class="form-control-feedback"></span>
                                 </div>
                                 <div class="form-group has-feedback">
-                                    <label class="control-label" for="lastname">Last Name</label>
-                                    <input type="text" class="form-control" placeholder="Last name" name="lastname"
+                                    <label class="control-label" for="lastname">{{_('Last Name')}}</label>
+                                    <input type="text" class="form-control" placeholder="{{_('Last name')}}" name="lastname"
                                            id="lastname"
                                            {% if user %}value="{{ user.lastname }}" {% endif %}>
                                     <span class="form-control-feedback"></span>
@@ -73,28 +73,28 @@
                                     <span class="form-control-feedback"></span>
                                 </div> -->
                                 <div class="form-group has-feedback">
-                                    <label class="control-label" for="username">Username</label>
-                                    <input type="text" class="form-control" placeholder="Username" name="username"
+                                    <label class="control-label" for="username">{{_('Username')}}</label>
+                                    <input type="text" class="form-control" placeholder="{{_('Username')}}" name="username"
                                            id="username"
                                            {% if user %}value="{{ user.username }}" {% endif %}
                                            {% if not create %}disabled{% endif %}>
                                     <span class="form-control-feedback"></span>
                                 </div>
                                 <div class="form-group has-feedback {% if blank_password %}has-error{% endif %}">
-                                    <label class="control-label" for="password">Password</label>
+                                    <label class="control-label" for="password">{{_('Password')}}</label>
                                     <input type="password" class="form-control"
-                                           placeholder="Password {% if create %}(Required){% else %}(Leave blank to keep unchanged){% endif %}"
+                                           placeholder="{{_('Password')}} {% if create %}({{_('Required')}}){% else %}({{_('Leave blank to keep unchanged')}}){% endif %}"
                                            name="password" id="password">
                                     <span class="form-control-feedback"></span>
                                     {% if blank_password %}
-                                        <span class="help-block">The password cannot be blank.</span>
+                                        <span class="help-block">{{_('The password cannot be blank.')}}</span>
                                     {% endif %}
                                 </div>
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-primary" title="{{ action_label }} User">
-                                    {{ action_label }} User
+                                    {{ action_label }}
                                 </button>
                             </div>
                             <!-- /.card-footer -->
@@ -129,20 +129,20 @@
                 <div class="col-12 col-sm-6 col-lg-8">
                     <div class="card card-outline card-secondary shadow">
                         <div class="card-header">
-                            <h3 class="card-title">User Editor Help</h3>
+                            <h3 class="card-title">{{_('Help')}}</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <p>Fill in all the fields to the in the form to the left.</p>
+                            <p>{{_('Fill in all the fields to the in the form to the left.')}}</p>
                             {% if create %}
-                                <p><strong>Newly created users do not have access to any zones.</strong> You will need
+                                <p><strong>{{_('Newly created users do not have access to any zones.')}}</strong> {{_('You will need
                                     to grant
                                     access to the user once it is created via the zone management buttons on the
-                                    dashboard.
+                                    dashboard.')}}
                                 </p>
                             {% else %}
-                                <p><strong>Username</strong> cannot be changed.</p>
-                                <p><strong>Password</strong> can be left empty to keep the current password.</p>
+                                <p><strong>{{_('Username')}}</strong> {{_('cannot be changed.')}}</p>
+                                <p><strong>{{_('Password')}}</strong> {{_('can be left empty to keep the current password.')}}</p>
                             {% endif %}
                         </div>
                         <!-- /.card-body -->

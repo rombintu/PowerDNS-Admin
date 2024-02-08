@@ -9,20 +9,20 @@
 {% endif %}
 {% if (key is not none and key.role.name != "User") %}{% set hide_opts = True %}{% else %}
     {% set hide_opts = False %}{% endif %}
-{% block title %}<title>{{ action_label }} API Key - {{ SITE_NAME }}</title>{% endblock %}
+{% block title %}<title>{{ action_label }} {{_('API Key')}} - {{ SITE_NAME }}</title>{% endblock %}
 
 {% block dashboard_stat %}
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">{{ action_label }} API Key</h1>
+                    <h1 class="m-0 text-dark">{{ action_label }} {{_('API Key')}}</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ url_for('dashboard.dashboard') }}">{{_('Dashboard')}}</a></li>
-                        <li class="breadcrumb-item"><a href="{{ url_for('admin.manage_keys') }}">API Keys</a></li>
-                        <li class="breadcrumb-item active">{{ action_label }} API Key</li>
+                        <li class="breadcrumb-item"><a href="{{ url_for('admin.manage_keys') }}">{{_('API Keys')}}</a></li>
+                        <li class="breadcrumb-item active">{{ action_label }} {{_('API Key')}}</li>
                     </ol>
                 </div>
             </div>
@@ -40,15 +40,15 @@
                         <input type="hidden" name="create" value="{{ create }}">
                         <div class="card card-outline card-primary shadow">
                             <div class="card-header">
-                                <h3 class="card-title">API Key Editor</h3>
+                                <h3 class="card-title">{{_('API Key')}} {{_('Editor')}}</h3>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
                                 <div class="form-group has-feedback">
-                                    <label class="control-label" for="role">Role</label>
+                                    <label class="control-label" for="role">{{_('Role')}}</label>
                                     <select class="key_role form-control" id="key_role" name="key_role">
                                         {% for role in roles %}
-                                            <option value="{{ role.name }}"
+                                            <option value="{{role.name}}"
                                                     {% if (key is not none) and (role.id==key.role.id) %}selected{% endif %}
                                                     {% if (key is none) and (role.name=="User") %}selected{% endif %}>
                                                 {{ role.name }}
@@ -59,7 +59,7 @@
                                 <!-- /.form-group -->
                                 <div class="form-group has-feedback">
                                     <label class="control-label" for="description">{{_('Description')}}</label>
-                                    <input type="text" class="form-control" placeholder="Description" name="description"
+                                    <input type="text" class="form-control" placeholder="{{_('Description')}}" name="description"
                                         {% if key is not none %} value="{{ key.description }}" {% endif %}>
                                     <span class="glyphicon glyphicon-pencil form-control-feedback"></span>
                                 </div>
@@ -67,13 +67,13 @@
                             </div>
                             <!-- /.card-body -->
                             <div class="card-header key-opts"{% if hide_opts %} style="display: none;"{% endif %}>
-                                <h3 class="card-title">Accounts {{_('Access Control')}}</h3>
+                                <h3 class="card-title">{{_('Access Control')}}: {{_('Accounts')}}</h3>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body key-opts"{% if hide_opts %} style="display: none;"{% endif %}>
-                                <p>This key will be linked to the accounts on the right,</p>
-                                <p>thus granting access to zones owned by the selected accounts.</p>
-                                <p>Click on accounts to move between the columns.</p>
+                                <p>{{_('This key will be linked to the accounts on the right,')}}</p>
+                                <p>{{_('thus granting access to zones owned by the selected accounts.')}}</p>
+                                <p>{{_('Click on accounts to move between the columns.')}}</p>
                                 <div class="form-group col-2">
                                     <select multiple="multiple" class="form-control" id="key_multi_account"
                                             name="key_multi_account">
@@ -87,12 +87,12 @@
                             </div>
                             <!-- /.card-body -->
                             <div class="card-header key-opts"{% if hide_opts %} style="display: none;"{% endif %}>
-                                <h3 class="card-title">Zone {{_('Access Control')}}</h3>
+                                <h3 class="card-title">{{_('Access Control')}}: {{_('Zone')}}</h3>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body key-opts"{% if hide_opts %} style="display: none;"{% endif %}>
-                                <p>This key will have access to the zones on the right.</p>
-                                <p>Click on zones to move between the columns.</p>
+                                <p>{{_('This key will have access to the zones on the right.')}}</p>
+                                <p>{{_('Click on zones to move between the columns.')}}</p>
                                 <div class="form-group col-2">
                                     <select multiple="multiple" class="form-control" id="key_multi_domain"
                                             name="key_multi_domain">
@@ -107,11 +107,11 @@
                             <div class="card-footer">
                                 <button type="button" class="btn btn-secondary float-left" title="Cancel"
                                         onclick="window.location.href='{{ url_for('admin.manage_keys') }}'">
-                                    <i class="fa-solid fa-window-close"></i>&nbsp;Cancel
+                                    <i class="fa-solid fa-window-close"></i>&nbsp;{{_('Cancel')}}
                                 </button>
                                 <button type="submit" class="btn btn-primary float-right"
-                                        title="{{ action_label }} API Key" id="key_submit">
-                                    <i class="fa-solid fa-save"></i>&nbsp;{{ action_label }} API Key
+                                        title="{{ action_label }} {{_('API Key')}}" id="key_submit">
+                                    <i class="fa-solid fa-save"></i>&nbsp;{{_('Save')}}
                                 </button>
                             </div>
                             <!-- /.card-footer -->
@@ -124,14 +124,14 @@
                 <div class="col-12 col-sm-6 col-lg-8">
                     <div class="card card-outline card-secondary shadow">
                         <div class="card-header">
-                            <h3 class="card-title">API Key Editor Help</h3>
+                            <h3 class="card-title">{{_('Help')}}</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <p>Fill in all the fields in the form to the left.</p>
-                            <p><strong>Role</strong> The role of the key.</p>
-                            <p><strong>{{_('Description')}}</strong> The key description.</p>
-                            <p><strong>{{_('Access Control')}}</strong> The zones or accounts which the key has access to.</p>
+                            <p>{{_('Fill in all the fields in the form to the left.')}}</p>
+                            <p><strong>{{_('Role')}}</strong> {{('The role of the key.')}}</p>
+                            <p><strong>{{_('Description')}}</strong> {{_('The key description.')}}</p>
+                            <p><strong>{{_('Access Control')}}</strong> {{_('The zones or accounts which the key has access to.')}}</p>
                         </div>
                         <!-- /.card-body -->
                     </div>
@@ -295,7 +295,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">New API Key</h5>
+                    <h5 class="modal-title">{{_('New')}} {{_('API Key')}}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="button_close_modal">
                         <span aria-hidden="true">&times;</span>
                     </button>

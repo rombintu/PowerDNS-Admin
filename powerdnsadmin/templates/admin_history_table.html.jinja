@@ -2,7 +2,7 @@
 
 {% if len_histories >= lim %}
   <p style="color: rgb(224, 3, 3);">
-    <b>Limit of loaded history records has been reached! Only {{lim}} history records are shown.</b>
+    <b>{{_('Limit of loaded history records has been reached! Only')}} {{lim}} {{_('history records are shown.')}}</b>
   </p>
 {% endif %}
 
@@ -48,12 +48,12 @@
                 </div>
               {% endif %}
             </div>
-            <button type="button" class="btn btn-primary history-info-button"
+            <button type="button" class="btn btn-primary history-info-button w-100"
               {% if history.detailed_msg == "" and history.change_set is none %}
                 style="visibility: hidden;"
               {% endif %} value="{{ loop.index0 }}">
               <i class="fa-solid fa-info"> </i>
-              Info
+              {# {{_('Info')}} #}
             </button>
           </td>
         </tr>
@@ -66,6 +66,7 @@
 {% endif %}
 <script>
   var table;
+  moment.locale('ru');
   $(document).ready(function () {
     table = $('#tbl_history').DataTable({
       "order": [
@@ -82,7 +83,6 @@
       "columnDefs": [{
         "type": "time",
         "render": function (data, type, row) {
-          moment.locale('ru')
           {# return moment.utc(data).local().format('YYYY-MM-DD HH:mm:ss'); #}
           return moment.utc(data).local().fromNow();
         },

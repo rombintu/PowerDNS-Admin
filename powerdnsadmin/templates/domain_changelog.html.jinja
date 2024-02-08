@@ -13,16 +13,16 @@
       <div class="col-sm-6">
         <h1 class="m-0 text-dark">
           {% if record_name and record_type %}
-          Record changelog: <b>{{ record_name}} &nbsp {{ record_type }}</b>
+          {{_('Record changelog')}}: <b>{{ record_name}} &nbsp {{ record_type }}</b>
           {% else %}
-          Zone changelog: <b>{{ domain.name | pretty_domain_name }}</b>
+          {{_('Zone changelog')}}: <b>{{ domain.name | pretty_domain_name }}</b>
           {% endif %}
         </h1>
       </div>
       <div class="col-sm-6">
         <ol class="breadcrumb float-sm-right">
           <li class="breadcrumb-item"><a href="{{ url_for('dashboard.dashboard') }}">{{_('Dashboard')}}</a></li>
-          <li class="breadcrumb-item active">Changelog: {{ domain.name | pretty_domain_name }}</li>
+          <li class="breadcrumb-item active">{{_('Changelog')}}: {{ domain.name | pretty_domain_name }}</li>
         </ol>
       </div>
     </div>
@@ -41,21 +41,21 @@
           <div class="card-body">
             <button type="button" class="btn btn-primary float-left button_show_records" id="{{ domain.name }}">
               <i class="fa-solid fa-arrow-left"></i>          
-              &nbsp;Manage Zone {{ domain.name }}
+              &nbsp;{{_('Manage Zone')}} {{ domain.name }}
             </button>
           </div>
           <div class="card-body">
             <table id="tbl_changelog" class="table table-bordered table-striped">
               <thead>
                 <tr>
-                  <th>Changed on</th>
+                  <th>{{_('Changed on')}}</th>
                   <th>{{_('Name')}}</th>
                   <th>{{_('Type')}}</th>
                   <th>{{_('TTL')}}</th>
                   <th>{{_('Data')}}</th>
                   <th>{{_('Status')}}</th>
                   <th>{{_('Comment')}}</th>
-                  <th>Changed by</th>
+                  <th>{{_('Changed by')}}</th>
                 </tr>
               </thead>
               <tbody>
@@ -82,6 +82,9 @@
 {% endblock %}
 
 {% block extrascripts %}
+{% if session.get('lang') in ['ru', None] %}
+  <script src="{{ url_for('static', filename='assets/plugins/moment.min.locales.js')}}"></script>
+{% endif %}
 <script>
     // handle "show records" button
     $(document.body).on("click", ".button_show_records", function (e) {
@@ -105,9 +108,11 @@
     }
 
     var els = document.getElementsByClassName("changed_on");
+    moment.locale('ru')
     for (var i = 0; i < els.length; i++) {
         // els[i].innerHTML = moment.utc(els[i].innerHTML).local().format('YYYY-MM-DD HH:mm:ss');
-        els[i].innerHTML = moment.utc(els[i].innerHTML,'YYYY-MM-DD HH:mm:ss').local().format('YYYY-MM-DD HH:mm:ss');
+        {# els[i].innerHTML = moment.utc(els[i].innerHTML,'YYYY-MM-DD HH:mm:ss').local().format('YYYY-MM-DD HH:mm:ss'); #}
+        els[i].innerHTML = moment.utc(els[i].innerHTML,'YYYY-MM-DD HH:mm:ss').local().fromNow();
     }
 
 </script>

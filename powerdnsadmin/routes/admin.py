@@ -845,19 +845,19 @@ class DetailedHistory():
                 <table class="table table-bordered table-striped"">
                     <tbody>
                         <tr>
-                            <td>Username:</td>
+                            <td>{{_('Username')}}:</td>
                             <td>{{ username }}</td>
                         </tr>
                         <tr>
-                            <td>Authentication Result:</td>
+                            <td>{{_('Authentication Result')}}:</td>
                             <td>{{ auth_result }}</td>
                         </tr>
                         <tr>
-                            <td>Authenticator Type:</td>
+                            <td>{{_('Authenticator Type')}}:</td>
                             <td>{{ authenticator }}</td>
                         </tr>
                         <tr>
-                            <td>IP Address:</td>
+                            <td>{{_('IP Address')}}:</td>
                             <td>{{ ip_address }}</td>
                         </tr>
                     </tbody>
@@ -877,8 +877,8 @@ class DetailedHistory():
         elif 'name' in detail_dict and 'template' in history.msg:  # template creation / deletion
             self.detailed_msg = render_template_string("""
                 <table class="table table-bordered table-striped">
-                    <tr><td>Template name:</td><td>{{ template_name }}</td></tr>
-                    <tr><td>Description:</td><td>{{ description }}</td></tr>
+                    <tr><td>{{_('Template name')}}:</td><td>{{ template_name }}</td></tr>
+                    <tr><td>{{_('Description')}}:</td><td>{{ description }}</td></tr>
                 </table>
                 """,
                                                        template_name=DetailedHistory.get_key_val(detail_dict, "name"),
@@ -890,8 +890,8 @@ class DetailedHistory():
             users_with_access = DetailedHistory.get_key_val(detail_dict, "user_has_access")
             self.detailed_msg = render_template_string("""
                 <table class="table table-bordered table-striped">
-                    <tr><td>Users with access to this zone</td><td>{{ users_with_access }}</td></tr>
-                    <tr><td>Number of users:</td><td>{{ users_with_access | length }}</td><tr>
+                    <tr><td>{{_('Users with access to this zone')}}</td><td>{{ users_with_access }}</td></tr>
+                    <tr><td>{{_('Number of users')}}:</td><td>{{ users_with_access | length }}</td><tr>
                 </table>
                 """,
                                                        users_with_access=users_with_access)
@@ -899,11 +899,11 @@ class DetailedHistory():
         elif 'Created API key' in history.msg or 'Updated API key' in history.msg:
             self.detailed_msg = render_template_string("""
                 <table class="table table-bordered table-striped">
-                    <tr><td>Key: </td><td>{{ keyname }}</td></tr>
-                    <tr><td>Role:</td><td>{{ rolename }}</td></tr>
-                    <tr><td>Description:</td><td>{{ description }}</td></tr>
-                    <tr><td>Accessible zones with this API key:</td><td>{{ linked_domains }}</td></tr>
-                    <tr><td>Accessible accounts with this API key:</td><td>{{ linked_accounts }}</td></tr>
+                    <tr><td>{{_('Key')}}: </td><td>{{ keyname }}</td></tr>
+                    <tr><td>{{_('Role')}}:</td><td>{{ rolename }}</td></tr>
+                    <tr><td>{{_('Description')}}:</td><td>{{ description }}</td></tr>
+                    <tr><td>{{_('Accessible zones with this API key')}}:</td><td>{{ linked_domains }}</td></tr>
+                    <tr><td>{{_('Accessible accounts with this API key')}}:</td><td>{{ linked_accounts }}</td></tr>
                 </table>
                 """,
                                                        keyname=DetailedHistory.get_key_val(detail_dict, "key"),
@@ -918,10 +918,10 @@ class DetailedHistory():
         elif 'Delete API key' in history.msg:
             self.detailed_msg = render_template_string("""
                 <table class="table table-bordered table-striped">
-                    <tr><td>Key: </td><td>{{ keyname }}</td></tr>
-                    <tr><td>Role:</td><td>{{ rolename }}</td></tr>
-                    <tr><td>Description:</td><td>{{ description }}</td></tr>
-                    <tr><td>Accessible zones with this API key:</td><td>{{ linked_domains }}</td></tr>
+                    <tr><td>{{_('Key')}}: </td><td>{{ keyname }}</td></tr>
+                    <tr><td>{{_('Role')}}:</td><td>{{ rolename }}</td></tr>
+                    <tr><td>{{_('Description')}}:</td><td>{{ description }}</td></tr>
+                    <tr><td>{{_('Accessible zones with this API key')}}:</td><td>{{ linked_domains }}</td></tr>
                 </table>
                 """,
                                                        keyname=DetailedHistory.get_key_val(detail_dict, "key"),
@@ -934,9 +934,9 @@ class DetailedHistory():
         elif any(msg in history.msg for msg in ['Update type for zone', 'Update type for domain']):
             self.detailed_msg = render_template_string("""
                 <table class="table table-bordered table-striped">
-                    <tr><td>Zone: </td><td>{{ domain }}</td></tr>
-                    <tr><td>Zone type:</td><td>{{ domain_type }}</td></tr>
-                    <tr><td>Masters:</td><td>{{ masters }}</td></tr>
+                    <tr><td>{{_('Zone')}}: </td><td>{{ domain }}</td></tr>
+                    <tr><td>{{_('Zone type')}}:</td><td>{{ domain_type }}</td></tr>
+                    <tr><td>{{_('Masters')}}:</td><td>{{ masters }}</td></tr>
                 </table>
                 """,
                                                        domain=DetailedHistory.get_key_val(detail_dict, "domain"),
@@ -946,8 +946,8 @@ class DetailedHistory():
         elif 'reverse' in history.msg:
             self.detailed_msg = render_template_string("""
                 <table class="table table-bordered table-striped">
-                    <tr><td>Zone Type: </td><td>{{ domain_type }}</td></tr>
-                    <tr><td>Zone Master IPs:</td><td>{{ domain_master_ips }}</td></tr>
+                    <tr><td>{{_('Zone Type')}}: </td><td>{{ domain_type }}</td></tr>
+                    <tr><td>{{_('Zone Master IPs')}}:</td><td>{{ domain_master_ips }}</td></tr>
                 </table>
                 """,
                                                        domain_type=DetailedHistory.get_key_val(detail_dict,
@@ -959,7 +959,7 @@ class DetailedHistory():
             self.detailed_msg = render_template_string('''
                 <table class="table table-bordered table-striped">
                     <tr><td>{{_('Status')}}: </td><td>{{ history_status }}</td></tr>
-                    <tr><td>Message:</td><td>{{ history_msg }}</td></tr>
+                    <tr><td>{{_('Message')}}:</td><td>{{ history_msg }}</td></tr>
                 </table>
                 ''',
                                                        history_status=DetailedHistory.get_key_val(detail_dict,
@@ -970,8 +970,8 @@ class DetailedHistory():
                                                 'Update domain']) and 'associate account' in history.msg:  # When an account gets associated or dissociate with zones
             self.detailed_msg = render_template_string('''
                 <table class="table table-bordered table-striped">
-                    <tr><td>Associate: </td><td>{{ history_assoc_account }}</td></tr>
-                    <tr><td>Dissociate:</td><td>{{ history_dissoc_account }}</td></tr>
+                    <tr><td>{{_('Associate')}}: </td><td>{{ history_assoc_account }}</td></tr>
+                    <tr><td>{{_('Dissociate')}}:</td><td>{{ history_dissoc_account }}</td></tr>
                 </table>
                 ''',
                                                        history_assoc_account=DetailedHistory.get_key_val(detail_dict,
@@ -1193,8 +1193,8 @@ def history_table():  # ajax call data
             auth_methods.append("")
         if request.args.get('auth_local_only_checkbox') == "on":
             auth_methods.append("LOCAL")
-        if request.args.get('auth_oauth_only_checkbox') == "on":
-            auth_methods.append("OAuth")
+        # if request.args.get('auth_oauth_only_checkbox') == "on":
+        #     auth_methods.append("OAuth")
         if request.args.get('auth_saml_only_checkbox') == "on":
             auth_methods.append("SAML")
 

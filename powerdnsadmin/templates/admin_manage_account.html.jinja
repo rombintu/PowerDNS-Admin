@@ -1,18 +1,18 @@
 {% extends "base.html.jinja" %}
 {% set active_page = "admin_accounts" %}
-{% block title %}<title>Accounts - {{ SITE_NAME }}</title>{% endblock %}
+{% block title %}<title>{{_('Accounts')}} - {{ SITE_NAME }}</title>{% endblock %}
 
 {% block dashboard_stat %}
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">Accounts</h1>
+                    <h1 class="m-0 text-dark">{{_('Accounts')}}</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ url_for('dashboard.dashboard') }}">{{_('Dashboard')}}</a></li>
-                        <li class="breadcrumb-item active">Accounts</li>
+                        <li class="breadcrumb-item active">{{_('Accounts')}}</li>
                     </ol>
                 </div>
             </div>
@@ -27,12 +27,12 @@
                 <div class="col-12">
                     <div class="card card-outline card-primary shadow">
                         <div class="card-header">
-                            <h3 class="card-title">Accounts</h3>
+                            <h3 class="card-title">{{_('Accounts')}}</h3>
                             <div class="card-tools">
                                 <a href="{{ url_for('admin.edit_account') }}">
                                     <button type="button" class="btn btn-primary button_add_account"
                                             title="Add Account">
-                                        <i class="fa-solid fa-plus"></i>&nbsp;Add Account
+                                        <i class="fa-solid fa-plus"></i>&nbsp;{{_('Create')}}
                                     </button>
                                 </a>
                             </div>
@@ -45,11 +45,11 @@
                                 <tr>
                                     <th>{{_('Name')}}</th>
                                     <th>{{_('Description')}}</th>
-                                    <th>Contact</th>
-                                    <th>Mail</th>
-                                    <th>Member</th>
-                                    <th>Zone(s)</th>
-                                    <th>Action</th>
+                                    <th>{{_('Contact')}}</th>
+                                    <th>{{_('Mail')}}</th>
+                                    <th>{{_('Member')}}</th>
+                                    <th>{{_('Zone(s)')}}</th>
+                                    <th>{{_('Action')}}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -71,14 +71,14 @@
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenu">
                                                     <button type="button" class="dropdown-item btn-warning"
                                                             onclick="window.location.href='{{ url_for('admin.edit_account', account_name=account.name) }}'">
-                                                        <i class="fa-solid fa-edit"></i>&nbsp;Edit Account
+                                                        <i class="fa-solid fa-edit"></i>&nbsp;{{_('Edit')}}
                                                     </button>
                                                     <div class="dropdown-divider"></div>
                                                     <button type="button"
                                                             class="dropdown-item btn-secondary button_delete"
                                                             id="{{ account.name }}">
                                                         <span style="color: red;">
-                                                            <i class="fa-solid fa-trash"></i>&nbsp;Delete Account
+                                                            <i class="fa-solid fa-trash"></i>&nbsp;{{_('Delete')}}
                                                         </span>
                                                     </button>
                                                 </div>
@@ -154,7 +154,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Confirmation</h4>
+                    <h4 class="modal-title">{{_('Confirmation')}}</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

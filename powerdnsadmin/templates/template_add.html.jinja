@@ -1,6 +1,6 @@
 {% extends "base.html.jinja" %}
 {% set active_page = "admin_domain_template" %}
-{% block title %}<title>Create Zone Template - {{ SITE_NAME }}</title>{% endblock %}
+{% block title %}<title>{{_('Create Zone Template')}} - {{ SITE_NAME }}</title>{% endblock %}
 
 {% block dashboard_stat %}
     <div class="content-header">
@@ -8,13 +8,13 @@
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <h1 class="m-0 text-dark">
-                        Create Zone Template
+                        {{_('Create Zone Template')}}
                     </h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ url_for('admin.templates') }}">Templates</a></li>
-                        <li class="breadcrumb-item active">Create Zone Template</li>
+                        <li class="breadcrumb-item"><a href="{{ url_for('admin.templates') }}">{{_('Templates')}}</a></li>
+                        <li class="breadcrumb-item active">{{_('Create Zone Template')}}</li>
                     </ol>
                 </div>
             </div>
@@ -33,7 +33,7 @@
                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;
                                 </button>
                                 <h4>
-                                    <i class="fa-solid fa-ban"></i> Error!
+                                    <i class="fa-solid fa-ban"></i> {{_('Error')}}!
                                 </h4>
                                 <div class="alert-message block-message error">
                                     <a class="close" href="#">x</a>
@@ -58,29 +58,29 @@
                         <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
                         <div class="card card-outline card-primary shadow">
                             <div class="card-header">
-                                <h3 class="card-title">Zone Template Editor</h3>
+                                <h3 class="card-title">{{_('Zone Template Editor')}}</h3>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="name">Template Name</label>
+                                    <label for="name">{{_('Template Name')}}</label>
                                     <input type="text" class="form-control" name="name" id="name"
-                                           placeholder="Enter a valid template name (required)">
+                                           placeholder="{{_('Enter a valid template name')}} ({{_('required')}})">
                                 </div>
                                 <div class="form-group">
-                                    <label for="description">Template {{_('Description')}}</label>
+                                    <label for="description">{{_('Template Description')}}</label>
                                     <input type="text" class="form-control" name="description" id="description"
-                                           placeholder="Enter a template description (optional)">
+                                           placeholder="{{_('Enter a template description')}} ({{_('optional')}})">
                                 </div>
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer">
-                                <button type="button" class="btn btn-secondary float-left" title="Cancel"
+                                <button type="button" class="btn btn-secondary float-left" title="{{_('Cancel')}}"
                                         onclick="window.location.href='{{ url_for('admin.templates') }}'">
-                                    Cancel
+                                    {{_('Cancel')}}
                                 </button>
-                                <button type="submit" class="btn btn-primary float-right" title="Save Template">
-                                    <i class="fa-solid fa-save"></i>&nbsp;Save Template
+                                <button type="submit" class="btn btn-primary float-right" title="{{_('Save Template')}}">
+                                    <i class="fa-solid fa-save"></i>&nbsp;{{_('Save')}}
                                 </button>
                             </div>
                             <!-- /.card-footer -->
@@ -93,19 +93,16 @@
                 <div class="col-12 col-sm-6 col-lg-8">
                     <div class="card card-outline card-secondary shadow">
                         <div class="card-header">
-                            <h3 class="card-title">Zone Template Editor Help</h3>
+                            <h3 class="card-title">{{_('Help')}}</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
                             <dl class="dl-horizontal">
-                                <dt>Template Name</dt>
-                                <dd>Enter your template name, this is the name of the template that
-                                    will be shown to users. The name should not have any spaces but
-                                    can have symbols.
+                                <dt>{{_('Template Name')}}</dt>
+                                <dd>{{_('Enter your template name, this is the name of the template that will be shown to users. The name should not have any spaces but can have symbols.')}}
                                 </dd>
-                                <dt>Template {{_('Description')}}</dt>
-                                <dd>Enter your template description, this is to help better
-                                    identify the template.
+                                <dt>{{_('Template Description')}}</dt>
+                                <dd>{{_('Enter your template description, this is to help better identify the template.')}}
                                 </dd>
                             </dl>
                         </div>

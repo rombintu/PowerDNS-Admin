@@ -1,18 +1,18 @@
 {% extends "base.html.jinja" %}
 {% set active_page = "admin_users" %}
-{% block title %}<title>Users - {{ SITE_NAME }}</title>{% endblock %}
+{% block title %}<title>{{_('Users')}} - {{ SITE_NAME }}</title>{% endblock %}
 
 {% block dashboard_stat %}
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">Users</h1>
+                    <h1 class="m-0 text-dark">{{_('Users')}}</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ url_for('dashboard.dashboard') }}">{{_('Dashboard')}}</a></li>
-                        <li class="breadcrumb-item active">Users</li>
+                        <li class="breadcrumb-item active">{{_('Users')}}</li>
                     </ol>
                 </div>
             </div>
@@ -27,11 +27,11 @@
                 <div class="col-12">
                     <div class="card card-outline card-primary shadow">
                         <div class="card-header">
-                            <h3 class="card-title">Users</h3>
+                            <h3 class="card-title">{{_('Users')}}</h3>
                             <div class="card-tools">
                                 <a href="{{ url_for('admin.edit_user') }}">
                                     <button type="button" class="btn btn-primary button_add_user" title="Create User">
-                                        <i class="fa-solid fa-plus"></i>&nbsp;Create User
+                                        <i class="fa-solid fa-plus"></i>&nbsp;{{_('Create')}}
                                     </button>
                                 </a>
                             </div>
@@ -43,13 +43,13 @@
                                    class="table table-bordered table-striped table-hover table-sm records">
                                 <thead>
                                 <tr>
-                                    <th>Username</th>
-                                    <th>First Name</th>
-                                    <th>Last Name</th>
-                                    <th>Email</th>
-                                    <th>Role</th>
-                                    <th>Privileges</th>
-                                    <th>Action</th>
+                                    <th>{{_('Username')}}</th>
+                                    <th>{{_('First Name')}}</th>
+                                    <th>{{_('Last Name')}}</th>
+                                    <th>{{_('Email')}}</th>
+                                    <th>{{_('Role')}}</th>
+                                    <th>{{_('Privileges')}}</th>
+                                    <th>{{_('Action')}}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -89,7 +89,7 @@
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenu">
                                                     <button type="button" class="dropdown-item btn-warning"
                                                             onclick="window.location.href='{{ url_for('admin.edit_user', user_username=user.username) }}'">
-                                                        <i class="fa-solid fa-edit"></i>&nbsp;Edit User
+                                                        <i class="fa-solid fa-edit"></i>&nbsp;{{_('Edit')}}
                                                     </button>
                                                     {% if not user.username==current_user.username or (current_user.role.name=='Operator' and user.role.name=='Administrator') %}
                                                         <div class="dropdown-divider"></div>
@@ -97,7 +97,7 @@
                                                                 class="dropdown-item btn-secondary button_delete"
                                                                 id="{{ user.username }}">
                                                             <span style="color: red;">
-                                                                <i class="fa-solid fa-trash"></i>&nbsp;Delete User
+                                                                <i class="fa-solid fa-trash"></i>&nbsp;{{_('Delete')}}
                                                             </span>
                                                         </button>
                                                     {% endif %}

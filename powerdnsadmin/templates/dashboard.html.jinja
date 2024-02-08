@@ -155,10 +155,10 @@
         $(document.body).on("click", ".button_template", function (e) {
             var modal = $("#modal_template");
             var domain = $(this).prop('id');
-            var form = "    <label for=\"template_name\">Template name</label> \
-                        <input type=\"text\" class=\"form-control\" name=\"template_name\" id=\"template_name\" placeholder=\"Enter a valid template name (required)\"> \
-                        <label for=\"template_description\">Template description</label> \
-                        <input type=\"text\" class=\"form-control\" name=\"template_description\" id=\"template_description\" placeholder=\"Enter a template description (optional)\"> \
+            var form = "    <label for=\"template_name\">{{_('Template name')}}</label> \
+                        <input type=\"text\" class=\"form-control\" name=\"template_name\" id=\"template_name\" placeholder=\"{{_('Enter a valid template name')}} ({{_('required')}})\"> \
+                        <label for=\"template_description\">{{_('Template description')}}</label> \
+                        <input type=\"text\" class=\"form-control\" name=\"template_description\" id=\"template_description\" placeholder=\"{{_('Enter a template description')}} ({{_('optional')}})\"> \
                         <input id=\"domain\" name=\"domain\" type=\"hidden\" value=\"" + domain + "\"> \
                     ";
             modal.find('.modal-body p').html(form);

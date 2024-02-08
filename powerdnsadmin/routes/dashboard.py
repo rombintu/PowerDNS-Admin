@@ -195,12 +195,13 @@ def dashboard():
     show_bg_domain_button = BG_DOMAIN_UPDATE
     if BG_DOMAIN_UPDATE and current_user.role.name not in ['Administrator', 'Operator']:
         show_bg_domain_button = False
-
+    VERSION = current_app.config.get("VERSION", None)
     # Add custom boxes to render_template
     return render_template('dashboard.html.jinja',
                            zone_tabs=ZoneTabs,
                            show_bg_domain_button=show_bg_domain_button,
-                           pdns_version=Setting().get('pdns_version'))
+                           pdns_version=Setting().get('pdns_version'),
+                           version=VERSION)
 
 
 @dashboard_bp.route('/domains-updater', methods=['GET', 'POST'])

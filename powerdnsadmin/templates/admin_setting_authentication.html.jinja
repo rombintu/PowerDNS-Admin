@@ -46,8 +46,8 @@
                                     <button type="button" class="close" aria-hidden="true"
                                             data-bind="click: saved(false)">×
                                     </button>
-                                    <h5><i class="icon fas fa-check"></i> Saved!</h5>
-                                    These settings have been saved to the database.
+                                    <h5><i class="icon fas fa-check"></i> {{_('Saved')}}!</h5>
+                                    {{_('These settings have been saved to the database.')}}
                                 </div>
                                 <div class="alert alert-dismissible alert-danger" style="display: none;"
                                      data-bind="visible: save_failed">
@@ -55,14 +55,14 @@
                                             data-bind="click: save_failed(false)">×
                                     </button>
                                     <h5><i class="icon fas fa-ban"></i> {{_('Error')}}</h5>
-                                    These settings could <strong>not</strong> be saved to the database!
+                                    {{_('These settings could')}} <strong>{{_('not')}}</strong> {{_('be saved to the database!')}}
                                 </div>
                                 <div class="alert alert-dismissible" style="display: none;"
                                      data-bind="visible: messages().length, class: 'alert alert-dismissible alert-' + messages_class()">
                                     <button type="button" class="close" aria-hidden="true"
                                             data-bind="click: messages([])">×
                                     </button>
-                                    <h5><i class="icon fas fa-info"></i> Additional Information</h5>
+                                    <h5><i class="icon fas fa-info"></i> {{_('Additional Information')}}</h5>
                                     <ul data-bind="foreach: messages">
                                         <li data-bind="text: $data"></li>
                                     </ul>
@@ -72,13 +72,13 @@
                                         <li class="nav-item">
                                             <a data-tab="local"
                                                data-bind="click: onTabClick, class: 'nav-link' + (tab_active() == 'local' ? ' active' : '')"
-                                               href="#" data-toggle="pill" role="tab">Local</a>
+                                               href="#" data-toggle="pill" role="tab">{{_('Local')}}</a>
                                         </li>
                                     
                                         <li class="nav-item">
                                             <a data-tab="sudis"
                                                data-bind="click: onTabClick, class: 'nav-link' + (tab_active() == 'sudis' ? ' active' : '')"
-                                               href="#" data-toggle="pill" role="tab">SUDIS</a>
+                                               href="#" data-toggle="pill" role="tab">{{_('SUDIS')}}</a>
                                         </li>
                                     </ul>
                                     <div class="tab-content">
@@ -98,61 +98,54 @@
                                                                        name="local_db_enabled"
                                                                        class="checkbox"
                                                                        data-bind="checked: local_db_enabled">
-                                                                <label for="local_db_enabled">Local DB
-                                                                    Authentication</label>
+                                                                <label for="local_db_enabled">{{_('Local DB Authentication')}}</label>
                                                             </div>
                                                             <div class="form-group">
                                                                 <input type="checkbox" id="signup_enabled"
                                                                        name="signup_enabled"
                                                                        class="checkbox"
                                                                        data-bind="enable: local_db_enabled, checked: signup_enabled">
-                                                                <label for="signup_enabled">Allow users to sign
-                                                                    up</label>
+                                                                <label for="signup_enabled">{{_('Allow users to sign up')}}</label>
                                                             </div>
                                                             <fieldset>
-                                                                <legend>Password Requirements</legend>
+                                                                <legend>{{_('Password Requirements')}}</legend>
                                                                 <div class="form-group">
                                                                     <input type="checkbox" id="pwd_enforce_characters"
                                                                            name="pwd_enforce_characters"
                                                                            class="checkbox"
                                                                            data-bind="enable: local_db_enabled, checked: pwd_enforce_characters">
                                                                     <label for="pwd_enforce_characters">
-                                                                        Enforce Character Requirements
+                                                                        {{_('Enforce Character Requirements')}}
                                                                     </label>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label for="pwd_min_len">Minimum Password
-                                                                        Length</label>
+                                                                    <label for="pwd_min_len">{{_('Minimum Password Length')}}</label>
                                                                     <input type="text" class="form-control"
                                                                            name="pwd_min_len" id="pwd_min_len"
                                                                            data-bind="enable: local_db_enabled() && pwd_enforce_characters(), value: pwd_min_len, valueUpdate: 'afterkeydown'">
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label for="pwd_min_lowercase">Minimum Lowercase
-                                                                        Characters</label>
+                                                                    <label for="pwd_min_lowercase">{{_('Minimum Lowercase Characters')}}</label>
                                                                     <input type="text" class="form-control"
                                                                            name="pwd_min_lowercase"
                                                                            id="pwd_min_lowercase"
                                                                            data-bind="enable: local_db_enabled() && pwd_enforce_characters(), value: pwd_min_lowercase, valueUpdate: 'afterkeydown'">
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label for="pwd_min_uppercase">Minimum Uppercase
-                                                                        Characters</label>
+                                                                    <label for="pwd_min_uppercase">{{_('Minimum Uppercase Characters')}}</label>
                                                                     <input type="text" class="form-control"
                                                                            name="pwd_min_uppercase"
                                                                            id="pwd_min_uppercase"
                                                                            data-bind="enable: local_db_enabled() && pwd_enforce_characters(), value: pwd_min_uppercase, valueUpdate: 'afterkeydown'">
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label for="pwd_min_digits">Minimum Digit
-                                                                        Characters</label>
+                                                                    <label for="pwd_min_digits">{{_('Minimum Digit Characters')}}</label>
                                                                     <input type="text" class="form-control"
                                                                            name="pwd_min_digits" id="pwd_min_digits"
                                                                            data-bind="enable: local_db_enabled() && pwd_enforce_characters(), value: pwd_min_digits, valueUpdate: 'afterkeydown'">
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label for="pwd_min_special">Minimum Special
-                                                                        Characters</label>
+                                                                    <label for="pwd_min_special">{{_('Minimum Special Characters')}}</label>
                                                                     <input type="text" class="form-control"
                                                                            name="pwd_min_special" id="pwd_min_special"
                                                                            data-bind="enable: local_db_enabled() && pwd_enforce_characters(), value: pwd_min_special, valueUpdate: 'afterkeydown'">
@@ -163,12 +156,11 @@
                                                                            class="checkbox"
                                                                            data-bind="enable: local_db_enabled, checked: pwd_enforce_complexity">
                                                                     <label for="pwd_enforce_complexity">
-                                                                        Enforce Complexity Requirement
+                                                                        {{_('Enforce Complexity Requirement')}}
                                                                     </label>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label for="pwd_min_complexity">Minimum Complexity
-                                                                        (zxcvbn)</label>
+                                                                    <label for="pwd_min_complexity">{{_('Minimum Complexity (zxcvbn)')}}</label>
                                                                     <input type="text" class="form-control"
                                                                            name="pwd_min_complexity"
                                                                            id="pwd_min_complexity"
@@ -190,76 +182,76 @@
                                                         <!-- /.card-header -->
                                                         <div class="card-body">
                                                             <dl class="dl-horizontal">
-                                                                <dt>Local DB Authentication</dt>
-                                                                <dd>Enable/disable local database authentication.</dd>
-                                                                <dt>Allow Users to Signup</dt>
-                                                                <dd>Allow users to signup. This requires local database
+                                                                <dt>{{_('Local DB Authentication')}}</dt>
+                                                                <dd>{{_('Enable/disable local database authentication.')}}</dd>
+                                                                <dt>{{_('Allow Users to Signup')}}</dt>
+                                                                <dd>{{_('Allow users to signup. This requires local database
                                                                     authentication
-                                                                    to be enabled.
+                                                                    to be enabled.')}}
                                                                 </dd>
-                                                                <h4>Password Requirements</h4>
-                                                                <dd>This section allows you to customize your local DB
+                                                                <h4>{{_('Password Requirements')}}</h4>
+                                                                <dd>{{_('This section allows you to customize your local DB
                                                                     password
                                                                     requirements
                                                                     and ensure that when users change their password or
                                                                     signup
                                                                     they are
-                                                                    picking strong passwords.
+                                                                    picking strong passwords.')}}
                                                                 </dd>
-                                                                <dd>Setting any entry field to a blank value will revert
+                                                                <dd>{{_('Setting any entry field to a blank value will revert
                                                                     it
                                                                     back
-                                                                    to default.
+                                                                    to default.')}}
                                                                 </dd>
-                                                                <dt>Enforce Character Requirements</dt>
-                                                                <dd>This option will enforce the character type
+                                                                <dt>{{_('Enforce Character Requirements')}}</dt>
+                                                                <dd>{{_('This option will enforce the character type
                                                                     requirements
                                                                     for
-                                                                    passwords.
+                                                                    passwords.')}}
                                                                     <ul>
-                                                                        <li>Minimum Lowercase Characters - Minimum
+                                                                        <li>{{_('Minimum Lowercase Characters - Minimum
                                                                             number of
                                                                             lowercase
                                                                             characters required to appear in the
-                                                                            password.
+                                                                            password.')}}
                                                                         </li>
-                                                                        <li>Minimum Uppercase Characters - Minimum
+                                                                        <li>{{_('Minimum Uppercase Characters - Minimum
                                                                             number of
                                                                             uppercase
                                                                             characters required to appear in the
-                                                                            password.
+                                                                            password.')}}
                                                                         </li>
-                                                                        <li>Minimum Digit Characters - Minimum number of
+                                                                        <li>{{_('Minimum Digit Characters - Minimum number of
                                                                             digits
                                                                             required to appear in the password. Digits
                                                                             include
-                                                                            1234567890.
+                                                                            1234567890.')}}
                                                                         </li>
-                                                                        <li>Minimum Special Characters - Minimum number
+                                                                        <li>{{_('Minimum Special Characters - Minimum number
                                                                             of
                                                                             special
                                                                             characters required to appear in the
                                                                             password.
                                                                             Special
                                                                             characters include
-                                                                            `!@#$%^&amp;*()_-=+[]\{}|;:",.&gt;&lt;/?.
+                                                                            `!@#$%^&amp;*()_-=+[]\{}|;:",.&gt;&lt;/?.')}}
                                                                         </li>
                                                                     </ul>
                                                                 </dd>
-                                                                <dt>Enforce Complexity Requirement</dt>
-                                                                <dd>Enable the enforcement of complex passwords. We
-                                                                    currently use
-                                                                    <a href="https://github.com/dropbox/zxcvbn">zxcvbn</a>
-                                                                    for
-                                                                    determining this.
+                                                                <dt>{{_('Enforce Complexity Requirement')}}</dt>
+                                                                <dd>{{_('Enable the enforcement of complex passwords. We
+                                                                    currently use')}}
+                                                                    <a href="https://github.com/dropbox/zxcvbn">{{_('zxcvbn')}}</a>
+                                                                    {{_('for
+                                                                    determining this.')}}
                                                                     <ul>
-                                                                        <li>Minimum Complexity - The default value of
+                                                                        <li>{{_('Minimum Complexity - The default value of
                                                                             the
                                                                             log factor
                                                                             is 11 as it is considered secure. More
                                                                             information about
-                                                                            this can be found at
-                                                                            <a href="https://www.usenix.org/system/files/conference/usenixsecurity16/sec16_paper_wheeler.pdf">here</a>
+                                                                            this can be found at')}}
+                                                                            <a href="https://www.usenix.org/system/files/conference/usenixsecurity16/sec16_paper_wheeler.pdf">{{_('here')}}</a>
                                                                         </li>
                                                                     </ul>
                                                                 </dd>
@@ -293,7 +285,7 @@
                                                                        name="sudis_enabled"
                                                                        class="checkbox"
                                                                        data-bind="checked: sudis_enabled">
-                                                                <label for="sudis_enabled">Sudis Authentication</label>
+                                                                <label for="sudis_enabled">{{_('Sudis Authentication')}}</label>
                                                             </div>
                                                             {# <div class="form-group">
                                                                 <input type="checkbox" id="sudis_debug"
@@ -303,9 +295,9 @@
                                                                 <label for="sudis_debug">Debug</label>
                                                             </div> #}
                                                             <fieldset>
-                                                                <legend>Service Provider Configuration</legend>
+                                                                <legend>{{_('Service Provider Configuration')}}</legend>
                                                                 <div class="form-group">
-                                                                    <label for="sp_consume_url">Service Provider Url Address</label>
+                                                                    <label for="sp_consume_url">{{_('Service Provider Url Address')}}</label>
                                                                     <input type="text" class="form-control"
                                                                            name="sp_consume_url" id="sp_consume_url"
                                                                            data-bind="enable: sudis_enabled(), value: sp_consume_url, valueUpdate: 'afterkeydown'">
@@ -316,9 +308,9 @@
                                                                            name="sp_name" id="sp_name"
                                                                            data-bind="enable: sudis_enabled(), value: sp_name, valueUpdate: 'afterkeydown'">
                                                                 </div>
-                                                                <legend>CMS Configuration</legend>
+                                                                <legend>{{_('CMS Configuration')}}</legend>
                                                                 <div class="form-group">
-                                                                    <label for="cms_url">CMS Url Address</label>
+                                                                    <label for="cms_url">{{_('CMS Url Address')}}</label>
                                                                     <input type="text" class="form-control"
                                                                            name="cms_url" id="cms_url"
                                                                            data-bind="enable: sudis_enabled(), value: cms_url, valueUpdate: 'afterkeydown'">
@@ -335,7 +327,7 @@
                                                                            name="recipient_key_name" id="recipient_key_name"
                                                                            data-bind="enable: sudis_enabled(), value: recipient_key_name, valueUpdate: 'afterkeydown'">
                                                                 </div>
-                                                                <legend>Sudis Configuration</legend>
+                                                                <legend>{{_('Sudis Configuration')}}</legend>
                                                                 {# <div class="form-group">
                                                                     <label for="sudis_metadata_url">Metadata URL</label>
                                                                     <input type="text" class="form-control"

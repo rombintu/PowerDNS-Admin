@@ -1,18 +1,18 @@
 {% extends "base.html.jinja" %}
 {% set active_page = "admin_domain_template" %}
-{% block title %}<title>Zone Templates - {{ SITE_NAME }}</title>{% endblock %}
+{% block title %}<title>{{_('Zone Templates')}} - {{ SITE_NAME }}</title>{% endblock %}
 
 {% block dashboard_stat %}
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">Zone Templates</h1>
+                    <h1 class="m-0 text-dark">{{_('Zone Templates')}}</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ url_for('dashboard.dashboard') }}">{{_('Dashboard')}}</a></li>
-                        <li class="breadcrumb-item active">Zone Templates</li>
+                        <li class="breadcrumb-item active">{{_('Zone Templates')}}</li>
                     </ol>
                 </div>
             </div>
@@ -31,7 +31,7 @@
                                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;
                                 </button>
                                 <h4>
-                                    <i class="fa-solid fa-ban"></i> Error!
+                                    <i class="fa-solid fa-ban"></i> {{_('Error')}}!
                                 </h4>
                                 <div class="alert-message block-message error">
                                     <a class="close" href="#">x</a>
@@ -51,11 +51,11 @@
                 <div class="col-12">
                     <div class="card card-outline card-primary shadow">
                         <div class="card-header">
-                            <h3 class="card-title">Templates</h3>
+                            <h3 class="card-title">{{_('Templates')}}</h3>
                             <div class="card-tools">
                                 <a href="{{ url_for('admin.create_template') }}">
                                     <button type="button" class="btn btn-primary">
-                                        <i class="fa-solid fa-plus"></i> Create Template
+                                        <i class="fa-solid fa-plus"></i> {{_('Create')}}
                                     </button>
                                 </a>
                             </div>
@@ -68,8 +68,8 @@
                                 <tr>
                                     <th>{{_('Name')}}</th>
                                     <th>{{_('Description')}}</th>
-                                    <th>Total Records</th>
-                                    <th>Actions</th>
+                                    <th>{{_('Total Records')}}</th>
+                                    <th>{{_('Actions')}}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -92,14 +92,14 @@
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenu">
                                                     <button type="button" class="dropdown-item btn-warning"
                                                             onclick="window.location.href='{{ url_for('admin.edit_template', template=template.name) }}'">
-                                                        <i class="fa-solid fa-edit"></i>&nbsp;Edit Template
+                                                        <i class="fa-solid fa-edit"></i>&nbsp;{{_('Edit')}}
                                                     </button>
                                                     <div class="dropdown-divider"></div>
                                                     <button type="button"
                                                             class="dropdown-item btn-secondary button_delete"
                                                             id="{{ template.name }}">
                                                         <span style="color: red;">
-                                                            <i class="fa-solid fa-trash"></i>&nbsp;Delete Template
+                                                            <i class="fa-solid fa-trash"></i>&nbsp;{{_('Delete')}}
                                                         </span>
                                                     </button>
                                                 </div>

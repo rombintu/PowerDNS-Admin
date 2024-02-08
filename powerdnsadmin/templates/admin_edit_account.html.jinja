@@ -1,26 +1,26 @@
 {% extends "base.html.jinja" %}
 {% set active_page = "admin_accounts" %}
 {% if create %}
-    {% set action_label = 'Create' %}
+    {% set action_label = _('Create') %}
     {% set form_action = url_for('admin.edit_account') %}
 {% else %}
-    {% set action_label = 'Edit' %}
+    {% set action_label = _('Editor') %}
     {% set form_action = url_for('admin.edit_account', account_name=account.name) %}
 {% endif %}
-{% block title %}<title>{{ action_label }} Account - {{ SITE_NAME }}</title>{% endblock %}
+{% block title %}<title>{{ action_label }}: {{_('Account')}} - {{ SITE_NAME }}</title>{% endblock %}
 
 {% block dashboard_stat %}
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">{{ action_label }} {{_('Account')}}</h1>
+                    <h1 class="m-0 text-dark">{{ action_label }}: {{_('Account')}}</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ url_for('dashboard.dashboard') }}">{{_('Home')}}</a></li>
                         <li class="breadcrumb-item"><a href="{{ url_for('admin.manage_account') }}">{{_('Accounts')}}</a></li>
-                        <li class="breadcrumb-item active">{{ action_label }} {{_('Account')}}</li>
+                        <li class="breadcrumb-item active">{{ action_label }}: {{_('Account')}}</li>
                     </ol>
                 </div>
             </div>
@@ -55,7 +55,7 @@
                                 <div
                                     class="form-group has-feedback {% if invalid_accountname or duplicate_accountname %}has-error{% endif %}">
                                     <label class="control-label" for="accountname">{{_('Name')}}</label>
-                                    <input type="text" class="form-control" placeholder="Account Name (required)"
+                                    <input type="text" class="form-control" placeholder="{{_('Account Name')}} ({{_('optional')}})"
                                            name="accountname" id="accountname"
                                            {% if account %}value="{{ account.name }}" {% endif %}
                                            {% if not create %}disabled{% endif %} required>
@@ -69,21 +69,21 @@
                                 </div>
                                 <div class="form-group has-feedback">
                                     <label class="control-label" for="accountdescription">{{_('Description')}}</label>
-                                    <input type="text" class="form-control" placeholder="Account Description (optional)"
+                                    <input type="text" class="form-control" placeholder="{{_('Account Description')}} ({{_('optional')}})"
                                            name="accountdescription" id="accountdescription"
                                            {% if account %}value="{{ account.description }}" {% endif %}>
                                     <span class="orm-control-feedback"></span>
                                 </div>
                                 <div class="form-group has-feedback">
                                     <label class="control-label" for="accountcontact">{{_('Contact Person')}}</label>
-                                    <input type="text" class="form-control" placeholder="Contact Person (optional)"
+                                    <input type="text" class="form-control" placeholder="{{_('Contact Person')}} ({{_('optional')}})"
                                            name="accountcontact" id="accountcontact"
                                            {% if account %}value="{{ account.contact }}" {% endif %}>
                                     <span class="form-control-feedback"></span>
                                 </div>
                                 <div class="form-group has-feedback">
                                     <label class="control-label" for="accountmail">{{_('Mail Address')}}</label>
-                                    <input type="email" class="form-control" placeholder="Mail Address (optional)"
+                                    <input type="email" class="form-control" placeholder="{{_('Mail Address')}} ({{_('optional')}})"
                                            name="accountmail" id="accountmail"
                                            {% if account %}value="{{ account.mail }}" {% endif %}>
                                     <span class="form-control-feedback"></span>
@@ -111,13 +111,13 @@
                             </div>
                             <!-- /.card-body -->
                             <div class="card-body">
-                                <p>Zones on the right are associated with the account. Red marked zone names are
+                                <p>{{_('Zones on the right are associated with the account. Red marked zone names are
                                     already associated with other accounts.
                                     Moving already associated zones to this account will overwrite the previous
-                                    associated account.
+                                    associated account.')}}
                                 </p>
-                                <p>Hover over the red zone names to show the associated account. Click on zones to
-                                    move between columns.</p>
+                                <p>{{_('Hover over the red zone names to show the associated account. Click on zones to
+                                    move between columns.')}}</p>
                                 <div class="form-group col-2">
                                     <select multiple="multiple" class="form-control" id="account_domains"
                                             name="account_domains">
@@ -144,11 +144,15 @@
                             <div class="card-footer">
                                 <button type="button" class="btn btn-secondary float-left" title="Cancel"
                                         onclick="window.location.href='{{ url_for('admin.manage_account') }}'">
-                                    Cancel
+                                    {{_('Cancel')}}
                                 </button>
-                                <button type="submit" class="btn btn-primary float-right"
+                                {# <button type="submit" class="btn btn-primary float-right"
                                         title="{{ action_label }} Account">
-                                    {{ action_label }} Account
+                                    {{ action_label }} {{_('Account')}}
+                                </button> #}
+                                <button type="submit" class="btn btn-primary float-right"
+                                        title="{{ action_label }} {{_('Account')}}">
+                                    {{_('Save')}}
                                 </button>
                             </div>
                             <!-- /.card-footer -->
@@ -161,28 +165,28 @@
                 <div class="col-12 col-sm-6 col-lg-8">
                     <div class="card card-outline card-secondary shadow">
                         <div class="card-header">
-                            <h3 class="card-title">Account Editor Help</h3>
+                            <h3 class="card-title">{{_('Help')}}</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
                             <p>
-                                An account allows grouping of zones belonging to a particular entity, such as a
+                                {{_('An account allows grouping of zones belonging to a particular entity, such as a
                                 customer or
-                                department.
+                                department.')}}
                             </p>
                             <p>
-                                A zone can be assigned to an account upon zone creation or through the zone
+                                {{_('A zone can be assigned to an account upon zone creation or through the zone
                                 administration
-                                page.
+                                page.')}}
                             </p>
-                            <p>Fill in all the fields to the in the form to the left.</p>
+                            <p>{{_('Fill in all the fields to the in the form to the left.')}}</p>
                             <p>
-                                <strong>{{_('Name')}}</strong> is an account identifier. It will be lowercase and can contain
+                                <strong>{{_('Name')}}</strong> {{_('is an account identifier. It will be lowercase and can contain
                                 alphanumeric
-                                characters.<br/>
-                                <strong>{{_('Description')}}</strong> is a user-friendly name for this account.<br/>
-                                <strong>Contact person</strong> is the name of a contact person at the account.<br/>
-                                <strong>Mail Address</strong> is an e-mail address for the contact person.
+                                characters.')}}<br/>
+                                <strong>{{_('Description')}}</strong> {{_('is a user-friendly name for this account.')}}<br/>
+                                <strong>{{_('Contact person')}}</strong> {{_('is the name of a contact person at the account.')}}<br/>
+                                <strong>{{_('Mail Address')}}</strong> {{_('is an e-mail address for the contact person.')}}
                             </p>
                         </div>
                         <!-- /.card-body -->
@@ -237,7 +241,7 @@
             });
         }
 
-        addMultiSelect("#account_multi_user", "Username")
-        addMultiSelect("#account_domains", "Zone")
+        addMultiSelect("#account_multi_user", "{{_('Username')}}")
+        addMultiSelect("#account_domains", "{{_('Zone')}}")
     </script>
 {% endblock %}

@@ -1,6 +1,6 @@
 {% extends "base.html.jinja" %}
 {% set active_page = "new_domain" %}
-{% block title %}<title>Create Zone - {{ SITE_NAME }}</title>{% endblock %}
+{% block title %}<title>{{_('Create Zone')}} - {{ SITE_NAME }}</title>{% endblock %}
 
 {% block dashboard_stat %}
     <div class="content-header">
@@ -8,13 +8,13 @@
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <h1 class="m-0 text-dark">
-                        Create Zone
+                        {{_('Create Zone')}}
                     </h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ url_for('dashboard.dashboard') }}">{{_('Dashboard')}}</a></li>
-                        <li class="breadcrumb-item active">New Zone</li>
+                        <li class="breadcrumb-item active">{{_('New Zone')}}</li>
                     </ol>
                 </div>
             </div>
@@ -31,65 +31,65 @@
                         <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
                         <div class="card card-outline card-primary shadow">
                             <div class="card-header">
-                                <h3 class="card-title">Zone Editor</h3>
+                                <h3 class="card-title">{{_('Editor')}}</h3>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label for="domain_name">Zone Name</label>
+                                    <label for="domain_name">{{_('Zone Name')}}</label>
                                     <input type="text" class="form-control" name="domain_name" id="domain_name"
-                                           placeholder="Enter a valid zone name (required)">
+                                           placeholder="{{_('Enter a valid zone name')}} ({{_('required')}})">
                                 </div>
                                 {% if domain_override_toggle == True %}
                                     <div class="form-group">
                                         <input type="checkbox" id="domain_override" name="domain_override"
                                                class="checkbox">
                                         &nbsp;
-                                        <label for="domain_override">Zone Override Record</label>
+                                        <label for="domain_override">{{_('Zone Override Record')}}</label>
                                     </div>
                                 {% endif %}
                                 <div class="form-group">
                                     <label for="selAccount">{{_('Account')}}</label>
                                     <select name="accountid" id="selAccount" class="form-control">
-                                        <option value="0">- No Account -</option>
+                                        <option value="0">- {{_('No Account')}} -</option>
                                         {% for account in accounts %}
                                             <option value="{{ account.id }}">{{ account.name }}</option>
                                         {% endfor %}
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label>Zone Type</label>
+                                    <label>{{_('Zone Type')}}</label>
                                     <div class="radio">
                                         <label>
                                             <input type="radio" name="radio_type" id="radio_type_native" value="native"
                                                    checked>
-                                            Native
+                                            {{_('Native')}}
                                         </label>
                                     </div>
                                     <div class="radio">
                                         <label>
                                             <input type="radio" name="radio_type" id="radio_type_primary"
                                                    value="primary">
-                                            Primary
+                                            {{_('Primary')}}
                                         </label>
                                     </div>
                                     <div class="radio">
                                         <label>
                                             <input type="radio" name="radio_type" id="radio_type_secondary"
                                                    value="slave">
-                                            Secondary
+                                            {{_('Secondary')}}
                                         </label>
                                     </div>
                                 </div>
                                 <div class="form-group" style="display: none;" id="domain_master_address_div">
                                     <input type="text" class="form-control" name="domain_master_address"
                                            id="domain_master_address"
-                                           placeholder="Enter valid Primary Server IP addresses (separated by commas)">
+                                           placeholder="{{_('Enter valid Primary Server IP addresses')}} ({{_('separated by commas')}})">
                                 </div>
                                 <div class="form-group">
-                                    <label for="domain_template">Zone Template</label>
+                                    <label for="domain_template">{{_('Zone Template')}}</label>
                                     <select class="form-control" id="domain_template" name="domain_template">
-                                        <option value="0">No template</option>
+                                        <option value="0">{{_('No template')}}</option>
                                         {% for template in templates %}
                                             <option value="{{ template.id }}">{{ template.name }}</option>
                                         {% endfor %}
@@ -130,10 +130,10 @@
                             <div class="card-footer">
                                 <button type="button" title="Cancel" class="btn btn-secondary"
                                         onclick="window.location.href='{{ url_for('dashboard.dashboard') }}'">
-                                    <i class="fa-solid fa-window-close"></i>&nbsp;Cancel
+                                    <i class="fa-solid fa-window-close"></i>&nbsp;{{_('Cancel')}}
                                 </button>
                                 <button type="submit" title="Create Zone" class="btn btn-primary float-right">
-                                    <i class="fa-solid fa-save"></i>&nbsp;Create Zone
+                                    <i class="fa-solid fa-save"></i>&nbsp;{{_('Create Zone')}}
                                 </button>
                             </div>
                             <!-- /.card-footer -->
@@ -145,71 +145,71 @@
                 <div class="col-12 col-sm-6 col-lg-8">
                     <div class="card card-outline card-secondary shadow">
                         <div class="card-header">
-                            <h3 class="card-title">Zone Editor Help</h3>
+                            <h3 class="card-title">{{_('Help')}}</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
                             <dl class="dl-horizontal">
-                                <dt>Zone Name</dt>
-                                <dd>Enter your zone name in the format of name.tld (eg. powerdns-admin.com). You can
+                                <dt>{{_('Zone Name')}}</dt>
+                                <dd>{{_('Enter your zone name in the format of name.tld (eg. powerdns-admin.com). You can
                                     also enter sublevel zones to create delegate zones (eg. sub.powerdns-admin.com)
-                                    which can be useful for delegating control to other users.
+                                    which can be useful for delegating control to other users.')}}
                                 </dd>
-                                <dt>Zone Override Record</dt>
-                                <dd>When enabled, this will allow the user to by-pass validation errors if the user
-                                    doesn't have administration rights to a parent zone.
+                                <dt>{{_('Zone Override Record')}}</dt>
+                                <dd>{{_("When enabled, this will allow the user to by-pass validation errors if the user
+                                    doesn't have administration rights to a parent zone.")}}
                                 </dd>
                                 <dt>{{_('Account')}}</dt>
-                                <dd>Specifies the PowerDNS account value to use for the zone.</dd>
-                                <dt>Zone Type</dt>
-                                <dd>The type decides how the zone will be replicated across multiple DNS servers.
+                                <dd>{{_('Specifies the PowerDNS account value to use for the zone.')}}</dd>
+                                <dt>{{_('Zone Type')}}</dt>
+                                <dd>{{_('The type decides how the zone will be replicated across multiple DNS servers.')}}
                                     <ul>
                                         <li>
-                                            <strong>Native</strong> - The server will not perform any Primary or Secondary
-                                            zone functions.
+                                            <strong>{{_('Native')}}</strong> - {{_('The server will not perform any Primary or Secondary
+                                            zone functions.')}}
                                         </li>
                                         <li>
-                                            <strong>Primary</strong> - The server will serve as the Primary and will send
-                                            zone transfers (AXFRs) to other servers configured as secondaries.
+                                            <strong>{{_('Primary')}}</strong> - {{_('The server will serve as the Primary and will send
+                                            zone transfers (AXFRs) to other servers configured as secondaries.')}}
                                         </li>
                                         <li>
-                                            <strong>Secondary</strong> - The server will serve as the Secondary and will
+                                            <strong>{{_('Secondary')}}</strong> - {{_('The server will serve as the Secondary and will
                                             request and receive zone transfers (AXFRs) from other servers configured as
-                                            Primaries.
+                                            Primaries.')}}
                                         </li>
                                     </ul>
                                 </dd>
-                                <dt>Zone Template</dt>
-                                <dd>Specifies the existing zone template which this zone should initially be replicated
-                                    from.
+                                <dt>{{_('Zone Template')}}</dt>
+                                <dd>{{_('Specifies the existing zone template which this zone should initially be replicated
+                                    from.')}}
                                 </dd>
                                 <dt>SOA-EDIT-API</dt>
-                                <dd>The SOA-EDIT-API setting defines how the SOA serial number will be updated after a
+                                <dd>{{_('The SOA-EDIT-API setting defines how the SOA serial number will be updated after a
                                     change is
-                                    made to the zone.
+                                    made to the zone.')}}
                                     <ul>
                                         <li>
-                                            <strong>DEFAULT</strong> - Generate a soa serial of YYYYMMDD01. If the current serial
+                                            <strong>DEFAULT</strong> - {{_('Generate a soa serial of YYYYMMDD01. If the current serial
                                             is lower than
                                             the generated serial, use the generated serial. If the current serial is
                                             higher or
-                                            equal to the generated serial, increase the current serial by 1.
+                                            equal to the generated serial, increase the current serial by 1.')}}
                                         </li>
                                         <li>
-                                            <strong>INCREASE</strong> - Increase the current serial by 1.
+                                            <strong>INCREASE</strong> - {{_('Increase the current serial by 1.')}}
                                         </li>
                                         <li>
-                                            <strong>EPOCH</strong> - Change the serial to the number of seconds since the EPOCH,
-                                            AKA UNIX timestamps
+                                            <strong>EPOCH</strong> - {{_('Change the serial to the number of seconds since the EPOCH,
+                                            AKA UNIX timestamps')}}
                                         </li>
                                         <li>
-                                            <strong>OFF</strong> - Disable automatic updates of the SOA serial.
+                                            <strong>OFF</strong> - {{_('Disable automatic updates of the SOA serial.')}}
                                         </li>
                                     </ul>
                                 </dd>
                             </dl>
                             <p>
-                                Find more details at <a href="https://docs.powerdns.com/md/" target="_blank">https://docs.powerdns.com/md/</a>
+                                {{_('Find more details at')}} <a href="https://docs.powerdns.com/md/" target="_blank">https://docs.powerdns.com/md/</a>
                             </p>
                         </div>
                         <!-- /.card-body -->
@@ -254,7 +254,7 @@
             <div class="modal-content modal-sm">
                 <div class="modal-header alert-danger">
                     <h4 class="modal-title">
-                        WARNING
+                        {{_('WARNING')}}
                     </h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"
                             id="button_close_warn_modal">
@@ -267,7 +267,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary center-block" data-dismiss="modal"
                             id="button_confirm_warn_modal">
-                        CLOSE
+                        {{_('CLOSE')}}
                     </button>
                 </div>
             </div>

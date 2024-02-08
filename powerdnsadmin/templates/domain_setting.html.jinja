@@ -10,11 +10,11 @@
         {% elif status.get('status') == 'error' %}
             <div class="alert alert-danger">
                 {% if status.get('msg') != None %}
-                    <strong>Error!</strong>
+                    <strong>{{_('Error')}}!</strong>
                     {{ status.get('msg') }}
                 {% else %}
-                    <strong>Error!</strong>
-                    An undefined error occurred.
+                    <strong>{{_('Error')}}!</strong>
+                    {{_('An undefined error occurred.')}}
                 {% endif %}
             </div>
         {% endif %}
@@ -24,13 +24,13 @@
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <h1 class="m-0 text-dark">
-                        Edit Zone - {{ domain.name | pretty_domain_name }}
+                        {{_('Edit Zone')}} - {{ domain.name | pretty_domain_name }}
                     </h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{ url_for('dashboard.dashboard') }}">{{_('Dashboard')}}</a></li>
-                        <li class="breadcrumb-item active">Edit Zone - {{ domain.name | pretty_domain_name }}</li>
+                        <li class="breadcrumb-item active">{{_('Edit Zone')}} - {{ domain.name | pretty_domain_name }}</li>
                     </ol>
                 </div>
             </div>
@@ -50,7 +50,7 @@
                         <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
                         <div class="card card-outline card-secondary shadow">
                             <div class="card-header">
-                                <h3 class="card-title">Change Zone {{_('Account')}}</h3>
+                                <h3 class="card-title">{{_('Change Zone')}} {{_('Account')}}</h3>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
@@ -84,7 +84,7 @@
                 <div class="col-12 col-sm-4">
                     <div class="card card-outline card-secondary shadow">
                         <div class="card-header">
-                            <h3 class="card-title">Auto PTR creation</h3>
+                            <h3 class="card-title">{{_('Auto PTR creation')}}</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -95,10 +95,10 @@
                                        {% endif %}{% endfor %}
                                        {% if SETTING.get('auto_ptr') %}disabled="True" {% endif %}>
                                 &nbsp;
-                                <label for="chkAutoPtr">Allow automatic reverse pointer creation on record
-                                    updates?</label>
+                                <label for="chkAutoPtr">{{_('Allow automatic reverse pointer creation on record
+                                    updates?')}}</label>
                                 {% if SETTING.get('auto_ptr') %}
-                                    <p><code>Auto-ptr is enabled globally on the PDA system!</code></p>
+                                    <p><code>{{_('Auto-ptr is enabled globally on the PDA system!')}}</code></p>
                                 {% endif %}
                             </div>
                             <!-- /.form-group -->
@@ -109,7 +109,7 @@
                 </div>
                 <!-- /.col -->
 
-                <div class="col-12 col-sm-4">
+                {# <div class="col-12 col-sm-4">
                     <div class="card card-outline card-secondary shadow">
                         <div class="card-header">
                             <h3 class="card-title">DynDNS 2 Settings</h3>
@@ -130,7 +130,7 @@
                     </div>
                     <!-- /.card -->
                 </div>
-                <!-- /.col -->
+                <!-- /.col --> #}
 
             </div>
             <!-- /.row -->
@@ -141,18 +141,18 @@
                         <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
                         <div class="card card-outline card-secondary shadow">
                             <div class="card-header">
-                                <h3 class="card-title">Zone {{_('Access Control')}}</h3>
+                                <h3 class="card-title">{{_('Zone')}}: {{_('Access Control')}}</h3>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-12">
-                                        <p>Users on the right have access to manage the records in
-                                            the {{ domain.name | pretty_domain_name }} zone.</p>
-                                        <p>Click on users to move from between columns.</p>
+                                        <p>{{_('Users on the right have access to manage the records in
+                                            the ')}}{{ domain.name | pretty_domain_name }} {{_('zone')}}.</p>
+                                        <p>{{_('Click on users to move from between columns.')}}</p>
                                         <p>
-                                            Users in <font style="color: red;">red</font> are Administrators
-                                            and already have access to <b>ALL</b> zones.
+                                            <font style="color: blue;">{{_('Blue Users')}}</font> {{_('are Administrators
+                                            and already have access to ')}}<b>{{_('ALL')}}</b> {{_('zones')}}.
                                         </p>
                                     </div>
                                 </div>
@@ -165,7 +165,7 @@
                                                 {% for user in users %}
                                                     <option {% if user.id in
                                     domain_user_ids %}selected{% endif %} value="{{ user.username }}"
-                                                            {% if user.role.name== 'Administrator' %}style="color: red" {% endif %}>{{ user.username }}</option> {% endfor %}
+                                                            {% if user.role.name== 'Administrator' %}style="color: blue" {% endif %}>{{ user.username }}</option> {% endfor %}
                                             </select>
                                         </div>
                                         <!-- /.form-group -->
@@ -193,28 +193,28 @@
                 <div class="col-12">
                     <div class="card card-outline card-secondary shadow">
                         <div class="card-header">
-                            <h3 class="card-title">Change Zone Type</h3>
+                            <h3 class="card-title">{{_('Change Zone Type')}}</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <p>The type decides how the zone will be replicated across multiple DNS servers.</p>
+                            <p>{{_('The type decides how the zone will be replicated across multiple DNS servers.')}}</p>
                             <ul>
                                 <li>
-                                    Native - PowerDNS will not perform any replication. Use this if you only have one
-                                    PowerDNS server or you handle replication via your backend.
+                                    Native - {{_('PowerDNS will not perform any replication. Use this if you only have one
+                                    PowerDNS server or you handle replication via your backend.')}}
                                 </li>
                                 <li>
-                                    Primary - This PowerDNS server will serve as the primary and will send zone
+                                    Primary - {{_('This PowerDNS server will serve as the primary and will send zone
                                     transfers
-                                    (AXFRs) to other servers configured as secondaries.
+                                    (AXFRs) to other servers configured as secondaries.')}}
                                 </li>
                                 <li>
-                                    Secondary - This PowerDNS server will serve as the secondaries and will request and
+                                    Secondary - T{{_('his PowerDNS server will serve as the secondaries and will request and
                                     receive
-                                    zone transfers (AXFRs) from other servers configured as primaries.
+                                    zone transfers (AXFRs) from other servers configured as primaries.')}}
                                 </li>
                             </ul>
-                            <b>New Zone Type Setting:</b>
+                            <b>{{_('New Zone Type Setting')}}:</b>
                             <form method="post" action="{{ url_for('domain.change_type', domain_name=domain.name) }}">
                                 <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
                                 <select name="domain_type" class="form-control" style="width:15em;">
@@ -230,7 +230,7 @@
                                            value="{{ masters }}">
                                 </div>
                                 <button type="submit" title="Update Zone Type" class="btn btn-primary" id="change_type">
-                                    <i class="fa-solid fa-floppy-disk"></i>&nbsp;Update Zone Type
+                                    <i class="fa-solid fa-floppy-disk"></i>&nbsp;{{_('Update Zone Type')}}
                                 </button>
                             </form>
                         </div>
@@ -246,32 +246,32 @@
                 <div class="col-12">
                     <div class="card card-outline card-secondary shadow">
                         <div class="card-header">
-                            <h3 class="card-title">Change SOA-EDIT-API</h3>
+                            <h3 class="card-title">{{_('Change')}} SOA-EDIT-API</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <p>The SOA-EDIT-API setting defines how the SOA serial number will be updated after a change
+                            <p>SOA-EDIT-API {{_('setting defines how the SOA serial number will be updated after a change
                                 is made
-                                to the zone.</p>
+                                to the zone.')}}</p>
                             <ul>
                                 <li>
-                                    DEFAULT - Generate a soa serial of YYYYMMDD01. If the current serial is lower than
+                                    {{_('DEFAULT - Generate a soa serial of YYYYMMDD01. If the current serial is lower than
                                     the
                                     generated serial, use the generated serial. If the current serial is higher or equal
                                     to the
-                                    generated serial, increase the current serial by 1.
+                                    generated serial, increase the current serial by 1.')}}
                                 </li>
                                 <li>
-                                    INCREASE - Increase the current serial by 1.
+                                    INCREASE - {{_('Increase the current serial by 1.')}}
                                 </li>
                                 <li>
-                                    EPOCH - Change the serial to the number of seconds since the EPOCH, aka unixtime.
+                                    EPOCH - {{_('Change the serial to the number of seconds since the EPOCH, aka unixtime.')}}
                                 </li>
                                 <li>
-                                    OFF - Disable automatic updates of the SOA serial.
+                                    OFF - {{_('Disable automatic updates of the SOA serial.')}}
                                 </li>
                             </ul>
-                            <b>New SOA-EDIT-API Setting:</b>
+                            <b>{{_('New')}} SOA-EDIT-API {{_('Setting')}}:</b>
                             <form method="post"
                                   action="{{ url_for('domain.change_soa_edit_api', domain_name=domain.name) }}">
                                 <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
@@ -283,7 +283,7 @@
                                 </select><br/>
                                 <button type="submit" title="Update SOA-EDIT-API" class="btn btn-primary"
                                         id="change_soa_edit_api">
-                                    <i class="fa-solid fa-floppy-disk"></i>&nbsp;Update SOA-EDIT-API
+                                    <i class="fa-solid fa-floppy-disk"></i>&nbsp;{{_('Update')}} SOA-EDIT-API
                                 </button>
                             </form>
                         </div>
@@ -299,17 +299,17 @@
                 <div class="col-12">
                     <div class="card card-outline card-danger shadow">
                         <div class="card-header">
-                            <h3 class="card-title">Remove Zone</h3>
+                            <h3 class="card-title">{{_('Remove Zone')}}</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <p>This function is used to remove a zone from PowerDNS-Admin <b>AND</b> PowerDNS. All
+                            <p>{{_('This function is used to remove a zone from PowerDNS-Admin <b>AND</b> PowerDNS. All
                                 records and
                                 user privileges associated with this zone will also be removed. This change cannot be
-                                reverted.</p>
+                                reverted.')}}</p>
                             <button type="button" title="Delete Zone" class="btn btn-danger float-left delete_domain"
                                     id="{{ domain.name }}">
-                                <i class="fa-solid fa-trash"></i>&nbsp;Delete Zone
+                                <i class="fa-solid fa-trash"></i>&nbsp;{{_('Delete Zone')}}
                             </button>
                         </div>
                         <!-- /.card-body -->
@@ -339,8 +339,8 @@
         });
 
         $("#domain_multi_user").multiSelect({
-            selectableHeader: "<input type='text' class='search-input' autocomplete='off' placeholder='Username'>",
-            selectionHeader: "<input type='text' class='search-input' autocomplete='off' placeholder='Username'>",
+            selectableHeader: "<input type='text' class='search-input' autocomplete='off' placeholder='{{_('Username')}}'>",
+            selectionHeader: "<input type='text' class='search-input' autocomplete='off' placeholder='{{_('Username')}}'>",
             afterInit: function (ms) {
                 var that = this,
                     $selectableSearch = that.$selectableUl.prev(),
@@ -437,7 +437,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Confirmation</h4>
+                    <h4 class="modal-title">{{_('Confirmation')}}</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

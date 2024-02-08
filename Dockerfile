@@ -40,8 +40,8 @@ COPY . /build
 # Prepare assets
 RUN yarn install --pure-lockfile --production && \
     yarn cache clean && \
-    sed -i -r -e "s|'rcssmin',\s?'cssrewrite'|'rcssmin'|g" /build/powerdnsadmin/assets.py && \
-    poetry run flask assets build
+    sed -i -r -e "s|'rcssmin',\s?'cssrewrite'|'rcssmin'|g" /build/powerdnsadmin/assets.py
+RUN poetry run flask assets build
 
 RUN mv /build/powerdnsadmin/static /tmp/static && \
     mkdir /build/powerdnsadmin/static && \
