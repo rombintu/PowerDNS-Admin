@@ -78,16 +78,19 @@
                     {% if SETTING.get('sudis_enabled') %}
                     <div class="row">
                         <div class="col">
-                                    <a href="{{ url_for('index.sudis_login') }}" class="btn btn-warning btn-block">
-                                        {{_('Via')}} <i class="fa-solid fa-shield"></i> {{_('SUDIS')}}
-                                    </a>
+                                <a href="{{ url_for('index.sudis_login') }}" class="btn btn-warning btn-block">
+                                    {{_('Via')}} <i class="fa-solid fa-shield"></i> {{_('SUDIS')}}
+                                </a>
                                 
-                                    {# <div class="icheck">
-                                        <input type="checkbox" id="via_sudis" name="via_sudis">
-                                        <label for="sudis">
-                                            {{_('Via')}} <i class="fa-solid fa-shield"></i> {{_('Sudis')}}
-                                        </label>
-                                    </div> #}
+                                {# <button type="submit" class="btn btn-warning btn-block">
+                                    {{_('Via')}} <i class="fa-solid fa-shield"></i> {{_('SUDIS')}}
+                                </button> #}
+                                {# <div class="icheck">
+                                    <input type="checkbox" id="via_sudis" name="via_sudis">
+                                    <label for="sudis">
+                                        {{_('Via')}} <i class="fa-solid fa-shield"></i> {{_('Sudis')}}
+                                    </label>
+                                </div> #}
                         </div>
                     </div>
                     {% endif %}

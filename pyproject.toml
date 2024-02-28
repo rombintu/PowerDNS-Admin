@@ -43,7 +43,6 @@ zxcvbn = "4.4.28"
 psycopg2 = "2.9.5"
 python-dotenv = "^1.0.0"
 flask-babel = "^4.0.0"
-xmltodict = "^0.13.0"
 
 
 [build-system]

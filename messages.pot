@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-02-08 17:41+0300\n"
+"POT-Creation-Date: 2024-02-26 16:31+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -76,6 +76,7 @@ msgid ""
 msgstr ""
 
 #: powerdnsadmin/templates/admin_edit_account.html.jinja:4
+#: powerdnsadmin/templates/admin_manage_account.html.jinja:35
 #: powerdnsadmin/templates/admin_manage_keys.html.jinja:32
 #: powerdnsadmin/templates/admin_manage_user.html.jinja:34
 #: powerdnsadmin/templates/template.html.jinja:58
@@ -95,7 +96,6 @@ msgstr ""
 #: powerdnsadmin/templates/admin_edit_account.html.jinja:17
 #: powerdnsadmin/templates/admin_edit_account.html.jinja:23
 #: powerdnsadmin/templates/admin_edit_account.html.jinja:151
-#: powerdnsadmin/templates/admin_manage_account.html.jinja:35
 #: powerdnsadmin/templates/dashboard.html.jinja:75
 #: powerdnsadmin/templates/domain_add.html.jinja:52
 #: powerdnsadmin/templates/domain_add.html.jinja:162
@@ -652,6 +652,7 @@ msgstr ""
 #: powerdnsadmin/templates/admin_setting_authentication.html.jinja:81
 #: powerdnsadmin/templates/login.html.jinja:65
 #: powerdnsadmin/templates/login.html.jinja:82
+#: powerdnsadmin/templates/login.html.jinja:86
 msgid "SUDIS"
 msgstr ""
 
@@ -707,10 +708,6 @@ msgstr ""
 msgid "Info"
 msgstr ""
 
-#: powerdnsadmin/templates/admin_manage_account.html.jinja:35
-msgid "Add"
-msgstr ""
-
 #: powerdnsadmin/templates/admin_manage_account.html.jinja:48
 msgid "Contact"
 msgstr ""
@@ -734,22 +731,15 @@ msgid "Action"
 msgstr ""
 
 #: powerdnsadmin/templates/admin_manage_account.html.jinja:74
-msgid "Edit Account"
+#: powerdnsadmin/templates/admin_manage_keys.html.jinja:70
+#: powerdnsadmin/templates/admin_manage_user.html.jinja:92
+#: powerdnsadmin/templates/domain.html.jinja:80
+#: powerdnsadmin/templates/template.html.jinja:95
+#: powerdnsadmin/templates/template_edit.html.jinja:53
+msgid "Edit"
 msgstr ""
 
 #: powerdnsadmin/templates/admin_manage_account.html.jinja:81
-msgid "Delete Account"
-msgstr ""
-
-#: powerdnsadmin/templates/admin_manage_account.html.jinja:157
-#: powerdnsadmin/templates/admin_manage_keys.html.jinja:144
-#: powerdnsadmin/templates/domain.html.jinja:610
-#: powerdnsadmin/templates/domain.html.jinja:635
-#: powerdnsadmin/templates/domain_setting.html.jinja:440
-#: powerdnsadmin/templates/template_edit.html.jinja:454
-msgid "Confirmation"
-msgstr ""
-
 #: powerdnsadmin/templates/admin_manage_account.html.jinja:167
 #: powerdnsadmin/templates/admin_manage_keys.html.jinja:76
 #: powerdnsadmin/templates/admin_manage_keys.html.jinja:157
@@ -764,6 +754,15 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
+#: powerdnsadmin/templates/admin_manage_account.html.jinja:157
+#: powerdnsadmin/templates/admin_manage_keys.html.jinja:144
+#: powerdnsadmin/templates/domain.html.jinja:610
+#: powerdnsadmin/templates/domain.html.jinja:635
+#: powerdnsadmin/templates/domain_setting.html.jinja:440
+#: powerdnsadmin/templates/template_edit.html.jinja:454
+msgid "Confirmation"
+msgstr ""
+
 #: powerdnsadmin/templates/admin_manage_keys.html.jinja:43
 msgid "ID"
 msgstr ""
@@ -772,14 +771,6 @@ msgstr ""
 #: powerdnsadmin/templates/dashboard.html.jinja:76
 #: powerdnsadmin/templates/template.html.jinja:72
 msgid "Actions"
-msgstr ""
-
-#: powerdnsadmin/templates/admin_manage_keys.html.jinja:70
-#: powerdnsadmin/templates/admin_manage_user.html.jinja:92
-#: powerdnsadmin/templates/domain.html.jinja:80
-#: powerdnsadmin/templates/template.html.jinja:95
-#: powerdnsadmin/templates/template_edit.html.jinja:53
-msgid "Edit"
 msgstr ""
 
 #: powerdnsadmin/templates/admin_manage_user.html.jinja:49
@@ -1715,11 +1706,12 @@ msgid "Create an account"
 msgstr ""
 
 #: powerdnsadmin/templates/login.html.jinja:82
-#: powerdnsadmin/templates/login.html.jinja:88
+#: powerdnsadmin/templates/login.html.jinja:86
+#: powerdnsadmin/templates/login.html.jinja:91
 msgid "Via"
 msgstr ""
 
-#: powerdnsadmin/templates/login.html.jinja:88
+#: powerdnsadmin/templates/login.html.jinja:91
 msgid "Sudis"
 msgstr ""
 
@@ -1899,8 +1891,3 @@ msgstr ""
 msgid "Error(s) when processing SUDIS Response:"
 msgstr ""
 
-msgid "Please input your username"
-msgstr ""
-
-msgid "Please input your password"
-msgstr ""

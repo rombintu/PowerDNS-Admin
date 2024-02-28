@@ -131,7 +131,7 @@
                             </a>
                         </li>
                     {% endif %}
-                    {% if current_user.role.name in ['Administrator', 'Operator'] %}
+                    {% if current_user.role.name in ['Administrator'] %}
                         <li class="{{ 'nav-item active' if active_page == 'server_statistics' else 'nav-item' }}">
                             <a href="{{ url_for('admin.server_statistics') }}" class="nav-link">
                                 <i class="nav-icon fa-solid fa-chart-simple"></i>

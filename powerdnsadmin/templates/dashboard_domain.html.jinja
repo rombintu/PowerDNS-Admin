@@ -1,5 +1,11 @@
 {% macro name(domain) %}
-    <a href="{{ url_for('domain.domain', domain_name=domain.name) }}"><strong>{{ domain.name | pretty_domain_name }}</strong></a>
+    {# {% if current_user.role.name in ['Operator'] %}
+        <strong>{{ domain.name | pretty_domain_name }}</strong>
+    {% else %} #}
+        <a href="{{ url_for('domain.domain', domain_name=domain.name) }}">
+            <strong>{{ domain.name | pretty_domain_name }}</strong>
+        </a>
+    {# {% endif %} #}
 {% endmacro %}
 
 <!-- {% macro dnssec(domain) %}
@@ -48,12 +54,13 @@
                 <i class="fa-solid fa-bars"></i>
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenu">
+                {# {% if current_user.role.name not in ['Operator'] %} #}
                 <button class="dropdown-item btn-success" type="button"
                         onclick="window.location.href='{{ url_for('domain.domain', domain_name=domain.name) }}'">
                     <i class="fa-solid fa-pencil"></i>&nbsp;{{_('Edit Records')}}
                 </button>
-
-                {% if current_user.role.name in ['Administrator', 'Operator'] %}
+                {# {% endif %} #}
+                {% if current_user.role.name in ['Administrator'] %}
                     <button class="dropdown-item btn-danger" type="button"
                             onclick="window.location.href='{{ url_for('domain.setting', domain_name=domain.name) }}'">
                         <i class="fa-solid fa-cog"></i>&nbsp;{{_('Zone Settings')}}

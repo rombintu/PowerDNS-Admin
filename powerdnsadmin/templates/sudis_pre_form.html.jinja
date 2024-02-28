@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ru" class>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>PreLogin- {{ SITE_NAME }}</title>
+        <link rel="icon" href="{{ url_for('static', filename='img/favicon.png') }}">
+        <!-- Tell the browser to be responsive to screen width -->
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <META HTTP-EQUIV="REFRESH" CONTENT="{{ 60 * SETTING.get('session_timeout') }}">
+    </head>
+    <body>
+        <form action="{{ url_for('index.sudis_login') }}" method="post" id="saml-form">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+            {# <input type='hidden' name='SAMLRequest' value='{{sudis_saml_request}}'>
+            <input type='hidden' name='RelayState' value='{{sudis_relay_state}}'> #}
+        </form>
+        <script>
+            window.onload = function () { 
+                document.forms[0].submit();
+            }
+        </script>
+    </body>
+</html>

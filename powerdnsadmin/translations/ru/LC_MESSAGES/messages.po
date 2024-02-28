@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2024-02-08 17:41+0300\n"
+"POT-Creation-Date: 2024-02-26 16:31+0300\n"
 "PO-Revision-Date: 2023-11-29 14:25+0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -82,6 +82,7 @@ msgstr ""
 " сеанс активным"
 
 #: powerdnsadmin/templates/admin_edit_account.html.jinja:4
+#: powerdnsadmin/templates/admin_manage_account.html.jinja:35
 #: powerdnsadmin/templates/admin_manage_keys.html.jinja:32
 #: powerdnsadmin/templates/admin_manage_user.html.jinja:34
 #: powerdnsadmin/templates/template.html.jinja:58
@@ -101,7 +102,6 @@ msgstr "Редактор"
 #: powerdnsadmin/templates/admin_edit_account.html.jinja:17
 #: powerdnsadmin/templates/admin_edit_account.html.jinja:23
 #: powerdnsadmin/templates/admin_edit_account.html.jinja:151
-#: powerdnsadmin/templates/admin_manage_account.html.jinja:35
 #: powerdnsadmin/templates/dashboard.html.jinja:75
 #: powerdnsadmin/templates/domain_add.html.jinja:52
 #: powerdnsadmin/templates/domain_add.html.jinja:162
@@ -681,6 +681,7 @@ msgstr "OAuth"
 #: powerdnsadmin/templates/admin_setting_authentication.html.jinja:81
 #: powerdnsadmin/templates/login.html.jinja:65
 #: powerdnsadmin/templates/login.html.jinja:82
+#: powerdnsadmin/templates/login.html.jinja:86
 msgid "SUDIS"
 msgstr "СУДИС"
 
@@ -736,10 +737,6 @@ msgstr "Подробнее"
 msgid "Info"
 msgstr "Инфо"
 
-#: powerdnsadmin/templates/admin_manage_account.html.jinja:35
-msgid "Add"
-msgstr "Добавить"
-
 #: powerdnsadmin/templates/admin_manage_account.html.jinja:48
 msgid "Contact"
 msgstr "Контакт"
@@ -763,22 +760,15 @@ msgid "Action"
 msgstr "Действие"
 
 #: powerdnsadmin/templates/admin_manage_account.html.jinja:74
-msgid "Edit Account"
-msgstr "Редактировать Группу"
+#: powerdnsadmin/templates/admin_manage_keys.html.jinja:70
+#: powerdnsadmin/templates/admin_manage_user.html.jinja:92
+#: powerdnsadmin/templates/domain.html.jinja:80
+#: powerdnsadmin/templates/template.html.jinja:95
+#: powerdnsadmin/templates/template_edit.html.jinja:53
+msgid "Edit"
+msgstr "Изменить"
 
 #: powerdnsadmin/templates/admin_manage_account.html.jinja:81
-msgid "Delete Account"
-msgstr "Удалить Группу"
-
-#: powerdnsadmin/templates/admin_manage_account.html.jinja:157
-#: powerdnsadmin/templates/admin_manage_keys.html.jinja:144
-#: powerdnsadmin/templates/domain.html.jinja:610
-#: powerdnsadmin/templates/domain.html.jinja:635
-#: powerdnsadmin/templates/domain_setting.html.jinja:440
-#: powerdnsadmin/templates/template_edit.html.jinja:454
-msgid "Confirmation"
-msgstr "Подтверждение"
-
 #: powerdnsadmin/templates/admin_manage_account.html.jinja:167
 #: powerdnsadmin/templates/admin_manage_keys.html.jinja:76
 #: powerdnsadmin/templates/admin_manage_keys.html.jinja:157
@@ -793,6 +783,15 @@ msgstr "Подтверждение"
 msgid "Delete"
 msgstr "Удалить"
 
+#: powerdnsadmin/templates/admin_manage_account.html.jinja:157
+#: powerdnsadmin/templates/admin_manage_keys.html.jinja:144
+#: powerdnsadmin/templates/domain.html.jinja:610
+#: powerdnsadmin/templates/domain.html.jinja:635
+#: powerdnsadmin/templates/domain_setting.html.jinja:440
+#: powerdnsadmin/templates/template_edit.html.jinja:454
+msgid "Confirmation"
+msgstr "Подтверждение"
+
 #: powerdnsadmin/templates/admin_manage_keys.html.jinja:43
 msgid "ID"
 msgstr "ID"
@@ -802,14 +801,6 @@ msgstr "ID"
 #: powerdnsadmin/templates/template.html.jinja:72
 msgid "Actions"
 msgstr "Действия"
-
-#: powerdnsadmin/templates/admin_manage_keys.html.jinja:70
-#: powerdnsadmin/templates/admin_manage_user.html.jinja:92
-#: powerdnsadmin/templates/domain.html.jinja:80
-#: powerdnsadmin/templates/template.html.jinja:95
-#: powerdnsadmin/templates/template_edit.html.jinja:53
-msgid "Edit"
-msgstr "Изменить"
 
 #: powerdnsadmin/templates/admin_manage_user.html.jinja:49
 msgid "Email"
@@ -1697,15 +1688,15 @@ msgstr "Помеченные пользователи"
 msgid ""
 "are Administrators\n"
 "                                            and already have access to "
-msgstr "являются администраторами и уже имеют доступ к "
+msgstr "являются администраторами и уже имеют доступ ко "
 
 #: powerdnsadmin/templates/domain_setting.html.jinja:155
 msgid "ALL"
-msgstr "ВСЕ"
+msgstr "ВСЕМ"
 
 #: powerdnsadmin/templates/domain_setting.html.jinja:155
 msgid "zones"
-msgstr "зоны"
+msgstr "зонам"
 
 #: powerdnsadmin/templates/domain_setting.html.jinja:196
 msgid "Change Zone Type"
@@ -1817,11 +1808,12 @@ msgid "Create an account"
 msgstr "Регистрация"
 
 #: powerdnsadmin/templates/login.html.jinja:82
-#: powerdnsadmin/templates/login.html.jinja:88
+#: powerdnsadmin/templates/login.html.jinja:86
+#: powerdnsadmin/templates/login.html.jinja:91
 msgid "Via"
 msgstr "Через"
 
-#: powerdnsadmin/templates/login.html.jinja:88
+#: powerdnsadmin/templates/login.html.jinja:91
 msgid "Sudis"
 msgstr "Судис"
 
@@ -1905,13 +1897,17 @@ msgstr "Описание шаблона"
 msgid ""
 "Enter your template name, this is the name of the template that will be "
 "shown to users. The name should not have any spaces but can have symbols."
-msgstr "Введите имя вашего шаблона, это имя шаблона, которое будет показано пользователям. В названии не должно быть пробелов, но могут быть символы."
+msgstr ""
+"Введите имя вашего шаблона, это имя шаблона, которое будет показано "
+"пользователям. В названии не должно быть пробелов, но могут быть символы."
 
 #: powerdnsadmin/templates/template_add.html.jinja:105
 msgid ""
 "Enter your template description, this is to help better identify the "
 "template."
-msgstr "Введите описание вашего шаблона, это поможет лучше идентифицировать шаблон."
+msgstr ""
+"Введите описание вашего шаблона, это поможет лучше идентифицировать "
+"шаблон."
 
 #: powerdnsadmin/templates/template_edit.html.jinja:3
 #: powerdnsadmin/templates/template_edit.html.jinja:10
@@ -2007,11 +2003,18 @@ msgstr "Ошибка входа."
 msgid "Error(s) when processing SUDIS Response:"
 msgstr "Ошибка при обработке ответа SAML:"
 
-msgid "Please input your username"
-msgstr "Требуется ввести логин"
+#~ msgid "Add"
+#~ msgstr "Добавить"
 
-msgid "Please input your password"
-msgstr "Требуется ввести пароль"
+#~ msgid "Edit Account"
+#~ msgstr "Редактировать Группу"
 
+#~ msgid "Delete Account"
+#~ msgstr "Удалить Группу"
 
+#~ msgid "Please input your username"
+#~ msgstr "Требуется ввести логин"
+
+#~ msgid "Please input your password"
+#~ msgstr "Требуется ввести пароль"
 

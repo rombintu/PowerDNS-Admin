@@ -245,7 +245,6 @@
             var info = "{{_('Confirm the action for')}} " + record;
             modal.find('.modal-body p').text(info);
             modal.modal('show');
-
             $("#button_delete_confirm").unbind().one('click', function (e) {
                 table.row(nRow).remove().draw();
                 modal.modal('hide');
@@ -299,7 +298,7 @@
             var table = $("#tbl_records").DataTable();
             var domain = $(this).prop('id');
             var serial = $(".button_apply_changes").val();
-            var info = "{{_('Confirm the action for')}} ";
+            var info = "{{_('Confirm the action')}} ";
             modal.find('.modal-body p').text(info);
 
             // following unbind("click") is to avoid multiple times execution

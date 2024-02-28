@@ -1,5 +1,5 @@
 import os
-import urllib.parse
+# import urllib.parse
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 ### BASIC APP CONFIG
